@@ -2,98 +2,133 @@ import React from "react";
 
 export const BackgroundEffects = () => {
     return (
-        <div className="absolute inset-0 w-full h-[1024px] pointer-events-none overflow-hidden z-0">
-            {/* Dark Background */}
-            <div className="absolute inset-0 bg-[#000814]" />
+        <div className="absolute inset-0 w-full h-[1024px] pointer-events-none overflow-hidden z-0 bg-[#000814]">
 
-            {/* Oval / Golden Rectangle Effect - Positioned based on Figma */}
-            <div className="absolute left-0 top-[512px] w-full flex justify-center">
-                <svg
-                    width="1440"
-                    height="512"
-                    viewBox="0 0 1440 512"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full max-w-[1440px]"
-                >
-                    <ellipse cx="720" cy="420" rx="1032" ry="420" fill="url(#paint0_linear_2508_11448)" />
-                    <g filter="url(#filter0_di_2508_11448)">
-                        <ellipse cx="720" cy="424" rx="1080" ry="420" fill="#000814" />
-                    </g>
-                    <defs>
-                        <filter
-                            id="filter0_di_2508_11448"
-                            x="-568"
-                            y="-214"
-                            width="2576"
-                            height="1256"
-                            filterUnits="userSpaceOnUse"
-                            colorInterpolationFilters="sRGB"
-                        >
-                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                            <feColorMatrix
-                                in="SourceAlpha"
-                                type="matrix"
-                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                                result="hardAlpha"
-                            />
-                            <feMorphology
-                                radius="120"
-                                operator="dilate"
-                                in="SourceAlpha"
-                                result="effect1_dropShadow_2508_11448"
-                            />
-                            <feOffset dy="-10" />
-                            <feGaussianBlur stdDeviation="44" />
-                            <feComposite in2="hardAlpha" operator="out" />
-                            <feColorMatrix
-                                type="matrix"
-                                values="0 0 0 0 0.45098 0 0 0 0 0.188235 0 0 0 0 0.533333 0 0 0 0.32 0"
-                            />
-                            <feBlend
-                                mode="normal"
-                                in2="BackgroundImageFix"
-                                result="effect1_dropShadow_2508_11448"
-                            />
-                            <feBlend
-                                mode="normal"
-                                in="SourceGraphic"
-                                in2="effect1_dropShadow_2508_11448"
-                                result="shape"
-                            />
-                            <feColorMatrix
-                                in="SourceAlpha"
-                                type="matrix"
-                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                                result="hardAlpha"
-                            />
-                            <feOffset dy="4" />
-                            <feGaussianBlur stdDeviation="12" />
-                            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                            <feColorMatrix
-                                type="matrix"
-                                values="0 0 0 0 0.45098 0 0 0 0 0.188235 0 0 0 0 0.533333 0 0 0 0.64 0"
-                            />
-                            <feBlend mode="normal" in2="shape" result="effect2_innerShadow_2508_11448" />
-                        </filter>
-                        <linearGradient
-                            id="paint0_linear_2508_11448"
-                            x1="720"
-                            y1="0"
-                            x2="720"
-                            y2="840"
-                            gradientUnits="userSpaceOnUse"
-                        >
-                            <stop stopColor="#733088" />
-                            <stop offset="1" stopColor="#000814" />
-                        </linearGradient>
-                    </defs>
-                </svg>
+            {/* Layer: Background */}
+            <div className="absolute left-0 top-0 w-full h-[1024px] overflow-hidden">
+
+                {/* Layer: Oval */}
+                <div className="absolute left-0 top-[512px] w-full h-[512px] flex justify-center">
+                    <svg
+                        id="2508:11420"
+                        width="1440"
+                        height="512"
+                        viewBox="0 0 1440 512"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-full max-w-[1440px]"
+                    >
+                        <ellipse cx="720" cy="420" rx="1032" ry="420" fill="url(#paint0_linear_2508_11420)" />
+                        <g filter="url(#filter0_di_2508_11420)">
+                            <ellipse cx="720" cy="424" rx="1080" ry="420" fill="#000814" />
+                        </g>
+                        <defs>
+                            <filter
+                                id="filter0_di_2508_11420"
+                                x="-568"
+                                y="-214"
+                                width="2576"
+                                height="1256"
+                                filterUnits="userSpaceOnUse"
+                                colorInterpolationFilters="sRGB"
+                            >
+                                <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                                <feColorMatrix
+                                    in="SourceAlpha"
+                                    type="matrix"
+                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                    result="hardAlpha"
+                                />
+                                <feMorphology
+                                    radius="120"
+                                    operator="dilate"
+                                    in="SourceAlpha"
+                                    result="effect1_dropShadow_2508_11420"
+                                />
+                                <feOffset dy="-10" />
+                                <feGaussianBlur stdDeviation="44" />
+                                <feComposite in2="hardAlpha" operator="out" />
+                                <feColorMatrix
+                                    type="matrix"
+                                    values="0 0 0 0 0.45098 0 0 0 0 0.188235 0 0 0 0 0.533333 0 0 0 0.32 0"
+                                />
+                                <feBlend
+                                    mode="normal"
+                                    in2="BackgroundImageFix"
+                                    result="effect1_dropShadow_2508_11420"
+                                />
+                                <feBlend
+                                    mode="normal"
+                                    in="SourceGraphic"
+                                    in2="effect1_dropShadow_2508_11420"
+                                    result="shape"
+                                />
+                                <feColorMatrix
+                                    in="SourceAlpha"
+                                    type="matrix"
+                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                    result="hardAlpha"
+                                />
+                                <feOffset dy="4" />
+                                <feGaussianBlur stdDeviation="12" />
+                                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+                                <feColorMatrix
+                                    type="matrix"
+                                    values="0 0 0 0 0.45098 0 0 0 0 0.188235 0 0 0 0 0.533333 0 0 0 0.64 0"
+                                />
+                                <feBlend mode="normal" in2="shape" result="effect2_innerShadow_2508_11420" />
+                            </filter>
+                            <linearGradient
+                                id="paint0_linear_2508_11420"
+                                x1="720"
+                                y1="0"
+                                x2="720"
+                                y2="840"
+                                gradientUnits="userSpaceOnUse"
+                            >
+                                <stop stopColor="#733088" />
+                                <stop offset="1" stopColor="#000814" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                {/* Layer: Overlay (Gradient) */}
+                <div className="absolute inset-0 w-full h-[1024px] flex justify-center">
+                    <svg
+                        id="2508:11423"
+                        width="1440"
+                        height="1024"
+                        viewBox="0 0 1440 1024"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-full max-w-[1440px]"
+                    >
+                        <rect width="1440" height="1024" fill="url(#paint0_linear_2508_11423)" />
+                        <defs>
+                            <linearGradient
+                                id="paint0_linear_2508_11423"
+                                x1="1440"
+                                y1="512"
+                                x2="0"
+                                y2="512"
+                                gradientUnits="userSpaceOnUse"
+                            >
+                                <stop stopColor="#000814" />
+                                <stop offset="0.158454" stopColor="#000814" stopOpacity="0.72" />
+                                <stop offset="0.501251" stopColor="#000814" stopOpacity="0" />
+                                <stop offset="0.837566" stopColor="#000814" stopOpacity="0.72" />
+                                <stop offset="1" stopColor="#000814" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
             </div>
 
-            {/* Union Pattern */}
-            <div className="absolute top-[361px] left-1/2 -translate-x-1/2 w-full max-w-[1096px] h-[168px]">
+            {/* Layer: Union (Decorative Lines) */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1096px] h-[168px] flex items-center justify-center">
                 <svg
+                    id="2508:11431"
                     width="1096"
                     height="168"
                     viewBox="0 0 1096 168"
@@ -106,9 +141,6 @@ export const BackgroundEffects = () => {
                     />
                 </svg>
             </div>
-
-            {/* Radial Gradient Overlay to smooth things out */}
-            <div className="absolute inset-0 bg-[radial-gradient(50%_100%_at_50%_50%,rgba(115,48,136,0.15)_0%,rgba(0,8,20,0)_100%)] pointer-events-none" />
         </div>
     );
 };
