@@ -67,7 +67,7 @@ const Intro: React.FC<IntroProps> = ({ onComplete }) => {
       */}
       <div
         ref={arcRef}
-        className="absolute bottom-[7.5vh] left-1/2 -translate-x-1/2 z-10 w-[140vw] h-[50vh] pointer-events-none opacity-0"
+        className="absolute bottom-[5vh] left-1/2 -translate-x-1/2 z-10 w-[140vw] h-[50vh] pointer-events-none opacity-0"
       >
         <svg
           width="100%"
@@ -76,88 +76,40 @@ const Intro: React.FC<IntroProps> = ({ onComplete }) => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
+          className="overflow-visible"
         >
-          <ellipse cx="720" cy="420" rx="1032" ry="420" fill="url(#paint0_linear_intro)" />
-          <g filter="url(#filter0_di_intro)">
-            <ellipse cx="720" cy="424" rx="1080" ry="420" fill="#000814" />
-          </g>
           <defs>
-            <filter
-              id="filter0_di_intro"
-              x="-568"
-              y="-214"
-              width="2576"
-              height="1256"
-              filterUnits="userSpaceOnUse"
-              colorInterpolationFilters="sRGB"
-            >
-              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-              <feColorMatrix
-                in="SourceAlpha"
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                result="hardAlpha"
-              />
-              <feMorphology
-                radius="120"
-                operator="dilate"
-                in="SourceAlpha"
-                result="effect1_dropShadow_intro"
-              />
-              <feOffset dy="-10" />
-              <feGaussianBlur stdDeviation="44" />
-              <feComposite in2="hardAlpha" operator="out" />
-              <feColorMatrix
-                type="matrix"
-                values="0 0 0 0 0.45098 0 0 0 0 0.188235 0 0 0 0 0.533333 0 0 0 0.32 0"
-              />
-              <feBlend
-                mode="normal"
-                in2="BackgroundImageFix"
-                result="effect1_dropShadow_intro"
-              />
-              <feBlend
-                mode="normal"
-                in="SourceGraphic"
-                in2="effect1_dropShadow_intro"
-                result="shape"
-              />
-              <feColorMatrix
-                in="SourceAlpha"
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                result="hardAlpha"
-              />
-              <feOffset dy="4" />
-              <feGaussianBlur stdDeviation="12" />
-              <feComposite
-                in2="hardAlpha"
-                operator="arithmetic"
-                k2="-1"
-                k3="1"
-              />
-              <feColorMatrix
-                type="matrix"
-                values="0 0 0 0 0.45098 0 0 0 0 0.188235 0 0 0 0 0.533333 0 0 0 0.64 0"
-              />
-              <feBlend
-                mode="normal"
-                in2="shape"
-                result="effect2_innerShadow_intro"
-              />
+            {/* Atmospheric soft glow filter */}
+            <filter id="intro-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="60" result="blur" />
             </filter>
-            <linearGradient
-              id="paint0_linear_intro"
-              x1="720"
-              y1="0"
-              x2="720"
-              y2="840"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#733088" />
-              <stop offset="1" stopColor="#000814" />
+            {/* Rim light gradient fading upward */}
+            <linearGradient id="intro-rim-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stopColor="#A733CC" stopOpacity="0.8" />
+              <stop offset="70%" stopColor="#A733CC" stopOpacity="0" />
             </linearGradient>
           </defs>
+
+          {/* The Glowing Rim */}
+          <ellipse
+            cx="720"
+            cy="512"
+            rx="1000"
+            ry="400"
+            fill="none"
+            stroke="url(#intro-rim-grad)"
+            strokeWidth="12"
+            filter="url(#intro-glow)"
+          />
+
+          {/* Solid Black area below the horizon line */}
+          <ellipse
+            cx="720"
+            cy="516"
+            rx="1000"
+            ry="400"
+            fill="#000000"
+          />
         </svg>
       </div>
 
