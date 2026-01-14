@@ -1,148 +1,148 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import { animateIntro } from "@/animations/introAnimation";
+import { motion, useAnimation } from "framer-motion";
 
 interface IntroProps {
   onComplete: () => void;
 }
 
+/**
+ * Expert Senior Frontend Implementation: 
+ * Cinematic Intro Animation matching reference requirements.
+ */
 const Intro: React.FC<IntroProps> = ({ onComplete }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const arcRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
+  const controls = useAnimation();
 
-  useLayoutEffect(() => {
-    animateIntro(containerRef, arcRef, textRef, onComplete);
+  useEffect(() => {
+    const sequence = async () => {
+      // Step 1: Animate Horizon in
+      // Step 2: Animate Text rising
+      // Step 3: Wait and complete
+      await new Promise((resolve) => setTimeout(resolve, 3500));
+      onComplete();
+    };
+    sequence();
   }, [onComplete]);
 
   return (
-    <section
-      ref={containerRef}
-      className="fixed inset-0 z-50 w-screen h-screen bg-[#000814] overflow-hidden m-0 p-0 flex flex-col items-center justify-center"
-    >
-      {/*
-            BACKGROUND: 
-            Matches Image 1 (Figma): Deep dark void, very subtle atmospheric depth.
-        */}
+    <section className="fixed inset-0 z-50 w-screen h-screen bg-black overflow-hidden m-0 p-0 flex flex-col items-center justify-center">
+      {/* 1. ATMospheric BACKGROUND */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(180deg, #000814 0%, #05020a 100%)',
+          background: "linear-gradient(to bottom, #000000 0%, #000814 100%)"
         }}
       />
 
-      {/* 
-         TEXT LOGO IMAGE 
-         Positioned visually: Centered, above the horizon.
-         Size: Large, prominent.
-         Blend Mode: Screen (to drop any black background from the asset).
-      */}
+      {/* 2. VIGNETTE OVERLAY */}
       <div
-        ref={textRef}
-        className="relative z-20 mb-8 opacity-0 mix-blend-screen"
+        className="absolute inset-0 z-30 pointer-events-none"
         style={{
-          width: 'min(600px, 90vw)',
-          transform: 'translateY(20px)', // Initial position for animation
+          background: "radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%)"
+        }}
+      />
+
+      {/* 3. LOGO TYPOGRAPHY (Layered between Background and Horizon) */}
+      <motion.div
+        className="relative z-10 opacity-0 mix-blend-screen"
+        initial={{ y: "150%", opacity: 1 }}
+        animate={{ y: "-5vh", opacity: 1 }}
+        transition={{
+          delay: 0.5,
+          duration: 2.5,
+          ease: [0.16, 1, 0.3, 1], // easeOutQuart-like custom easing
+        }}
+        style={{
+          width: "min(650px, 85vw)",
         }}
       >
         <Image
           src="/azm-text-logo.png"
-          alt="AZM Saudi"
+          alt="عزم السعودية"
           width={800}
           height={300}
           className="w-full h-auto object-contain"
           priority
         />
-      </div>
+      </motion.div>
 
-      {/* 
-         HORIZON / HILL SHAPE
-         Matches Image 1 (Figma):
-         - Gentle curve (not a steep hill).
-         - Glowing purple top edge.
-         - Darkness below (masking content).
-         Position: Bottom of screen, extending wide.
-      */}
-      <div
-        ref={arcRef}
-        // تم تعديل الارتفاع ليتناسب مع بروز التوهج للأعلى
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 w-[120vw] h-[50vh] pointer-events-none"
+      {/* 4. PLANET HORIZON (CRITICAL Masking & Lighting) */}
+      <motion.div
+        className="absolute bottom-[-10vh] left-1/2 -translate-x-1/2 z-20 w-[180vw] h-[60vh] pointer-events-none"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 1.5,
+          ease: "easeOut",
+        }}
       >
         <svg
           width="100%"
           height="100%"
-          viewBox="0 0 1440 500" // زيادة الارتفاع لاستيعاب التوهج
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 500"
           preserveAspectRatio="none"
           className="overflow-visible"
         >
           <defs>
-            {/* فلتر ضبابي ناعم لعمل التوهج */}
-            <filter id="glow-filter" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="25" result="blur" />
+            {/* Atmospheric soft glow filter */}
+            <filter id="cinematic-glow" x="-50%" y="-100%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="40" result="blur" />
             </filter>
 
-            {/* تدرج لوني شعاعي للضوء - يتركز السطوع في منتصف الحافة العلوية */}
-            <radialGradient
-              id="light-gradient"
-              cx="0.5" cy="1"    // مركز التدرج عند أسفل المنتصف
-              r="0.8"            // نصف القطر
-              fx="0.5" fy="0.92" // نقطة التركيز البؤري قريبة جداً من الحافة العلوية للكوكب
-            >
-              {/* لون بنفسجي ساطع في بؤرة التركيز */}
-              <stop offset="0%" stopColor="#9D4EDD" stopOpacity="1" />
-              {/* يتلاشى للبنفسجي الأغمق */}
-              <stop offset="40%" stopColor="#733088" stopOpacity="0.7" />
-              {/* يتلاشى للشفافية التامة في الأطراف والأعلى */}
-              <stop offset="100%" stopColor="#733088" stopOpacity="0" />
-            </radialGradient>
+            {/* Rim light sharp glow filter */}
+            <filter id="rim-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+            </filter>
 
-            {/* القناع: يستخدم شكل الكوكب لحجب الضوء من الأسفل */}
-            <mask id="planet-mask">
-              {/* خلفية بيضاء بالكامل تسمح بمرور الضوء */}
-              <rect x="-2000" y="-2000" width="4000" height="4000" fill="white" />
-              {/* شكل أسود مطابق للكوكب يحجب الضوء خلفه */}
-              <ellipse cx="720" cy="480" rx="850" ry="250" fill="black" />
-            </mask>
+            {/* Sharp Rim Gradient with opacity fade at ends */}
+            <linearGradient id="rim-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#733088" stopOpacity="0" />
+              <stop offset="50%" stopColor="#9D4EDD" stopOpacity="1" />
+              <stop offset="100%" stopColor="#733088" stopOpacity="0" />
+            </linearGradient>
+
+            {/* Diffuse Atmospheric Radial Glow */}
+            <radialGradient id="ambience-radial" cx="50%" cy="100%" r="100%">
+              <stop offset="0%" stopColor="#733088" stopOpacity="0.4" />
+              <stop offset="70%" stopColor="#733088" stopOpacity="0" />
+            </radialGradient>
           </defs>
 
-          {/* --- رسم العناصر --- */}
-
-          {/* 1. طبقة الضوء الخلفية (يتم قصها بالقناع وتطبيق الوهج عليها) */}
-          <g mask="url(#planet-mask)">
-            <ellipse
-              cx="720"
-              cy="470" // مرفوع قليلاً خلف الكوكب
-              rx="920" // أعرض قليلاً لضمان توهج الأطراف
-              ry="320" // أطول ليمتد التوهج للأعلى في الغلاف الجوي
-              fill="url(#light-gradient)"
-              filter="url(#glow-filter)"
-              opacity="0.9" // للتحكم في شدة الإضاءة العامة
-            />
-          </g>
-
-          {/* 2. جسم الكوكب المظلم في المقدمة (يغطي أسفل الضوء) */}
+          {/* LAYER A: BACK DIFFUSE GLOW */}
           <ellipse
             cx="720"
             cy="480"
-            rx="850"
+            rx="900"
             ry="250"
-            fill="#000814" // لون أسود ليلكي داكن جداً
+            fill="url(#ambience-radial)"
+            filter="url(#cinematic-glow)"
+          />
+
+          {/* LAYER B: SOLID BODY (THE BLOCKER) */}
+          {/* This matches background to hide logo rising */}
+          <ellipse
+            cx="720"
+            cy="488"
+            rx="1250"
+            ry="320"
+            fill="#000000"
+          />
+
+          {/* LAYER C: THE SHARP GLOWING RIM */}
+          <ellipse
+            cx="720"
+            cy="480"
+            rx="1245"
+            ry="315"
+            stroke="url(#rim-grad)"
+            strokeWidth="3"
+            fill="none"
+            filter="url(#rim-glow)"
           />
         </svg>
-      </div>
-
-      {/* OVERLAY: Cinematic Vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none z-30"
-        style={{
-          background:
-            'linear-gradient(270deg, #000814 0%, rgba(0, 8, 20, 0.72) 16.42%, rgba(0, 8, 20, 0.00) 50.13%, rgba(0, 8, 20, 0.72) 84.49%, #000814 100%)',
-        }}
-      />
+      </motion.div>
     </section>
   );
 };
