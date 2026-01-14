@@ -67,48 +67,70 @@ const Intro: React.FC<IntroProps> = ({ onComplete }) => {
       */}
       <div
         ref={arcRef}
-        className="absolute bottom-[5vh] left-1/2 -translate-x-1/2 z-10 w-[140vw] h-[50vh] pointer-events-none opacity-0"
+        // تم تعديل الارتفاع ليتناسب مع بروز التوهج للأعلى
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 w-[120vw] h-[50vh] pointer-events-none"
       >
         <svg
           width="100%"
           height="100%"
-          viewBox="0 0 1440 512"
+          viewBox="0 0 1440 500" // زيادة الارتفاع لاستيعاب التوهج
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
           className="overflow-visible"
         >
           <defs>
-            {/* Atmospheric soft glow filter */}
-            <filter id="intro-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="60" result="blur" />
+            {/* فلتر ضبابي ناعم لعمل التوهج */}
+            <filter id="glow-filter" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="25" result="blur" />
             </filter>
-            {/* Rim light gradient fading upward */}
-            <linearGradient id="intro-rim-grad" x1="0%" y1="100%" x2="0%" y2="0%">
-              <stop offset="0%" stopColor="#A733CC" stopOpacity="0.8" />
-              <stop offset="70%" stopColor="#A733CC" stopOpacity="0" />
-            </linearGradient>
+
+            {/* تدرج لوني شعاعي للضوء - يتركز السطوع في منتصف الحافة العلوية */}
+            <radialGradient
+              id="light-gradient"
+              cx="0.5" cy="1"    // مركز التدرج عند أسفل المنتصف
+              r="0.8"            // نصف القطر
+              fx="0.5" fy="0.92" // نقطة التركيز البؤري قريبة جداً من الحافة العلوية للكوكب
+            >
+              {/* لون بنفسجي ساطع في بؤرة التركيز */}
+              <stop offset="0%" stopColor="#9D4EDD" stopOpacity="1" />
+              {/* يتلاشى للبنفسجي الأغمق */}
+              <stop offset="40%" stopColor="#733088" stopOpacity="0.7" />
+              {/* يتلاشى للشفافية التامة في الأطراف والأعلى */}
+              <stop offset="100%" stopColor="#733088" stopOpacity="0" />
+            </radialGradient>
+
+            {/* القناع: يستخدم شكل الكوكب لحجب الضوء من الأسفل */}
+            <mask id="planet-mask">
+              {/* خلفية بيضاء بالكامل تسمح بمرور الضوء */}
+              <rect x="-2000" y="-2000" width="4000" height="4000" fill="white" />
+              {/* شكل أسود مطابق للكوكب يحجب الضوء خلفه */}
+              <ellipse cx="720" cy="480" rx="850" ry="250" fill="black" />
+            </mask>
           </defs>
 
-          {/* The Glowing Rim */}
-          <ellipse
-            cx="720"
-            cy="512"
-            rx="1000"
-            ry="400"
-            fill="none"
-            stroke="url(#intro-rim-grad)"
-            strokeWidth="12"
-            filter="url(#intro-glow)"
-          />
+          {/* --- رسم العناصر --- */}
 
-          {/* Solid Black area below the horizon line */}
+          {/* 1. طبقة الضوء الخلفية (يتم قصها بالقناع وتطبيق الوهج عليها) */}
+          <g mask="url(#planet-mask)">
+            <ellipse
+              cx="720"
+              cy="470" // مرفوع قليلاً خلف الكوكب
+              rx="920" // أعرض قليلاً لضمان توهج الأطراف
+              ry="320" // أطول ليمتد التوهج للأعلى في الغلاف الجوي
+              fill="url(#light-gradient)"
+              filter="url(#glow-filter)"
+              opacity="0.9" // للتحكم في شدة الإضاءة العامة
+            />
+          </g>
+
+          {/* 2. جسم الكوكب المظلم في المقدمة (يغطي أسفل الضوء) */}
           <ellipse
             cx="720"
-            cy="516"
-            rx="1000"
-            ry="400"
-            fill="#000000"
+            cy="480"
+            rx="850"
+            ry="250"
+            fill="#000814" // لون أسود ليلكي داكن جداً
           />
         </svg>
       </div>
