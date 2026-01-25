@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
+import { Tajawal } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
 
-const rubik = Rubik({
-  subsets: ["latin", "arabic"],
-  variable: "--font-rubik",
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+const tajawal = Tajawal({
+  subsets: ["arabic"],
+  variable: "--font-tajawal",
+  weight: ["200", "300", "400", "500", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -20,7 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={rubik.variable} suppressHydrationWarning>
+    <html lang="en" className={tajawal.variable} suppressHydrationWarning>
+      <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+      </head>
       <body className="antialiased bg-azm-dark text-white overflow-x-hidden" suppressHydrationWarning>
         <SmoothScrolling>
           <main className="min-h-screen relative flex flex-col items-center justify-between">

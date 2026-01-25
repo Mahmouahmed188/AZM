@@ -1,15 +1,57 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
+import Image from "next/image";
 import { animateCertifications } from "@/animations/certificationsAnimation";
 
-const AWARDS = [
-    { title: "CMMI Level 5", year: "2024", desc: "Capability Maturity Model Integration" },
-    { title: "ISO 27001", year: "2023", desc: "Information Security Management" },
-    { title: "ISO 9001", year: "2023", desc: "Quality Management System" },
-    { title: "Great Place to Work", year: "2024", desc: "Certified Best Workplace" },
-    { title: "ISO 22301", year: "2022", desc: "Business Continuity Management" },
-    { title: "ISO 20000", year: "2022", desc: "IT Service Management" },
+const CERT_DATA = [
+    {
+        title: "الصحة والسلامة المهنية - 45001",
+        image: "/certificat/Frame 238.png",
+        year: "2018"
+    },
+    {
+        title: "حماية المعلومات الشخصية في السحابة - 27018",
+        image: "/certificat/Frame 237.png",
+        year: "2019"
+    },
+    {
+        title: "شهادة الثقة الرقمية وخدمات المصادقة",
+        image: "/certificat/Frame 229.png",
+        year: "2024"
+    },
+    {
+        title: "المستوى المتقدم (المرتبة الأولى)",
+        image: "/certificat/Frame 231.png",
+        year: "2025"
+    },
+    {
+        title: "تصنيف البلاتينيوم",
+        image: "/certificat/Frame 232.png",
+        year: "2024"
+    },
+    {
+        title: "أفضل شريك رقمي",
+        image: "/certificat/Frame 233.png",
+        year: "2025"
+    },
+    {
+        title: "CMMI المستوى الخامس",
+        image: "/certificat/Frame 234.png",
+        year: "2023"
+    },
+    {
+        title: "ضوابط الأمن السحابي - 27017",
+        image: "/certificat/Frame 235.png",
+        year: "2015"
+    },
+    {
+        title: "إدارة استمرارية الأعمال - 22301",
+        image: "/certificat/Frame 236.png",
+        year: "2019"
+    },
+
+
 ];
 
 const Certifications = () => {
@@ -17,43 +59,55 @@ const Certifications = () => {
     const trackRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
-        animateCertifications(sectionRef, trackRef);
+        if (sectionRef.current && trackRef.current) {
+            const cleanup = animateCertifications(sectionRef, trackRef);
+            return cleanup; // Cleanup on unmount
+        }
     }, []);
 
     return (
         <section
             ref={sectionRef}
-            className="relative w-full h-screen bg-azm-offwhite overflow-hidden flex flex-col justify-center"
+            className="relative w-full h-[100vh] bg-[#D7E3F5] overflow-hidden flex flex-col items-center z-20"
         >
-            <div className="absolute top-12 left-12 z-10">
-                <h2 className="text-4xl font-bold text-azm-dark mb-2">Awards & Certifications</h2>
-                <p className="text-azm-dark/60">Recognized for excellence and quality.</p>
+
+
+            {/* Title Section */}
+            <div className="w-full max-w-[1440px] px-4 md:px-10 z-10 flex flex-col items-center">
+                <h2 className="text-[#000F26] text-center font-tajawal text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mt-[10vh] mb-[11vh] max-w-4xl">
+                    نفخر في عزم السعودية برحلات نجاح أتممناها
+                </h2>
             </div>
 
-            <div ref={trackRef} className="flex gap-8 pl-12 pr-12 w-max items-center h-full">
-                {AWARDS.map((award, index) => (
-                    <div
-                        key={index}
-                        className="w-[400px] h-[500px] bg-white rounded-3xl p-8 flex flex-col justify-between shadow-lg border border-gray-100 shrink-0"
-                    >
-                        <div className="w-20 h-20 bg-azm-purple/10 rounded-full flex items-center justify-center text-azm-purple font-bold text-xl">
-                            {/* Icon Placeholder */}
-                            {award.year}
-                        </div>
 
-                        <div>
-                            <h3 className="text-3xl font-bold text-azm-dark mb-4">{award.title}</h3>
-                            <p className="text-lg text-gray-500">{award.desc}</p>
+            {/* Horizontal Track Area */}
+            <div className="relative w-full flex justify-start">
+                <div
+                    ref={trackRef}
+                    className="flex gap-10 md:gap-5 px-[10vw] items-end"
+                    style={{ width: "max-content", willChange: "transform" }}
+                >
+                    {CERT_DATA.map((cert, index) => (
+                        <div
+                            key={index}
+                            className="cert-card flex-shrink-0 w-[380px] h-auto bg-white rounded-2xl shadow-sm overflow-hidden "
+                        >
+                            <Image
+                                src={cert.image}
+                                alt={cert.title}
+                                width={380}
+                                height={400}
+                                style={{ height: 'auto' }}
+                                className="object-contain"
+                            />
                         </div>
-
-                        <div className="w-full h-1 bg-gray-100 relative overflow-hidden rounded-full">
-                            <div className="absolute top-0 left-0 h-full w-1/3 bg-azm-purple"></div>
-                        </div>
-                    </div>
-                ))}
-                {/* Spacer for right padding */}
-                <div className="w-[10vw]"></div>
+                    ))}
+                </div>
             </div>
+
+            {/* Side Blurs (optional from JSON) */}
+            <div className="absolute top-0 right-0 h-full w-[150px] pointer-events-none z-20 bg-gradient-to-l from-[#D7E3F5] to-transparent hidden md:block"></div>
+            <div className="absolute top-0 left-0 h-full w-[150px] pointer-events-none z-20 bg-gradient-to-r from-[#D7E3F5] to-transparent hidden md:block"></div>
         </section>
     );
 };

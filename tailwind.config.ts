@@ -12,7 +12,7 @@ const config: Config = {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
                 azm: {
-                    dark: "#292929",
+                    dark: "#000814",
                     blue: {
                         900: "#000F26", // Primary dark blue/text
                         800: "#032F70",
@@ -26,7 +26,8 @@ const config: Config = {
                 }
             },
             fontFamily: {
-                sans: ["var(--font-rubik)", "sans-serif"],
+                sans: ["var(--font-tajawal)", "sans-serif"],
+                tajawal: ["var(--font-tajawal)", "sans-serif"],
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -1,4 +1,4 @@
-import gsap from "gsap";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RefObject } from "react";
 
@@ -10,26 +10,43 @@ export const animateCertifications = (
 ) => {
     if (!sectionRef.current || !trackRef.current) return;
 
+    const section = sectionRef.current;
+    const track = trackRef.current;
+
+    ScrollTrigger.getById("certifications-horizontal")?.kill();
+
     const getScrollAmount = () => {
-        if (!trackRef.current) return 0;
-        // Calculate total width of track minus the viewport width
-        let trackWidth = trackRef.current.scrollWidth;
-        return -(trackWidth - window.innerWidth);
+        const trackWidth = track.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        // التحريك لليسار في وضع RTL
+        return -(trackWidth - viewportWidth);
     };
 
-    const tween = gsap.to(trackRef.current, {
-        x: getScrollAmount,
-        duration: 3,
-        ease: "none",
-    });
+    const horizontalScroll = gsap.fromTo(track,
+        { x: 0 },
+        {
+            x: () => getScrollAmount(),
+            ease: "none",
+            scrollTrigger: {
+                id: "certifications-horizontal",
+                trigger: section,
+                pin: true,
+                scrub: 1,
+                start: "top top",
+                end: () => `+=${track.scrollWidth}`,
+                invalidateOnRefresh: true,
+                anticipatePin: 1,
+            },
+        }
+    );
 
-    ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: () => `+=${getScrollAmount() * -1 + 200}`, // Dynamic end based on scroll length
-        pin: true,
-        animation: tween,
-        scrub: 1,
-        invalidateOnRefresh: true, // Recalculate on resize
-    });
+    // ملاحظة: تم حذف جزء الـ cards.forEach الذي كان يسبب حركة y (فوق وتحت)
+
+    const handleResize = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+        window.removeEventListener("resize", handleResize);
+        horizontalScroll.kill();
+    };
 };

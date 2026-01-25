@@ -1,16 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import MainHero from "@/components/sections/MainHero";
-import Services from "@/components/sections/Services";
-import Certifications from "@/components/sections/Certifications";
-import Clients from "@/components/sections/Clients";
-import Footer from "@/components/sections/Footer";
 import Intro from "@/components/Intro";
-
 import Header from "@/components/layout/Header";
-import VerticalStrips from "@/components/layout/VerticalStrips";
-import CompanyOverview from "@/components/sections/CompanyOverview";
+import MainHero from "@/components/sections/MainHero";
+import StackedCards from "@/components/sections/StackedCards";
+import GroupCompanies from "../components/sections/GroupCompanies";
+import Certifications from "../components/sections/Certifications";
+import Careers from "@/components/sections/Careers";
+import Footer from "@/components/sections/Footer";
+// import Clients from "@/components/sections/Clients";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -22,16 +21,28 @@ export default function Home() {
       )}
 
       {/* Main Content - conditionally visible or always visible underneath */}
-      <div className={`w-full transition-opacity duration-1000 ${showIntro ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
-        <VerticalStrips />
-        <Header />
-        <MainHero />
-        <CompanyOverview />
-        <Services />
-        <Certifications />
-        <Clients />
-        <Footer />
+
+      <div
+        className={`w-full transition-opacity duration-1000
+          ${showIntro ? 'opacity-0 pointer-events-none' : 'opacity-100'}
+           `
+        }
+        aria-hidden={showIntro}
+      >
+        {!showIntro && (
+          <>
+            <Header />
+            <MainHero />
+            <StackedCards />
+            <GroupCompanies />
+            <Certifications />
+            <Careers />
+            <Footer />
+          </>
+
+        )}
       </div>
     </main>
   );
+  {/* <Clients /> */ }
 }
