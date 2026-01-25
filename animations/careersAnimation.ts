@@ -4,9 +4,9 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export const animateCareersSection = (
-    sectionRef: React.RefObject<HTMLDivElement | null>,
-    bgRef: React.RefObject<HTMLDivElement | null>,
-    cardRef: React.RefObject<HTMLDivElement | null>
+    sectionRef: React.RefObject<any>,
+    bgRef: React.RefObject<any>,
+    cardRef: React.RefObject<any>
 ) => {
     if (!sectionRef.current || !bgRef.current) return;
 
