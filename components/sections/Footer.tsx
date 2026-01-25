@@ -16,11 +16,11 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="relative w-full h-[140vh] overflow-hidden flex flex-col justify-between bg-[#000814]">
+        <footer className="relative w-full h-[145vh] overflow-hidden flex flex-col justify-between bg-[#000814]">
             {/* 1. Top Section - Map Background (74vh) */}
-            <div className="relative w-full h-[90vh] z-0">
+            <div className="relative w-full h-[100vh] z-0">
                 <Image
-                    src="/assets/footer/map.png"
+                    src="/footer/map.png"
                     alt="Map Background"
                     fill
                     className="object-cover object-top"
@@ -28,12 +28,12 @@ const Footer = () => {
                 />
 
                 {/* Floating Contact Card - Positioned relative to this section */}
-                <div className="absolute inset-0 container mx-auto px-6 lg:px-[112px] flex items-center justify-start z-20">
+                <div className="absolute inset-0 container my-16 mx-auto px-6 lg:px-[112px]  justify-start z-20">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="w-full max-w-[488px] bg-[#1a0b2e] rounded-[24px] border-2 border-[#733088]/60 overflow-hidden shadow-[0_30px_80px_rgba(115,48,136,0.5)] flex flex-col group/card"
+                        className="w-full max-w-[488px] bg-[#1a0b2e] rounded-[24px] border-2 border-[#733088]/60 overflow-hidden shadow-[0_10px_80px_rgba(115,48,136,0.4)] flex flex-col group/card"
                     >
                         {/* Card Image */}
                         <div className="relative w-full h-[320px] overflow-hidden">
@@ -82,12 +82,12 @@ const Footer = () => {
             </div>
 
             {/* 2. Bottom Section - Nav & Logo (26vh) */}
-            <div className="relative w-full h-[40vh] z-20 flex items-center bg-[#000814]">
+            <div className="relative w-full h-[45vh] z-20 flex items-end bg-[#000814]">
                 {/* Arc Background - Visible but not blurred */}
                 <div className="absolute inset-0 z-0 flex items-start">
                     <div className="relative w-full h-full overflow-hidden">
                         <Image
-                            src="/assets/footer/arc.png"
+                            src="/footer/arc.png"
                             alt="Arc Background"
                             fill
                             className="object-cover object-top opacity-100"
@@ -96,13 +96,13 @@ const Footer = () => {
                 </div>
 
                 {/* Content Overlay */}
-                <div className="relative z-30 w-full max-w-[1440px] mx-auto px-6 lg:px-[112px] flex flex-col gap-12 py-12">
+                <div className="relative z-30 w-full max-w-[1440px] mx-auto px-6 lg:px-[112px] flex flex-col gap-12 py-6">
                     {/* Logo and Nav Row */}
-                    <div className="flex flex-col md:flex-row-reverse justify-between items-center gap-8">
+                    <div className="flex flex-col md:flex-row-reverse justify-between items-center gap-8 mb-12">
                         {/* Logo on Right */}
                         <div className="flex items-center">
                             <Image
-                                src="/assets/footer/logo.png"
+                                src="/footer/logo.png"
                                 alt="Saudi Azm"
                                 width={220}
                                 height={80}

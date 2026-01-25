@@ -12,16 +12,15 @@ const STATS = [
 
 const Numbers = () => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const numberRefs = useRef<React.RefObject<HTMLSpanElement>[]>([]);
+    const numberRefs = useRef<React.RefObject<HTMLSpanElement | null>[]>([]);
 
     if (numberRefs.current.length !== STATS.length) {
         numberRefs.current = Array(STATS.length)
             .fill(null)
-            .map((_, i) => numberRefs.current[i] || createRef());
+            .map((_, i) => numberRefs.current[i] || createRef<HTMLSpanElement>());
     }
 
     useLayoutEffect(() => {
-        // @ts-ignore
         animateNumbers(containerRef, numberRefs.current, STATS.map(s => s.value));
     }, []);
 
