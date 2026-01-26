@@ -1,12 +1,5 @@
 import gsap from "gsap";
 
-/**
- * Intro Section 3 Animation
- * - Arc fades in
- * - Text rises with fade (translateY + opacity)
- * - Smooth, cinematic easing
- * - No bounce, calm premium motion
- */
 export const animateIntroSection3 = (
   sectionRef: React.RefObject<HTMLDivElement | null>,
   arcRef: React.RefObject<HTMLDivElement | null>,
@@ -22,17 +15,17 @@ export const animateIntroSection3 = (
 
   // Initial states
   if (arcRef.current) {
-    gsap.set(arcRef.current, { 
-      opacity: 0, 
+    gsap.set(arcRef.current, {
+      opacity: 0,
       scale: 0.95,
       transformOrigin: "center center"
     });
   }
-  
+
   if (textRef.current) {
-    gsap.set(textRef.current, { 
-      opacity: 0, 
-      y: 40 
+    gsap.set(textRef.current, {
+      opacity: 0,
+      y: 40
     });
   }
 

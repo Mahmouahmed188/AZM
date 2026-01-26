@@ -172,7 +172,7 @@ const MainHero = () => {
             {/* Background Layer */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="https://api.builder.io/api/v1/image/assets/TEMP/46d4fd0b860ad148a49f88ce2a188a5361fb9863?width=2880"
+                    src="/Background.png"
                     alt="Background"
                     fill
                     className="hero-bg-image object-cover opacity-60 pointer-events-none"

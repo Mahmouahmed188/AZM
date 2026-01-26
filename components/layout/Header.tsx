@@ -145,7 +145,7 @@ const Header = () => {
                     <div className="lg:relative lg:w-[214px] h-20 flex items-center justify-center absolute left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-0">
                         <Link href="/" className="relative block w-[140px] lg:w-[214px] h-9 lg:h-20 transition-transform duration-500 hover:scale-105">
                             <Image
-                                src="https://api.builder.io/api/v1/image/assets/TEMP/689d85c89c66d0fe62616ccfeccf027f107344f1?width=428"
+                                src="/Logo Area.png"
                                 alt="Saudi AZM Logo"
                                 fill
                                 className="object-contain object-center lg:object-right"

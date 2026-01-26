@@ -1,11 +1,5 @@
 import gsap from "gsap";
 
-/**
- * Intro Section 2 Animation
- * - Arc fades in smoothly with subtle scale
- * - Calm, premium motion
- * - No looping
- */
 export const animateIntroSection2 = (
   sectionRef: React.RefObject<HTMLDivElement | null>,
   arcRef: React.RefObject<HTMLDivElement | null>,
@@ -20,8 +14,8 @@ export const animateIntroSection2 = (
 
   // Initial state
   if (arcRef.current) {
-    gsap.set(arcRef.current, { 
-      opacity: 0, 
+    gsap.set(arcRef.current, {
+      opacity: 0,
       scale: 0.95,
       transformOrigin: "center center"
     });

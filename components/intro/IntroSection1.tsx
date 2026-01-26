@@ -49,12 +49,12 @@ const IntroSection1: React.FC<IntroSection1Props> = ({ onComplete }) => {
         initial={{ y: "15vh", opacity: 0 }}
         animate={{ y: "0", opacity: 1 }}
         transition={{
-          delay: 0.5,
+          delay: 1.6,
           duration: 2,
           ease: [0.16, 1, 0.3, 1],
         }}
         style={{
-          width: "min(880px, 100vw)",
+          width: "min(990px, 100vw)",
         }}
       >
         <Image
@@ -70,8 +70,8 @@ const IntroSection1: React.FC<IntroSection1Props> = ({ onComplete }) => {
       {/* 4. PLANET HORIZON (Positioned elegantly below logo) */}
       <motion.div
         className="absolute bottom-[-69.2vh] left-1/2 -translate-x-1/2 z-20 w-[150vw] pointer-events-none"
-        initial={{ opacity: 1, scale: 0.85 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ y: "30vh", opacity: 0, scale: 0.85 }}
+        animate={{ y: "0", opacity: 1, scale: 1 }}
         transition={{
           delay: 0.2,
           duration: 2.2,

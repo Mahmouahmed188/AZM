@@ -155,7 +155,6 @@ const GroupCompanies = () => {
                 onUpdate: (self) => {
                     if (textRef.current) {
                         gsap.set(textRef.current, {
-                            opacity: 1 - self.progress,
                             y: -100 * self.progress
                         });
                     }
