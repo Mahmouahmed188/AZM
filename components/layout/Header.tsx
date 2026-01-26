@@ -16,6 +16,7 @@ const NAV_ITEMS = [
     { label: "خدماتنا", href: "#services" },
     { label: "المستثمرين", href: "#investors" },
     { label: "الوظائف", href: "#jobs" },
+    { label: "تواصل معنا", href: "#contact" },
 ];
 
 const splitArabic = (text: string) => {

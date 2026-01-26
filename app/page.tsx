@@ -8,6 +8,7 @@ import StackedCards from "@/components/sections/StackedCards";
 import GroupCompanies from "../components/sections/GroupCompanies";
 import Certifications from "../components/sections/Certifications";
 import Careers from "@/components/sections/Careers";
+import NewsCarousel from "@/components/sections/NewsCarousel";
 import Footer from "@/components/sections/Footer";
 // import Clients from "@/components/sections/Clients";
 
@@ -37,6 +38,7 @@ export default function Home() {
             <GroupCompanies />
             <Certifications />
             <Careers />
+            <NewsCarousel />
             <Footer />
           </>
 

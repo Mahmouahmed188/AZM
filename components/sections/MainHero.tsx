@@ -1,16 +1,39 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 
-
 const StatItem = ({ number, unit, label, decimals = false }: { number: number; unit: string; label: string; decimals?: boolean }) => {
+    // --- منطق حركة الماوس للوهج الخلفي ---
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setMousePosition({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        });
+    };
+
     return (
-        <div className="relative group w-full max-w-[488px] mx-auto stat-item-container">
+        <div
+            className="relative group w-full max-w-[488px] mx-auto stat-item-container overflow-hidden"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            {/* تأثير الوهج (Glow) المضاف خلف الكومبوننت */}
+            <div
+                className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500 ease-in-out"
+                style={{
+                    opacity: isHovered ? 1 : 0,
+                    background: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(208, 38, 238, 0.12), transparent 80%)`,
+                }}
+            />
+
             <div className="relative flex flex-col items-end justify-center h-[168px] px-12 py-9">
-
-
                 <div className="flex flex-row-reverse items-baseline gap-1 z-10">
                     <div className="flex flex-row-reverse items-baseline">
                         <span className="text-[48px] leading-[60px] font-normal text-white tracking-tighter stat-plus">+</span>
@@ -39,6 +62,7 @@ const StatItem = ({ number, unit, label, decimals = false }: { number: number; u
         </div>
     );
 };
+
 const CertificationLogo = ({ src, title, subtitle }: { src: string; title: string; subtitle: string }) => (
     <div className="flex items-center gap-4 group logo-item" dir="rtl">
         <div className="w-16 h-12 flex items-center justify-center flex-shrink-0">
@@ -71,17 +95,11 @@ const MainHero = () => {
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            // 1. الحالة الابتدائية لجميع العناصر (تصفير)
             gsap.set(titleRef.current, { y: 50, opacity: 0 });
             gsap.set(".title-line", { y: 30, opacity: 0 });
             gsap.set(swirlRef.current, { scale: 0.5, opacity: 0, rotation: -15 });
-
-            // الجزء الأيمن
             gsap.set(descTextRef.current, { y: 45, opacity: 0 });
-            // اللوجوهات تبدأ من اختفاء تام فقط (بدون تحريك X)
             gsap.set(descLogosRef.current, { opacity: 0 });
-
-            // الجزء الأيسر (statsLeftRef)
             gsap.set(loadingBarRef.current, { width: 0 });
             gsap.set(".bottom-line", { scaleX: 0, transformOrigin: "right" });
             gsap.set([".side-line-left", ".side-line-right"], { scaleY: 0, transformOrigin: "top" });
@@ -92,12 +110,10 @@ const MainHero = () => {
 
             const tl = gsap.timeline({ delay: 0.5 });
 
-            // --- المرحلة الأولى: العنوان ---
             tl.to(titleRef.current, { y: 0, opacity: 1, duration: 1, ease: "power4.out" })
                 .to(".title-line", { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" }, "-=0.6")
                 .to(swirlRef.current, { scale: 1, opacity: 1, rotation: 0, duration: 1.5, ease: "back.out(1.7)" }, "-=0.4");
 
-            // --- المرحلة الثانية: الجزء الأيمن (ينتهي ليبدأ الأيسر) ---
             tl.to(descLogosRef.current, {
                 opacity: 1,
                 duration: 1.2,
@@ -110,36 +126,27 @@ const MainHero = () => {
                     duration: 0.7,
                     ease: "power3.out"
                 }, "-=.5")
-            // ثانياً: اللوجوهات تظهر من العدم بتتابع (Stagger) وبشكل أهدأ قليلاً
 
-            // --- المرحلة الثالثة: الجزء الأيسر (يبدأ هنا فوراً) ---
-            tl.addLabel("startLeftStats"); // علامة زمنية للبدء المتزامن
+            tl.addLabel("startLeftStats");
 
-            // 1. الخط العلوي والخطوط السفلية والجانبية معاً
             tl.to(loadingBarRef.current, { width: "100%", duration: 1.2, ease: "expo.inOut" }, "startLeftStats")
                 .to(".bottom-line", { scaleX: 1, duration: 1.2, ease: "expo.inOut", stagger: 0.1 }, "startLeftStats")
                 .to([".side-line-left", ".side-line-right"], { scaleY: 1, duration: 1.2, ease: "expo.inOut", stagger: 0.1 }, "startLeftStats");
 
-            // 2. ظهور الأرقام (من العدم) والوحدات (من أسفل)
             tl.to(".stat-value", { opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.in" }, "startLeftStats+=0.4")
                 .to(".stat-unit", { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }, "startLeftStats+=0.4");
             tl.to(".stat-plus", { opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.in" }, "startLeftStats+=0.4");
-            // 3. ظهور الوصف (Labels) في النهاية
             tl.to(".stat-label", { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }, "startLeftStats+=0.7");
-            // داخل useLayoutEffect في المخطط الزمني (Timeline)
-            // بعد أن ينتهي كل شيء (بعد أن تظهر النصوص والخطوط)
 
             tl.to(".stat-value", {
                 opacity: 1,
-                duration: 0.1 // نضمن ظهورها أولاً
+                duration: 0.1
             });
 
-            // إضافة تأثير العداد لكل رقم
             tl.to(".stat-value", {
-                duration: 2, // مدة زيادة الرقم (ثانيتين)
+                duration: 2,
                 ease: "power2.out",
                 onStart: () => {
-                    // نختار كل الأرقام ونحركها
                     const stats = document.querySelectorAll<HTMLElement>(".stat-value");
                     stats.forEach((el) => {
                         const target = parseFloat(el.getAttribute("data-target") || "0");
@@ -148,10 +155,9 @@ const MainHero = () => {
                         gsap.to(el, {
                             innerText: target,
                             duration: 2,
-                            snap: { innerText: hasDecimals ? 0.1 : 1 }, // إذا كان كسر عشري يقفز بـ 0.1، وإذا كان صحيح بـ 1
+                            snap: { innerText: hasDecimals ? 0.1 : 1 },
                             ease: "power2.out",
                             onUpdate: function () {
-                                // تحديث النص وتنسيقه
                                 if (hasDecimals) {
                                     el.innerHTML = parseFloat(el.innerText).toFixed(1);
                                 } else {
@@ -169,7 +175,6 @@ const MainHero = () => {
 
     return (
         <section ref={sectionRef} className="relative w-full min-h-screen bg-[#000814] overflow-hidden flex flex-col font-tajawal">
-            {/* Background Layer */}
             <div className="absolute inset-0 z-0">
                 <Image
                     src="/Background.png"
@@ -181,7 +186,6 @@ const MainHero = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-[#000814]/80 via-transparent to-[#000814]" />
             </div>
 
-            {/* Main Content Area */}
             <div className="relative z-10 flex-grow flex flex-col items-center pb-32 pt-32 md:pt-48 px-6">
                 <div ref={titleRef} className="max-w-[1200px] w-full text-right" dir="rtl">
                     <div className="title-line flex items-center justify-start gap-4 mb-4">
@@ -191,7 +195,6 @@ const MainHero = () => {
                         <span className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none">—</span>
                         <span className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight">لجودة حياة</span>
                         <div className="relative inline-block">
-                            {/* النص مع z-index عالٍ ليكون فوق الصورة */}
                             <span className="relative text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight z-10">
                                 أفضل
                             </span>
@@ -209,17 +212,12 @@ const MainHero = () => {
                 </div>
             </div>
 
-            {/* Bottom Statistics Section */}
             <div className="relative z-20 mt-auto overflow-hidden">
                 <div className="absolute inset-0 bg-azm-dark/50 backdrop-blur-xl pointer-events-none" />
-
-                {/* الخط العلوي (loadingBarRef) */}
                 <div className="absolute top-0 right-0 h-[1.9px] bg-[#7278B84A] w-0 z-20" ref={loadingBarRef}></div>
 
                 <div ref={statsRef}>
                     <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row-reverse">
-
-                        {/* Right Side */}
                         <div className="flex-1 p-8 lg:p-12" dir="rtl">
                             <div ref={descTextRef} className="mb-12">
                                 <h3 className="text-2xl lg:text-3xl font-normal text-white leading-tight mb-4">
@@ -250,14 +248,12 @@ const MainHero = () => {
                             </div>
                         </div>
 
-                        {/* Left Side */}
                         <div ref={statsLeftRef} className="lg:w-[600px] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1">
-                            {/* في قسم الأرقام (Left Side) */}
                             <StatItem
-                                number={2.5} // الرقم الحقيقي
+                                number={2.5}
                                 unit="مليار"
                                 label="إجمالي قيمة المشاريع خلال الأربع سنوات الأخيرة"
-                                decimals={true} // لإظهار الفاصلة العشرية
+                                decimals={true}
                             />
                             <StatItem
                                 number={25}
