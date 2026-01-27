@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import "./globals.css";
-import SmoothScrolling from "@/components/SmoothScrolling";
+import SmoothScrolling from "@/shared/components/common/SmoothScrolling";
 
 const tajawal = Tajawal({
   subsets: ["arabic"],
@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   description: "Digital Trust & Authentication Services",
 };
 
+import Header from "@/shared/components/layout/Header";
+import GlobalFooter from "@/shared/components/layout/GlobalFooter";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,9 +36,13 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-azm-dark text-white overflow-x-hidden" suppressHydrationWarning>
         <SmoothScrolling>
-          <main className="min-h-screen relative flex flex-col items-center justify-between">
-            {children}
-          </main>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow w-full relative">
+              {children}
+            </main>
+            <GlobalFooter />
+          </div>
         </SmoothScrolling>
       </body>
     </html>
