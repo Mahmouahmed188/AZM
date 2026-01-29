@@ -37,8 +37,13 @@ export const animateVisionStackedExperience = (
             ease: "none",
         });
 
-        // Start the first card BEFORE the text finishes to consume the "invisible travel" time.
-        tl.add("card-0", "-=4");
+        // Phase separation:
+        // Only start cards AFTER the text fill is 100% complete.
+        // (Optional tiny gap keeps the handoff feeling natural while still scroll-linked.)
+        tl.add("card-0", "+=0.15");
+    } else {
+        // If no text chars exist, allow cards to run from the start.
+        tl.add("card-0", 0);
     }
 
     // 2. Cards Stacking Animation
