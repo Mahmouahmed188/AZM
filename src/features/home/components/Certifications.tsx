@@ -98,7 +98,7 @@ const Certifications = () => {
                                 width={380}
                                 height={400}
                                 style={{ height: 'auto' }}
-                                className="object-contain"
+                                className="w-full object-contain"
                             />
                         </div>
                     ))}

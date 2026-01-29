@@ -23,6 +23,8 @@ export const metadata: Metadata = {
 
 import Header from "@/shared/components/layout/Header";
 import GlobalFooter from "@/shared/components/layout/GlobalFooter";
+import NextTopLoader from "nextjs-toploader";
+import { LoadingProvider } from "@/shared/components/providers/LoadingProvider";
 
 export default function RootLayout({
   children,
@@ -35,7 +37,19 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
       </head>
       <body className="antialiased bg-azm-dark text-white overflow-x-hidden" suppressHydrationWarning>
-        <SmoothScrolling>
+        <NextTopLoader
+          color="#C5A059"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #C5A059,0 0 5px #C5A059"
+        />
+        <LoadingProvider>
+          {/* <SmoothScrolling> */}
           <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow w-full relative">
@@ -43,7 +57,8 @@ export default function RootLayout({
             </main>
             <GlobalFooter />
           </div>
-        </SmoothScrolling>
+          {/* </SmoothScrolling> */}
+        </LoadingProvider>
       </body>
     </html>
   );

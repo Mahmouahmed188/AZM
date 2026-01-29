@@ -28,7 +28,7 @@ const Footer = () => {
                         {/* Card Image */}
                         <div className="relative w-full h-[320px] overflow-hidden">
                             <Image
-                                src="/assets/footer/building.png"
+                                src="/footer/building.png"
                                 alt="Corporate Building"
                                 fill
                                 className="object-cover group-hover/card:scale-105 transition-transform duration-700"

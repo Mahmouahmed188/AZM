@@ -9,15 +9,11 @@ import { useGSAP } from "@gsap/react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const NAV_ITEMS = [
-    { label: "الرئيسية", href: "#hero" },
-    { label: "من نحن", href: "#about" },
-    { label: "منتجاتنا", href: "#products" },
-    { label: "خدماتنا", href: "#services" },
-    { label: "المستثمرين", href: "#investors" },
-    { label: "الوظائف", href: "#jobs" },
-    { label: "تواصل معنا", href: "/contact-us" },
-];
+import { usePathname } from "next/navigation";
+import { NAV_LINKS, ROUTES } from "@/shared/config/routes";
+
+const NAV_ITEMS = NAV_LINKS;
+
 
 const splitArabic = (text: string) => {
     const chars = text.split("");
@@ -83,8 +79,9 @@ const AnimatedWord = ({ label, isActive }: { label: string; isActive: boolean })
 };
 
 const Header = () => {
-    const [active, setActive] = useState("#hero");
+    const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
+
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -119,17 +116,16 @@ const Header = () => {
                                 <Link
                                     key={item.label}
                                     href={item.href}
-                                    onClick={() => setActive(item.href)}
                                     className={cn(
                                         "font-tajawal text-base font-medium transition-all duration-500 relative whitespace-nowrap py-2",
-                                        active === item.href ? "text-white" : "text-white/48"
+                                        pathname === item.href ? "text-white" : "text-white/48"
                                     )}
                                 >
                                     {/* هنا نضع مكوّن الحركة الجديد */}
-                                    <AnimatedWord label={item.label} isActive={active === item.href} />
+                                    <AnimatedWord label={item.label} isActive={pathname === item.href} />
 
                                     {/* الخط السفلي (Active Indicator) */}
-                                    {active === item.href && (
+                                    {pathname === item.href && (
                                         <motion.div
                                             layoutId="nav-active"
                                             className="absolute -bottom-1 left-0 w-full h-0.5 bg-white"
@@ -138,15 +134,17 @@ const Header = () => {
                                         />
                                     )}
                                 </Link>
+
                             ))}
                         </nav>
                     </div>
 
                     {/* Logo - Right Side */}
                     <div className="lg:relative lg:w-[214px] h-20 flex items-center justify-center absolute left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-0">
-                        <Link href="/" className="relative block w-[140px] lg:w-[214px] h-9 lg:h-20 transition-transform duration-500 hover:scale-105">
+                        <Link href={ROUTES.HOME} className="relative block w-[140px] lg:w-[214px] h-9 lg:h-20 transition-transform duration-500 hover:scale-105">
+
                             <Image
-                                src="/Logo Area.png"
+                                src="/logo-area.png"
                                 alt="Saudi AZM Logo"
                                 fill
                                 className="object-contain object-center lg:object-right"
@@ -186,15 +184,16 @@ const Header = () => {
                                     <Link
                                         key={item.label}
                                         href={item.href}
-                                        onClick={() => { setActive(item.href); setMobileMenuOpen(false); }}
+                                        onClick={() => { setMobileMenuOpen(false); }}
                                         className={cn(
                                             "font-tajawal text-2xl font-medium",
-                                            active === item.href ? "text-white" : "text-white/40"
+                                            pathname === item.href ? "text-white" : "text-white/40"
                                         )}
                                     >
                                         {item.label}
                                     </Link>
                                 ))}
+
                             </div>
                         </motion.div>
                     </>

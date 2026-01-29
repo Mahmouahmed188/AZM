@@ -44,10 +44,25 @@ const StackedCards = () => {
     const words = useMemo(() => fullText.split(" "), []);
 
     useLayoutEffect(() => {
-        charsRefs.current = charsRefs.current.filter(Boolean);
-        // نمرر نفس الـ Refs لأن الأنيميشن يعتمد على الكلاس .card والحاوية فقط
-        const cleanup = animateVisionStackedExperience(containerRef, charsRefs, cardsRef);
-        return () => cleanup && cleanup();
+        // Ensure charsRefs are clean before animation starts
+        // We use a temp array during render to collect them consistently
+
+        let ctx = gsap.context(() => {
+            const cleanup = animateVisionStackedExperience(containerRef, charsRefs, cardsRef);
+
+            // Critical: Refresh ScrollTrigger after a short delay to ensure 
+            // the layout from preceding sections (like MainHero) is stable.
+            const timeout = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 100);
+
+            return () => {
+                cleanup && cleanup();
+                clearTimeout(timeout);
+            };
+        }, containerRef);
+
+        return () => ctx.revert();
     }, []);
 
     return (
@@ -61,7 +76,7 @@ const StackedCards = () => {
 
             {/* Grain texture overlay (Cinematic Look) */}
             <div className="absolute inset-0 opacity-[0.2] mix-blend-overlay pointer-events-none">
-                <svg className="w-full h-full">
+                <svg className="w-full h-full text-transparent">
                     <filter id="grain-noise-vision">
                         <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
                         <feColorMatrix type="saturate" values="0" />
@@ -74,12 +89,18 @@ const StackedCards = () => {
             <div className="absolute inset-0 flex items-center justify-center px-6 md:px-12 text-center z-0">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight md:leading-snug">
                     {words.map((word, wordIndex) => (
-                        // inline-block للكلمة فقط لمنع انكسارها
-                        <span key={`word-${wordIndex}`} className="inline-block whitespace-nowrap ">
+                        <span key={`word-${wordIndex}`} className="inline-block whitespace-nowrap">
                             {word.split("").map((char, charIndex) => (
                                 <span
                                     key={`char-${wordIndex}-${charIndex}`}
-                                    ref={(el) => { if (el) charsRefs.current.push(el); }}
+                                    ref={(el) => {
+                                        if (el) {
+                                            // Only push if not already present to avoid duplicates during re-renders
+                                            if (!charsRefs.current.includes(el)) {
+                                                charsRefs.current.push(el);
+                                            }
+                                        }
+                                    }}
                                     className="transition-colors duration-75 px-[1.6px]"
                                     style={{
                                         color: "rgba(255, 255, 255, 0.1)",
@@ -88,7 +109,6 @@ const StackedCards = () => {
                                     {char}
                                 </span>
                             ))}
-                            {/* مسافة عادية */}
                             <span className="inline-block">&nbsp;</span>
                         </span>
                     ))}
@@ -101,19 +121,16 @@ const StackedCards = () => {
                     <div
                         key={card.id}
                         ref={(el) => { cardsRef.current[index] = el; }}
-                        // تم الحفاظ على نفس الكلاسات والظلال لضمان عمل الأنيميشن
                         className="card absolute w-full max-w-[1100px] h-auto aspect-[16/9] rounded-[40px] overflow-hidden shadow-[0_50px_120px_rgba(0,0,0,0.9)] border border-white/5 bg-[#030B16] pointer-events-auto"
                         style={{ willChange: "transform, opacity" }}
                     >
-                        {/* عرض الصورة فقط لملء الكارت بالكامل */}
                         <div className="relative w-full h-full">
                             <Image
                                 src={card.image}
                                 alt={card.alt}
                                 fill
-                                className="object-cover" // أو object-contain حسب تصميم الصورة
+                                className="object-cover"
                                 priority={index === 0}
-                                quality={100}
                             />
                         </div>
                     </div>

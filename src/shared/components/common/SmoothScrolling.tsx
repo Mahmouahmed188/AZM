@@ -1,5 +1,7 @@
 "use client";
-import React, { useLayoutEffect } from "react";
+
+import { usePathname } from "next/navigation";
+import React, { useLayoutEffect, useEffect, useRef } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -7,16 +9,21 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScrolling({ children }: { children: React.ReactNode }) {
+    const pathname = usePathname();
+    const lenisRef = useRef<Lenis | null>(null);
+
     useLayoutEffect(() => {
         const lenis = new Lenis({
             duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: "vertical",
             gestureOrientation: "vertical",
             smoothWheel: true,
             wheelMultiplier: 1,
             touchMultiplier: 2,
         });
+
+        lenisRef.current = lenis;
 
         lenis.on("scroll", ScrollTrigger.update);
 
@@ -28,8 +35,15 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
 
         return () => {
             lenis.destroy();
+            lenisRef.current = null;
         };
     }, []);
+
+    useEffect(() => {
+        if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true });
+        }
+    }, [pathname]);
 
     return <>{children}</>;
 }

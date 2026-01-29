@@ -2,8 +2,10 @@
 
 import { useLayoutEffect, useRef } from 'react';
 import { animateCareersSection } from '@/animations/careersAnimation';
+import Link from 'next/link';
+import { ROUTES } from '@/shared/config/routes';
 
-export default function CareersPage() {
+export default function CareersSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
 
@@ -35,13 +37,13 @@ export default function CareersPage() {
                         كن شريكًا في إحداث تغيير إيجابي في حياة الناس من خلال حلول تجارية وتقنية مبتكرة تُحدث فرقًا حقيقيًا.
                     </h2>
 
-                    <button className="join-button group relative inline-flex px-6 py-4 items-center gap-2 bg-transparent border border-[#A733CC]/60 rounded-sm text-white font-medium text-lg cursor-pointer transition-all duration-300 overflow-hidden hover:border-transparent hover:scale-105 self-center lg:self-end">
+                    <Link href={ROUTES.CAREERS} className="join-button group relative inline-flex px-6 py-4 items-center gap-2 bg-transparent border border-[#A733CC]/60 rounded-sm text-white font-medium text-lg cursor-pointer transition-all duration-300 overflow-hidden hover:border-transparent hover:scale-105 self-center lg:self-end">
                         <div className="absolute inset-0 bg-gradient-to-tr from-[#A733CC] to-[#E9A4FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                         <svg className="w-6 h-6 transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 17V7C6 6.44772 6.44772 6 7 6H17C17.5523 6 18 6.44772 18 7C18 7.55228 17.5523 8 17 8H9.41406L17.707 16.293C18.0976 16.6835 18.0976 17.3165 17.707 17.707C17.3165 18.0976 16.6835 18.0976 16.293 17.707L8 9.41406V17C8 17.5523 7.55228 18 7 18C6.44772 18 6 17.5523 6 17Z" fill="white"></path>
                         </svg>
                         <span>انضم الينا</span>
-                    </button>
+                    </Link>
                 </div>
             </div>
         </section>

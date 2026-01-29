@@ -1,18 +1,14 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
+import { NAV_LINKS, ROUTES } from "@/shared/config/routes";
+
 
 const GlobalFooter = () => {
-    const navItems = [
-        { name: "الرئيسية", link: "#" },
-        { name: "من نحن", link: "#" },
-        { name: "منتجاتنا", link: "#" },
-        { name: "خدماتنا", link: "#" },
-        { name: "المستثمرين", link: "#" },
-        { name: "الوظائف", link: "#" },
-        { name: "تواصل معنا", link: "/contact-us" },
-    ];
+    const navItems = NAV_LINKS;
+
 
     return (
         <footer className="relative w-full h-[45vh] z-20 flex items-end bg-[#000814]">
@@ -34,27 +30,31 @@ const GlobalFooter = () => {
                 <div className="flex flex-col md:flex-row-reverse justify-between items-center gap-8 mb-12">
                     {/* Logo on Right */}
                     <div className="flex items-center">
-                        <Image
-                            src="/footer/logo.png"
-                            alt="Saudi Azm"
-                            width={220}
-                            height={80}
-                            className="object-contain brightness-0 invert"
-                        />
+                        <Link href={ROUTES.HOME}>
+                            <Image
+                                src="/footer/logo.png"
+                                alt="Saudi Azm"
+                                width={220}
+                                height={80}
+                                className="object-contain brightness-0 invert"
+                            />
+                        </Link>
                     </div>
+
 
                     {/* Nav on Left */}
                     <nav className="flex flex-wrap justify-center md:justify-start gap-x-12 gap-y-4" dir="rtl">
                         {navItems.map((item, index) => (
-                            <a
+                            <Link
                                 key={index}
-                                href={item.link}
+                                href={item.href}
                                 className="text-white/90 hover:text-[#A733CC] transition-colors duration-300 font-tajawal text-[18px]"
                             >
-                                {item.name}
-                            </a>
+                                {item.label}
+                            </Link>
                         ))}
                     </nav>
+
                 </div>
 
                 {/* Bottom Bar: Social, Copyright, Legal */}
@@ -74,7 +74,7 @@ const GlobalFooter = () => {
                     </div>
                     {/* Copyright (Middle) */}
                     <div className="order-3 md:order-2 text-center text-[16px]">
-                        جميع الحقوق محفوظة © 2025 عزم السعودية.
+                        جميع الحقوق محفوظة © 2026 عزم السعودية.
                     </div>
                     {/* Legal Links (Right) */}
                     <div className="flex items-center gap-8 order-1 md:order-3 flex-1 justify-center md:justify-end">

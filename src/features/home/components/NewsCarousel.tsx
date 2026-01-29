@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import LazyImage from "@/shared/components/common/LazyImage";
 
 interface NewsItem {
     id: number;
@@ -92,6 +93,7 @@ const NewsCarousel: React.FC = () => {
                                     alt={currentItem.title}
                                     fill
                                     className="object-cover"
+                                    priority
                                 />
                             </motion.div>
                         </AnimatePresence>

@@ -62,7 +62,8 @@ const IntroSection1: React.FC<IntroSection1Props> = ({ onComplete }) => {
           alt="عزم السعودية"
           width={1200}
           height={400}
-          className="w-full h-auto object-contain px-8"
+          style={{ height: 'auto' }}
+          className="w-full object-contain px-8"
           priority
         />
       </motion.div>
@@ -83,7 +84,8 @@ const IntroSection1: React.FC<IntroSection1Props> = ({ onComplete }) => {
           alt="Planet Horizon"
           width={1920}
           height={600}
-          className="w-full h-auto object-contain"
+          style={{ height: 'auto' }}
+          className="w-full object-contain"
           priority
         />
       </motion.div>
