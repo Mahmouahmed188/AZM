@@ -18,8 +18,10 @@ export const animateCertifications = (
     const getScrollAmount = () => {
         const trackWidth = track.scrollWidth;
         const viewportWidth = window.innerWidth;
-        // التحريك لليسار في وضع RTL
-        return -(trackWidth - viewportWidth);
+        const isRTL = section.dir === 'rtl' || document.documentElement.dir === 'rtl';
+        
+        // RTL: move left (negative), LTR: move left (positive for natural scroll)
+        return isRTL ? -(trackWidth - viewportWidth) : (trackWidth - viewportWidth);
     };
 
     const horizontalScroll = gsap.fromTo(track,
@@ -39,8 +41,6 @@ export const animateCertifications = (
             },
         }
     );
-
-    // ملاحظة: تم حذف جزء الـ cards.forEach الذي كان يسبب حركة y (فوق وتحت)
 
     const handleResize = () => ScrollTrigger.refresh();
     window.addEventListener("resize", handleResize);

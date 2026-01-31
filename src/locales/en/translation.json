@@ -63,5 +63,37 @@
                 "alt": "Nawaf Platform"
             }
         }
+    },
+    "certifications": {
+        "title": "We proudly celebrate our completed success journeys at AZM Saudi",
+        "items": {
+            "ohsas": {
+                "title": "Occupational Health and Safety - 45001"
+            },
+            "cloudPrivacy": {
+                "title": "Personal Information Protection in Cloud - 27018"
+            },
+            "digitalTrust": {
+                "title": "Digital Trust and Authentication Services Certificate"
+            },
+            "advancedLevel": {
+                "title": "Advanced Level (First Rank)"
+            },
+            "platinum": {
+                "title": "Platinum Classification"
+            },
+            "digitalPartner": {
+                "title": "Best Digital Partner"
+            },
+            "cmmi": {
+                "title": "CMMI Level Five"
+            },
+            "cloudSecurity": {
+                "title": "Cloud Security Controls - 27017"
+            },
+            "businessContinuity": {
+                "title": "Business Continuity Management - 22301"
+            }
+        }
     }
 }
