@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpLeft, Icon, icons } from "lucide-react";
@@ -15,35 +16,45 @@ const fonts = {
 
 // --- Sub-Components ---
 
-const BackgroundText = () => (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <h1
-            className="text-[7vw] md:text-[9vw] leading-none font-black text-[#FFFFFF] whitespace-nowrap select-none drop-shadow-2xl"
-        >
-            منظومة شركات عزم
-        </h1>
-    </div>
-);
+const BackgroundText = () => {
+    const { t } = useTranslation();
+    
+    return (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <h1
+                className="text-[7vw] md:text-[9vw] leading-none font-black text-[#FFFFFF] whitespace-nowrap select-none drop-shadow-2xl"
+            >
+                {t('groupCompanies.backgroundText', 'منظومة شركات عزم')}
+            </h1>
+        </div>
+    );
+};
 
-const CornerButton = () => (
-    <button className="group flex items-center gap-3 relative cursor-pointer">
-        <div className="absolute -bottom-2 -left-2 w-4 h-4 border-l-2 border-b-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-bl-lg" />
-        <div className="absolute -top-2 -right-2 w-4 h-4 border-r-2 border-t-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-tr-lg" />
-        <div className="absolute -bottom-2 -right-2 w-4 h-4 border-r-2 border-b-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-br-lg" />
-        <div className="absolute -top-2 -left-2 w-4 h-4 border-l-2 border-t-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-tl-lg" />
+const CornerButton = () => {
+    const { t } = useTranslation();
+    
+    return (
+        <button className="group flex items-center gap-3 relative cursor-pointer">
+            <div className="absolute -bottom-2 -left-2 w-4 h-4 border-l-2 border-b-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-bl-lg" />
+            <div className="absolute -top-2 -right-2 w-4 h-4 border-r-2 border-t-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-tr-lg" />
+            <div className="absolute -bottom-2 -right-2 w-4 h-4 border-r-2 border-b-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-br-lg" />
+            <div className="absolute -top-2 -left-2 w-4 h-4 border-l-2 border-t-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-tl-lg" />
 
-        <ArrowUpLeft className="text-white w-5 h-5 transition-transform group-hover:translate-x-[-3px] group-hover:translate-y-[-3px] rotate-[5deg]" />
-        <span className="text-white text-lg font-bold" style={{ fontFamily: fonts.tajawal }}>المزيد</span>
-    </button>
-);
+            <ArrowUpLeft className="text-white w-5 h-5 transition-transform group-hover:translate-x-[-3px] group-hover:translate-y-[-3px] rotate-[5deg]" />
+            <span className="text-white text-lg font-bold" style={{ fontFamily: fonts.tajawal }}>{t('groupCompanies.moreButton', 'المزيد')}</span>
+        </button>
+    );
+};
 
-const LogosBar = ({ className = "", icons }: { className?: string, icons?: { title: string, icon: string[] } }) => {
+const LogosBar = ({ className = "", icons }: { className?: string, icons?: { titleKey: string, icon: string[] } }) => {
+    const { t } = useTranslation();
+    
     if (!icons) return null;
     return (
         <div className={`bg-[#e2e8f0]/90 backdrop-blur-md shadow-lg rounded-lg py-4 px-8 flex items-center gap-6 md:gap-10 justify-between min-w-[340px] ${className}`}>
             <div className="flex items-center gap-6">
                 {icons.icon.map((src, idx) => (
-
+ 
                     <div key={idx} className="flex items-center">
                         <div className="relative w-20 h-12">
                             <Image src={src} alt={`Logo ${idx}`} fill className="object-contain" />
@@ -53,29 +64,31 @@ const LogosBar = ({ className = "", icons }: { className?: string, icons?: { tit
                 ))}
             </div>
             <span className="text-gray-500 text-sm font-medium mr-auto" style={{ fontFamily: fonts.tajawal }}>
-                {icons.title}
+                {t(icons.titleKey)}
             </span>
         </div>
     );
 };
 
 const CompanyCard = ({
-    title,
-    description,
+    titleKey,
+    descriptionKey,
     image,
     id,
     icons,
     logo,
     bg
 }: {
-    title: string;
-    description: string;
+    titleKey: string;
+    descriptionKey: string;
     image: string;
     id: number;
-    icons?: { title: string; icon: string[] };
+    icons?: { titleKey: string; icon: string[] };
     logo?: string;
     bg?: string;
 }) => {
+    const { t } = useTranslation();
+    
     return (
         <div className={`company-card relative w-full h-[100vh] flex items-center justify-center p-4`}>
             <div className="relative w-full max-w-[1400px] flex flex-col md:flex-row items-stretch justify-around gap-0 md:gap-10">
@@ -95,7 +108,7 @@ const CompanyCard = ({
                                 <div className="relative w-20 h-20">
                                     <Image
                                         src={logo}
-                                        alt={`${title} Logo`}
+                                        alt={`${t(titleKey)} Logo`}
                                         fill
                                         className="object-contain"
                                     />
@@ -104,10 +117,10 @@ const CompanyCard = ({
                         )}
 
                         <h2 className="text-3xl md:text-4xl font-bold mt-12 mb-2 leading-tight" >
-                            {title}
+                            {t(titleKey)}
                         </h2>
                         <p className="text-lg md:text-xl text-[#e9d5ff] leading-relaxed font-normal max-w-lg mb-12" >
-                            {description}
+                            {t(descriptionKey)}
                         </p>
                         <div className="mt-auto w-full flex justify-end md:justify-start" dir="ltr">
                             <CornerButton />
@@ -120,7 +133,7 @@ const CompanyCard = ({
                     <div className="w-full h-full relative overflow-hidden bg-gray-900 rounded-none md:rounded-[4px] shadow-2xl">
                         <Image
                             src={image}
-                            alt={title}
+                            alt={t(titleKey)}
                             fill
                             className="object-cover"
                         />
@@ -141,6 +154,7 @@ const CompanyCard = ({
 // --- Main Container ---
 
 const GroupCompanies = () => {
+    const { t } = useTranslation();
     const containerRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
 
@@ -187,60 +201,60 @@ const GroupCompanies = () => {
         return () => ctx.revert();
     }, []);
 
-    const companies = [
+    const companies = useMemo(() => [
         {
             id: 1,
-            title: "عزم الرقمية",
-            desc: "تُعد عزم الرقمية شركة مملوكة بالكامل لمجموعة عزم، وتختص بتصميم وبناء وتشغيل المنصات الرقمية القابلة للتوسع لدعم التحول الرقمي الوطني في المملكة العربية السعودية. وتعمل الشركة على تطوير حلول تقنية متوافقة مع الأنظمة في مجالات التقنية المالية، والهوية الرقمية، وخدمات الثقة، والمدفوعات، والامتثال، بما يدعم مستهدفات رؤية السعودية 2030.",
+            titleKey: "groupCompanies.companies.digital.title",
+            descriptionKey: "groupCompanies.companies.digital.description",
             image: "/group/card1/purple_tunnel.jpg",
             logo: "/group/card1/LogoAZM.png",
             bg: "#A733CC",
             icons: {
-                title: "أمثلة لمنتجات عزم الرقمية",
+                titleKey: "groupCompanies.companies.digital.productsTitle",
                 icon: ["/group/card1/Logo.png", "/group/card1/Logo2.png", "/group/card1/Logo3.png"]
             }
         },
         {
             id: 2,
-            title: "عزم التقنية المالية",
-            desc: "تُعد عزم للتقنية المالية الذراع المختصة بالتقنية المالية ضمن مجموعة عزم، وتركز على تصميم وتطوير وتشغيل منصات التمويل الرقمي المنظمة. وتقدم الشركة حلولًا تقنية متقدمة، خاصة في مجالات التمويل الجماعي والتمويل البديل، عبر منصات رقمية آمنة ومتوافقة تنظيميًا تربط بين المستثمرين والجهات الممولة وأصحاب المشاريع.",
+            titleKey: "groupCompanies.companies.fintech.title",
+            descriptionKey: "groupCompanies.companies.fintech.description",
             image: "/group/card2/Image 1.png",
             logo: "/group/card1/LogoAZM.png",
             bg: "#0177B7",
             icons: {
-                title: "أمثلة لمنتجات عزم للتقنية المالية",
+                titleKey: "groupCompanies.companies.fintech.productsTitle",
                 icon: ["/group/card2/Logo.png", "/group/card2/Logo1.png", "/group/card2/Logo2.png"]
             }
         },
         {
             id: 3,
-            title: "عزم لتطوير البرمجيات",
-            desc: "تُعد شركة عزم لتطوير البرمجيات الذراع الهندسية وتنفيذ المنتجات ضمن مجموعة عزم، وقد تأسست في عام 2023 لتصميم وبناء وتشغيل منصات رقمية قابلة للتوسع وحلول تقنية مخصصة. وتختص الشركة بالتطوير البرمجي الشامل، مع التركيز على تشغيل وصيانة المنصات الحيوية التي تتطلب موثوقية عالية وأمانًا واستدامة تشغيلية على مستوى الجهات الحكومية وقطاع الأعمال.",
+            titleKey: "groupCompanies.companies.software.title",
+            descriptionKey: "groupCompanies.companies.software.description",
             image: "/group/card3/Image.png",
             logo: "/group/card1/LogoAZM.png",
             bg: "#032F70",
             icons: {
-                title: "أمثلة لمنتجات عزم لتطوير البرمجيات",
+                titleKey: "groupCompanies.companies.software.productsTitle",
                 icon: ["/group/card3/Logos.png"]
             }
         },
         {
             id: 4,
-            title: "عزم اكس",
-            desc: "تُعد شركة عزم اكس الذراع المتخصصة في التجربة الرقمية والتصميم ضمن مجموعة عزم، وقد تأسست في عام 2021 لتقديم تجارب رقمية متمحورة حول المستخدم ومتوافقة مع السياسات للمنصات الحكومية وقطاع الأعمال. وتختص الشركة بتحويل الخدمات المعقدة إلى رحلات رقمية سهلة وواضحة من خلال التصميم القائم على البحث وتطوير الواجهات الأمامية، بما يضمن سهولة الاستخدام والامتثال والمعايير الوطنية.",
+            titleKey: "groupCompanies.companies.ax.title",
+            descriptionKey: "groupCompanies.companies.ax.description",
             image: "/group/card4/Image.png",
             logo: "/group/card4/Logo.png",
             bg: "#005CFF",
         },
         {
             id: 5,
-            title: "Entropy",
-            desc: "تُعد Entropy الذراع المتخصصة في الذكاء الاصطناعي وتحليلات البيانات ضمن مجموعة عزم، وتركّز على تصميم وتشغيل منصات رقمية متقدمة للجهات الحكومية وقطاع الأعمال. تقدم الشركة حلولًا متكاملة تشمل تعلم الآلة وهندسة البيانات والتحليلات المتقدمة والأتمتة الذكية، بما يمكّن من اتخاذ قرارات قائمة على البيانات وتحسين الكفاءة التشغيلية. وتسهم Entropy في تعزيز المنصات الرقمية بقدرات تنبؤية وذكاء قابل للتوسع.",
+            titleKey: "groupCompanies.companies.entropy.title",
+            descriptionKey: "groupCompanies.companies.entropy.description",
             image: "/group/card5/Image.png",
             logo: "/group/card5/Frame.png",
             bg: "#000000",
         }
-    ];
+    ], []);
 
     return (
         <section
@@ -254,7 +268,7 @@ const GroupCompanies = () => {
                 </div>
             </div>
 
-            {/* 2. Scrolling Content - Pulled up to overlap the sticky background */}
+            {/* 2. Scrolling Content - Pulled up to overlap sticky background */}
             <div className="relative z-10 -mt-[100vh] flex flex-col pb-32">
                 {/* Spacer to show text alone initially */}
                 <div className="h-screen w-full pointer-events-none" />
@@ -263,8 +277,8 @@ const GroupCompanies = () => {
                     <CompanyCard
                         key={company.id}
                         id={company.id}
-                        title={company.title}
-                        description={company.desc}
+                        titleKey={company.titleKey}
+                        descriptionKey={company.descriptionKey}
                         image={company.image}
                         icons={company.icons}
                         logo={company.logo}

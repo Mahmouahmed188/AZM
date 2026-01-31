@@ -1,17 +1,20 @@
 "use client";
 
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 const Footer = () => {
+    const { t } = useTranslation();
+
     return (
         <div className="relative w-full h-[100vh] overflow-hidden flex flex-col justify-between bg-[#000814]">
             {/* 1. Top Section - Map Background (74vh) */}
             <div className="relative w-full h-[100vh] z-0">
                 <Image
                     src="/footer/map.png"
-                    alt="Map Background"
+                    alt={t('footer.mapAlt', 'Map Background')}
                     fill
                     className="object-cover object-top"
                     priority
@@ -29,7 +32,7 @@ const Footer = () => {
                         <div className="relative w-full h-[320px] overflow-hidden">
                             <Image
                                 src="/footer/building.png"
-                                alt="Corporate Building"
+                                alt={t('footer.buildingAlt', 'Corporate Building')}
                                 fill
                                 className="object-cover group-hover/card:scale-105 transition-transform duration-700"
                             />
@@ -44,7 +47,7 @@ const Footer = () => {
                                     </svg>
                                 </div>
                                 <p className="text-white text-[16px] leading-[1.7] font-medium font-tajawal text-right">
-                                    مبنى رقم 23، ليسن فالي، طريق الملك خالد - الرياض - المملكة العربية السعودية
+                                    {t('footer.address', 'مبنى رقم 23، ليسن فالي، طريق الملك خالد - الرياض - المملكة العربية السعودية')}
                                 </p>
                             </div>
                             <div className="flex items-center gap-4">
@@ -53,7 +56,7 @@ const Footer = () => {
                                         <path d="M18 2H2C0.9 2 0 2.9 0 4V16C0 17.1 0.9 18 2 18H18C19.1 18 20 17.1 20 16V4C20 2.9 19.1 2 18 2ZM18 16H2V6.4L10 11L18 6.4V16ZM10 9L2 4H18L10 9Z" fill="#E38CFF" />
                                     </svg>
                                 </div>
-                                <a href="mailto:info@azm.sa" className="text-white/90 text-[18px] font-medium font-tajawal">info@azm.sa</a>
+                                <a href="mailto:info@azm.sa" className="text-white/90 text-[18px] font-medium font-tajawal">{t('footer.email', 'info@azm.sa')}</a>
                             </div>
                             <div className="flex items-center gap-4">
                                 <div className="shrink-0 w-8 h-8 flex items-center justify-center bg-[#733088]/40 rounded-full border border-[#E38CFF]/30">
@@ -61,7 +64,7 @@ const Footer = () => {
                                         <path d="M3.62 8.5C5.06 11.33 7.38 13.64 10.21 15.09L12.41 12.89C12.69 12.61 13.08 12.52 13.43 12.64C14.56 13.01 15.77 13.22 17 13.22C17.55 13.22 18 13.67 18 14.22V17.5C18 18.05 17.55 18.5 17 18.5C7.61 18.5 0 10.89 0 1.5C0 0.95 0.45 0.5 1 0.5H4.28C4.83 0.5 5.28 0.95 5.28 1.5C5.28 2.73 5.49 3.94 5.86 5.07C5.97 5.42 5.89 5.81 5.61 6.09L3.62 8.5Z" fill="#E38CFF" />
                                     </svg>
                                 </div>
-                                <a href="tel:966-112884141" className="text-white/90 text-[18px] font-medium font-tajawal" dir="ltr">966-112884141</a>
+                                <a href="tel:966-112884141" className="text-white/90 text-[18px] font-medium font-tajawal" dir="ltr">{t('footer.phone', '966-112884141')}</a>
                             </div>
                         </div>
                     </motion.div>

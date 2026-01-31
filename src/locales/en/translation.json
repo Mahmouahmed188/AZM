@@ -118,5 +118,41 @@
                 "title": "Our presence reflects our deep commitment to supporting the national digital transformation journey and fostering a culture of innovation."
             }
         }
+    },
+    "groupCompanies": {
+        "backgroundText": "AZM Group of Companies",
+        "moreButton": "More",
+        "companies": {
+            "digital": {
+                "title": "AZM Digital",
+                "description": "AZM Digital is a wholly-owned company of the AZM Group, specializing in the design, construction, and operation of scalable digital platforms to support national digital transformation in the Kingdom of Saudi Arabia. The company develops technology solutions compliant with regulations in financial technology, digital identity, trust services, payments, and compliance, supporting Saudi Vision 2030 targets.",
+                "productsTitle": "Examples of AZM Digital products"
+            },
+            "fintech": {
+                "title": "AZM FinTech",
+                "description": "AZM FinTech is the specialized financial technology arm of the AZM Group, focusing on the design, development, and operation of regulated digital financing platforms. The company offers advanced technology solutions, particularly in crowdfunding and alternative financing, through secure and regulatory-compliant digital platforms that connect investors, funding entities, and project owners.",
+                "productsTitle": "Examples of AZM FinTech products"
+            },
+            "software": {
+                "title": "AZM Software Development",
+                "description": "AZM Software Development is the engineering and product implementation arm of the AZM Group, established in 2023 to design, build, and operate scalable digital platforms and custom technology solutions. The company specializes in comprehensive software development, with a focus on operating and maintaining vital platforms that require high reliability, security, and operational sustainability at the government and business sector levels.",
+                "productsTitle": "Examples of AZM Software Development products"
+            },
+            "ax": {
+                "title": "AZM AX",
+                "description": "AZM AX is the specialized digital experience and design arm of the AZM Group, established in 2021 to provide user-centric digital experiences compliant with policies for government platforms and the business sector. The company specializes in transforming complex services into easy and clear digital journeys through research-based design and frontend development, ensuring ease of use, compliance, and national standards."
+            },
+            "entropy": {
+                "title": "Entropy",
+                "description": "Entropy is the specialized artificial intelligence and data analytics arm of the AZM Group, focusing on designing and operating advanced digital platforms for government entities and the business sector. The company offers integrated solutions including machine learning, data engineering, advanced analytics, and intelligent automation, enabling data-driven decision-making and operational efficiency improvement. Entropy contributes to enhancing digital platforms with predictive and scalable intelligence capabilities."
+            }
+        }
+    },
+    "footer": {
+        "mapAlt": "Map Background",
+        "buildingAlt": "Corporate Building",
+        "address": "Building No. 23, Laysen Valley, King Khalid Road - Riyadh - Kingdom of Saudi Arabia",
+        "email": "info@azm.sa",
+        "phone": "966-112884141"
     }
 }
