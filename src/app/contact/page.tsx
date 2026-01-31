@@ -15,27 +15,17 @@ const ContactUsPage = () => {
             <div className="absolute inset-0 z-0">
                 <div className="absolute top-0 left-0 w-full h-[1025px] overflow-hidden">
                     {/* Map Image */}
-                    <div className="absolute -left-[1317px] -top-[81px] w-[4074px] h-[1188px]">
-                        <Image
-                            src="/Map Mask.png"
-                            alt="Map Background"
-                            fill
-                            className="object-cover opacity-50"
-                        />
-                    </div>
-
-                    {/* Gradient Overlay */}
-                    <div
-                        className="absolute inset-0 w-full h-full"
-                        style={{
-                            background: "linear-gradient(270deg, #000814 0%, rgba(0, 8, 20, 0.72) 15.85%, rgba(0, 8, 20, 0.00) 50.13%, rgba(0, 8, 20, 0.72) 83.76%, #000814 100%)"
-                        }}
+                    <Image
+                        src="/Map Mask.png"
+                        alt="Map Background"
+                        fill
+                        className="object-cover opacity-50"
                     />
                 </div>
             </div>
 
             {/* Content Container */}
-            <div className="relative z-10 mx-auto max-w-[1440px] flex flex-col lg:flex-row-reverse justify-between items-center lg:items-start gap-12 lg:gap-0 mt-10 md:mt-20">
+            <div className="relative z-10 mx-auto max-w-[1440px] flex flex-col lg:flex-row-reverse justify-between items-center gap-12 lg:gap-0 mt-10 md:mt-20">
                 {/* Right Section: Title and Info */}
                 <div className="w-full lg:w-1/2 flex justify-end">
                     <ContactInfo />

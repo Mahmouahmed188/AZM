@@ -18,7 +18,7 @@ const Footer = () => {
                 />
 
                 {/* Floating Contact Card - Positioned relative to this section */}
-                <div className="absolute inset-0 container my-16 mx-auto px-6 lg:px-[112px]  justify-start z-20">
+                <div className="absolute inset-0 container my-16 mx-auto px-6 lg:px-[112px] justify-start z-20">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -36,7 +36,7 @@ const Footer = () => {
                             <div className="absolute inset-0 bg-[#1a0b2e]/10 mix-blend-multiply"></div>
                         </div>
                         {/* Card Content */}
-                        <div className="p-8 lg:p-10 space-y-6 flex flex-col bg-[#1a0b2e]" dir="rtl">
+                        <div className="p-8 lg:p-10 space-y-6 flex flex-col bg-[#1a0b2e]">
                             <div className="flex items-start gap-4">
                                 <div className="mt-1 shrink-0 w-8 h-8 flex items-center justify-center bg-[#733088]/40 rounded-full border border-[#E38CFF]/30">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

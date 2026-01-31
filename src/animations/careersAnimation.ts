@@ -12,9 +12,11 @@ export const animateCareersSection = (
             trigger: card,        // نراقب الكارد نفسه
             start: "center center", // يبدأ التثبيت عندما يصبح مركز الكارد في مركز الشاشة
             endTrigger: section,  // ينتهي التثبيت بنهاية القسم الكبير
-            end: "bottom bottom", // نقطة النهاية
-            pin: true,            // ثبت الكارد
-            pinSpacing: false,    // لا تترك فراغاً خلفه
+            end: "bottom bottom",
+            pin: true,
+            pinSpacing: false,
+            pinType: "transform", // Use transform instead of fixed positioning to avoid RTL issues
+            invalidateOnRefresh: true, // Recalculate on resize/refresh
             scrub: true,
         });
     }, section);

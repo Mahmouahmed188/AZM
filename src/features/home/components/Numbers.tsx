@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useLayoutEffect, createRef } from "react";
+import React, { useMemo, useRef, useLayoutEffect, createRef } from "react";
 import { animateNumbers } from "@/animations/numbersAnimation";
 
 const STATS = [
@@ -12,16 +12,13 @@ const STATS = [
 
 const Numbers = () => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const numberRefs = useRef<React.RefObject<HTMLSpanElement | null>[]>([]);
-
-    if (numberRefs.current.length !== STATS.length) {
-        numberRefs.current = Array(STATS.length)
-            .fill(null)
-            .map((_, i) => numberRefs.current[i] || createRef<HTMLSpanElement>());
-    }
+    const numberRefs = useMemo(
+        () => STATS.map(() => createRef<HTMLSpanElement>()),
+        []
+    );
 
     useLayoutEffect(() => {
-        animateNumbers(containerRef, numberRefs.current, STATS.map(s => s.value));
+        animateNumbers(containerRef, numberRefs, STATS.map((s) => s.value));
     }, []);
 
     return (
@@ -36,7 +33,7 @@ const Numbers = () => {
                     {STATS.map((stat, index) => (
                         <div key={index} className="flex flex-col items-center">
                             <div className="text-4xl md:text-6xl font-bold mb-2 text-azm-green font-mono">
-                                <span ref={numberRefs.current[index] as React.RefObject<HTMLSpanElement>}>0</span>
+                                <span ref={numberRefs[index]}>0</span>
                                 {stat.suffix}
                             </div>
                             <p className="text-sm md:text-base text-gray-300 uppercase tracking-widest">

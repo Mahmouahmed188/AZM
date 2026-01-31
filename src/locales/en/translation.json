@@ -1,0 +1,17 @@
+{
+    "common": {
+        "welcome": "Welcome to AZM",
+        "language": "Language",
+        "contact": "Contact Us",
+        "services": "Services"
+    },
+    "nav": {
+        "home": "Home",
+        "about": "About Us",
+        "products": "Products",
+        "services": "Services",
+        "investors": "Investors",
+        "careers": "Careers",
+        "contact": "Contact Us"
+    }
+}

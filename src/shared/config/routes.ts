@@ -9,11 +9,11 @@ export const ROUTES = {
 } as const;
 
 export const NAV_LINKS = [
-    { label: 'الرئيسية', href: ROUTES.HOME },
-    { label: 'من نحن', href: ROUTES.ABOUT },
-    { label: 'منتجاتنا', href: ROUTES.PRODUCTS },
-    { label: 'خدماتنا', href: ROUTES.SERVICES },
-    { label: 'المستثمرين', href: ROUTES.INVESTORS },
-    { label: 'الوظائف', href: ROUTES.CAREERS },
-    { label: 'تواصل معنا', href: ROUTES.CONTACT },
+    { label: 'nav.home', href: ROUTES.HOME },
+    { label: 'nav.about', href: ROUTES.ABOUT },
+    { label: 'nav.products', href: ROUTES.PRODUCTS },
+    { label: 'nav.services', href: ROUTES.SERVICES },
+    { label: 'nav.investors', href: ROUTES.INVESTORS },
+    { label: 'nav.careers', href: ROUTES.CAREERS },
+    { label: 'nav.contact', href: ROUTES.CONTACT },
 ];

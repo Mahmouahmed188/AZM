@@ -1,0 +1,17 @@
+{
+    "common": {
+        "welcome": "مرحباً بكم في عزم",
+        "language": "اللغة",
+        "contact": "تواصل معنا",
+        "services": "خدماتنا"
+    },
+    "nav": {
+        "home": "الرئيسية",
+        "about": "من نحن",
+        "products": "منتجاتنا",
+        "services": "خدماتنا",
+        "investors": "المستثمرين",
+        "careers": "الوظائف",
+        "contact": "تواصل معنا"
+    }
+}

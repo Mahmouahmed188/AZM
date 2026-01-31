@@ -79,29 +79,10 @@ const CompanyCard = ({
     return (
         <div className={`company-card relative w-full h-[100vh] flex items-center justify-center p-4`}>
             <div className="relative w-full max-w-[1400px] flex flex-col md:flex-row items-stretch justify-around gap-0 md:gap-10">
-                {/* Left: Image Panel */}
-                <div className="relative w-full md:w-[35%] h-[50vh] md:h-[80vh] flex-shrink-0 self-center">
-                    <div className="w-full h-full relative overflow-hidden bg-gray-900 rounded-none md:rounded-[4px] shadow-2xl">
-                        <Image
-                            src={image}
-                            alt={title}
-                            fill
-                            className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-indigo-900/20 mix-blend-overlay" />
-                    </div>
-
-                    {icons && (
-                        <div className="absolute -bottom-1 -right-10 md:-right-19 z-30 w-auto">
-                            <LogosBar icons={icons} />
-                        </div>
-                    )}
-                </div>
-
-                {/* Right: Content Panel */}
-                <div className="relative w-full md:w-[40%] text-right self-center mt-[-50px] md:mt-0 z-20">
+                {/* Content Panel (Now First in Code -> Start/Right in RTL, Left in LTR) */}
+                <div className="relative w-full md:w-[40%] text-start self-center mt-[-50px] md:mt-0 z-20">
                     <div
-                        className="w-full text-white p-10 md:p-14 shadow-2xl flex flex-col items-end gap-6 min-h-[400px] md:min-h-[500px] justify-center relative rounded-[4px]"
+                        className="w-full text-white p-10 md:p-14 shadow-2xl flex flex-col items-start gap-6 min-h-[400px] md:min-h-[500px] justify-center relative rounded-[4px]"
                         style={{
                             backgroundColor: bg,
                             backgroundImage: bg ? "url('/group/Background Pattern.png')" : "url('/group/Background Pattern.png'), linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%)",
@@ -110,7 +91,7 @@ const CompanyCard = ({
                         }}
                     >
                         {logo && (
-                            <div className="md:top-8 md:right-8 opacity-90">
+                            <div className="md:top-8 md:start-8 opacity-90 absolute top-8 start-8">
                                 <div className="relative w-20 h-20">
                                     <Image
                                         src={logo}
@@ -132,6 +113,25 @@ const CompanyCard = ({
                             <CornerButton />
                         </div>
                     </div>
+                </div>
+
+                {/* Image Panel (Now Second in Code -> End/Left in RTL, Right in LTR) */}
+                <div className="relative w-full md:w-[35%] h-[50vh] md:h-[80vh] flex-shrink-0 self-center">
+                    <div className="w-full h-full relative overflow-hidden bg-gray-900 rounded-none md:rounded-[4px] shadow-2xl">
+                        <Image
+                            src={image}
+                            alt={title}
+                            fill
+                            className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-indigo-900/20 mix-blend-overlay" />
+                    </div>
+
+                    {icons && (
+                        <div className="absolute -bottom-1 -end-10 md:-end-19 z-30 w-auto">
+                            <LogosBar icons={icons} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

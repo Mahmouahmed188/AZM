@@ -81,7 +81,7 @@ const Certifications = () => {
 
 
             {/* Horizontal Track Area */}
-            <div className="relative w-full flex justify-start">
+            <div className="relative w-full flex justify-end">
                 <div
                     ref={trackRef}
                     className="flex gap-10 md:gap-5 px-[10vw] items-end"
