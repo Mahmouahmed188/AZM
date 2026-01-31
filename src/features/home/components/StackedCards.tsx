@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useRef, useLayoutEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { useDirection } from "@/shared/hooks/useDirection";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,45 +13,50 @@ import { animateVisionStackedExperience } from "@/animations/stackedCardsAnimati
 // where refresh/kill calls affect the wrong instance and pinned sections appear "skipped".
 gsap.registerPlugin(ScrollTrigger);
 
-// 1. تبسيط واجهة البيانات لتستقبل الصورة فقط
+// Simplified data interface to receive only the image
 interface CardData {
   id: number;
   image: string;
-  alt: string;
+  altKey: string; // Use translation key instead of hardcoded text
 }
 
-// 2. تحديث البيانات لربطها بمسارات الصور الموجودة في مجلد public
-const cardsData: CardData[] = [
-  {
-    id: 1,
-    image: "/cards/Card 1.png", // تأكد أن اسم الصورة يطابق ملفك
-    alt: "منصة التركات",
-  },
-  {
-    id: 2,
-    image: "/cards/Card 2.png",
-    alt: "منصة شفاء",
-  },
-  {
-    id: 3,
-    image: "/cards/Card 3.png",
-    alt: "منصة عقارك",
-  },
-  {
-    id: 4,
-    image: "/cards/Card 4.png",
-    alt: "منصة نافذ",
-  },
-];
-
 const StackedCards = () => {
+  const { t } = useTranslation();
+  const { dir } = useDirection();
   const containerRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const charsRefs = useRef<HTMLSpanElement[]>([]);
 
-  const fullText =
-    "نبتكر الحلول الرقمية لنصنع أثراً ملموساً في حياة المجتمع، ونبني بعزمنا مستقبل المملكة الذكي.";
-  const words = useMemo(() => fullText.split(" "), []);
+  // Card data with translation keys
+  const cardsData: CardData[] = useMemo(() => [
+    {
+      id: 1,
+      image: "/cards/Card 1.png",
+      altKey: "stackedCards.cards.tarikat.alt",
+    },
+    {
+      id: 2,
+      image: "/cards/Card 2.png",
+      altKey: "stackedCards.cards.shifa.alt",
+    },
+    {
+      id: 3,
+      image: "/cards/Card 3.png",
+      altKey: "stackedCards.cards.aqarik.alt",
+    },
+    {
+      id: 4,
+      image: "/cards/Card 4.png",
+      altKey: "stackedCards.cards.nawaf.alt",
+    },
+  ], []);
+
+  const fullText = useMemo(() => 
+    t('stackedCards.visionText', 'نبتكر الحلول الرقمية لنصنع أثراً ملموساً في حياة المجتمع، ونبني بعزمنا مستقبل المملكة الذكي.'),
+    [t]
+  );
+  
+  const words = useMemo(() => fullText.split(" "), [fullText]);
 
   useLayoutEffect(() => {
     // Ensure charsRefs are clean before animation starts
@@ -87,7 +94,7 @@ const StackedCards = () => {
     <section
       ref={containerRef}
       className="cards-container relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#02050A]"
-      dir="rtl"
+      dir={dir}
     >
       {/* Background Layer (Vibrant Cinematic Gradient) */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#2141C9] via-[#5E2B7E] to-[#AB33FF]" />
@@ -108,7 +115,7 @@ const StackedCards = () => {
         </svg>
       </div>
 
-      {/* Layer 0: Vision Hero Text (ثابت كما هو) */}
+      {/* Layer 0: Vision Hero Text */}
       <div className="absolute inset-0 flex items-center justify-center px-6 md:px-12 text-center z-0">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight md:leading-snug">
           {words.map((word, wordIndex) => (
@@ -155,7 +162,7 @@ const StackedCards = () => {
             <div className="relative w-full h-full">
               <Image
                 src={card.image}
-                alt={card.alt}
+                alt={t(card.altKey)}
                 fill
                 className="object-cover"
                 priority={index === 0}

@@ -46,5 +46,22 @@
                 "label": "From both government and private sectors"
             }
         }
+    },
+    "stackedCards": {
+        "visionText": "We create digital solutions to make a tangible impact on society's life, building with determination the smart Kingdom's future.",
+        "cards": {
+            "tarikat": {
+                "alt": "Tarikat Platform"
+            },
+            "shifa": {
+                "alt": "Shifa Platform"
+            },
+            "aqarik": {
+                "alt": "Aqarik Platform"
+            },
+            "nawaf": {
+                "alt": "Nawaf Platform"
+            }
+        }
     }
 }
