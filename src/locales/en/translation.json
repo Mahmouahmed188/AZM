@@ -13,5 +13,38 @@
         "investors": "Investors",
         "careers": "Careers",
         "contact": "Contact Us"
+    },
+    "hero": {
+        "title": "Digital Solutions",
+        "subtitle": "For a Better Quality of",
+        "highlight": "Life",
+        "description": "A leading company in information technology, we contribute to improving quality of life by providing innovative solutions in business and technology.",
+        "certifications": {
+            "tadawul": {
+                "title": "Tadawul – Saudi Stock Exchange",
+                "subtitle": "Listed Company"
+            },
+            "gptw": {
+                "subtitle": "Best Workplace Certificate"
+            },
+            "platinum": {
+                "title": "Platinum",
+                "subtitle": "Certified Service Provider by Digital Government Authority"
+            }
+        },
+        "stats": {
+            "projects": {
+                "unit": "Billion",
+                "label": "Total project value over the past four years"
+            },
+            "products": {
+                "unit": "Products",
+                "label": "Digital platforms and solutions"
+            },
+            "clients": {
+                "unit": "Clients",
+                "label": "From both government and private sectors"
+            }
+        }
     }
 }

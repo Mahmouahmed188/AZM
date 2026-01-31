@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDirection } from "@/shared/hooks/useDirection";
 
 interface StatItemProps {
     number: number;
@@ -10,6 +11,7 @@ interface StatItemProps {
 const StatItem = ({ number, unit, label, decimals = false }: StatItemProps) => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
+    const { dir, isRTL } = useDirection();
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -25,6 +27,7 @@ const StatItem = ({ number, unit, label, decimals = false }: StatItemProps) => {
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            dir={dir}
         >
             <div
                 className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500 ease-in-out"
@@ -34,9 +37,9 @@ const StatItem = ({ number, unit, label, decimals = false }: StatItemProps) => {
                 }}
             />
 
-            <div className="relative flex flex-col items-end justify-center h-[168px] px-12 py-9">
-                <div className="flex flex-row-reverse items-baseline gap-1 z-10">
-                    <div className="flex flex-row-reverse items-baseline">
+            <div className="relative flex flex-col items-start justify-center h-[168px] px-12 py-9">
+                <div className="flex flex-row items-baseline gap-1 z-10">
+                    <div className="flex flex-row items-baseline">
                         <span className="text-[48px] leading-[60px] font-normal text-white tracking-tighter stat-plus">+</span>
                         <span
                             className="text-[48px] leading-[60px] font-normal text-white tracking-tighter stat-value"
@@ -46,19 +49,22 @@ const StatItem = ({ number, unit, label, decimals = false }: StatItemProps) => {
                             0
                         </span>
                     </div>
-                    <span className="text-[48px] leading-[60px] font-normal text-white mr-2 stat-unit">{unit}</span>
+                    <span className="text-[48px] leading-[60px] font-normal text-white ms-2 stat-unit">{unit}</span>
                 </div>
 
-                <p className="mt-3 text-sm leading-5 text-white/50 text-right font-normal z-10 max-w-full stat-label">
+                <p className="mt-3 text-sm leading-5 text-white/50 font-normal z-10 max-w-full ">
                     {label}
                 </p>
 
-                <div className="absolute inset-y-0 left-0 w-[1.9px] bg-[#7278B84A] side-line-left"></div>
-                <div className="absolute inset-y-0 right-0 w-[1.5px] bg-[#7278B84A] side-line-right"></div>
+                <div className="absolute inset-y-0 start-0 w-[1.9px] bg-[#7278B84A] side-line-start"></div>
+                <div className="absolute inset-y-0 end-0 w-[1.5px] bg-[#7278B84A] side-line-end"></div>
             </div>
 
             <div className="relative w-full">
-                <div className="h-[1.9px] bg-[#7278B84A] bottom-line" style={{ transformOrigin: "right" }}></div>
+                <div
+                    className="h-[1.9px] bg-[#7278B84A] bottom-line"
+                    style={{ transformOrigin: isRTL ? "left" : "right" }}
+                ></div>
             </div>
         </div>
     );

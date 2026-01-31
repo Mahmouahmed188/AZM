@@ -1,25 +1,34 @@
 import React, { forwardRef } from "react";
+import { useTranslation } from "react-i18next";
+import { useDirection } from "@/shared/hooks/useDirection";
 
 interface HeroTitleProps {
     swirlRef: React.RefObject<SVGSVGElement | null>;
 }
 
 const HeroTitle = forwardRef<HTMLDivElement, HeroTitleProps>(({ swirlRef }, ref) => {
+    const { t } = useTranslation();
+    const { dir } = useDirection();
+
     return (
-        <div ref={ref} className="max-w-[1200px] w-full text-right" dir="rtl">
+        <div ref={ref} className="max-w-[1200px] w-full" dir={dir}>
             <div className="title-line flex items-center justify-start gap-4 mb-4">
-                <span className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none"> حلول رقمية</span>
+                <span className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none">
+                    {t('hero.title', 'حلول رقمية')}
+                </span>
             </div>
             <div className="title-line flex items-center justify-start gap-4">
                 <span className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none">—</span>
-                <span className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight">لجودة حياة</span>
+                <span className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight">
+                    {t('hero.subtitle', 'لجودة حياة')}
+                </span>
                 <div className="relative inline-block">
                     <span className="relative text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight z-10">
-                        أفضل
+                        {t('hero.highlight', 'أفضل')}
                     </span>
                     <svg
                         ref={swirlRef}
-                        className="absolute -top-[30%] -left-[9%] w-[120%] h-auto pointer-events-none"
+                        className="absolute -top-[30%] -start-[9%] w-[120%] h-auto pointer-events-none"
                         viewBox="0 0 277 132"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
