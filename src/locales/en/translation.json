@@ -100,5 +100,23 @@
         "subtitle": "Discover Job Opportunities at AZM",
         "description": "Be a partner in making a positive impact on people's lives through innovative business and technology solutions that make a real difference.",
         "button": "Join Us"
+    },
+    "news": {
+        "title": "AZM News",
+        "moreButton": "More",
+        "items": {
+            "item1": {
+                "date": "December 24, 2025",
+                "title": "AZM Saudi Arabia Ranked First in Digital Authentication Service Providers Compliance Index at (89.24%)"
+            },
+            "item2": {
+                "date": "September 2, 2025",
+                "title": "AZM Saudi Arabia Announces Annual Financial Results and Record Growth in Digital Solutions Sector"
+            },
+            "item3": {
+                "date": "January 15, 2026",
+                "title": "Our presence reflects our deep commitment to supporting the national digital transformation journey and fostering a culture of innovation."
+            }
+        }
     }
 }

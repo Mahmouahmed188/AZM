@@ -1,40 +1,43 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import LazyImage from "@/shared/components/common/LazyImage";
 
 interface NewsItem {
     id: number;
-    date: string;
-    title: string;
+    dateKey: string;
+    titleKey: string;
     image: string;
 }
 
-const newsData: NewsItem[] = [
-    {
-        id: 1,
-        date: "24 ديسمبر 2025",
-        title: "تُتوج عزم السعودية بالمركز الأول في مؤشر التزام الشركات المرخصة لتقديم خدمات التصديق الرقمي بنسبة (89.24%)",
-        image: "/azm_news_sample.png",
-    },
-    {
-        id: 2,
-        date: "Sep 2, 2025",
-        title: "عزم السعودية تعلن عن نتائجها المالية السنوية وتحقيق نمو قياسي في قطاع الحلول الرقمية",
-        image: "/imageNews.png",
-    },
-    {
-        id: 3,
-        date: "15 يناير 2026",
-        title: "تواجدنا يعكس التزامنا الراسخ بدعم مسيرة التحول الرقمي الوطني و تعزيز ثقافة الابتكار.",
-        image: "/News2.jpg",
-    },
-];
-
 const NewsCarousel: React.FC = () => {
+    const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    // News data with translation keys
+    const newsData: NewsItem[] = useMemo(() => [
+        {
+            id: 1,
+            dateKey: "news.items.item1.date",
+            titleKey: "news.items.item1.title",
+            image: "/azm_news_sample.png",
+        },
+        {
+            id: 2,
+            dateKey: "news.items.item2.date",
+            titleKey: "news.items.item2.title",
+            image: "/imageNews.png",
+        },
+        {
+            id: 3,
+            dateKey: "news.items.item3.date",
+            titleKey: "news.items.item3.title",
+            image: "/News2.jpg",
+        },
+    ], []);
 
     const nextSlide = () => {
         setCurrentIndex((prev) => (prev === newsData.length - 1 ? 0 : prev + 1));
@@ -52,7 +55,7 @@ const NewsCarousel: React.FC = () => {
                 {/* News Title & Navigation */}
                 <div className="absolute lg:left-[944px] lg:top-[410px] lg:min-w-[385px] w-full z-20 flex items-end justify-between gap-6 lg:w-auto static lg:absolute mb-8 lg:mb-0">
                     <h2 className="text-[#000F26] text-4xl lg:text-5xl font-medium leading-tight text-right">
-                        أخبار عزم
+                        {t('news.title', 'أخبار عزم')}
                     </h2>
                     <div className="flex gap-4">
                         <button
@@ -90,7 +93,7 @@ const NewsCarousel: React.FC = () => {
                             >
                                 <Image
                                     src={currentItem.image}
-                                    alt={currentItem.title}
+                                    alt={t(currentItem.titleKey)}
                                     fill
                                     className="object-cover"
                                     priority
@@ -109,7 +112,7 @@ const NewsCarousel: React.FC = () => {
                     >
                         {/* Date */}
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-white text-lg lg:text-xl font-normal opacity-90">{currentItem.date}</span>
+                            <span className="text-white text-lg lg:text-xl font-normal opacity-90">{t(currentItem.dateKey)}</span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 11H4V20C4 20.5523 4.44771 21 5 21H19C19.5523 21 20 20.5523 20 20V11ZM8.00977 17C8.56205 17 9.00977 17.4477 9.00977 18C9.00977 18.5523 8.56205 19 8.00977 19H8C7.44772 19 7 18.5523 7 18C7 17.4477 7.44772 17 8 17H8.00977ZM12.0098 17C12.5621 17 13.0098 17.4477 13.0098 18C13.0098 18.5523 12.5621 19 12.0098 19H12C11.4477 19 11 18.5523 11 18C11 17.4477 11.4477 17 12 17H12.0098ZM16.0098 17C16.5621 17 17.0098 17.4477 17.0098 18C17.0098 18.5523 16.5621 19 16.0098 19H16C15.4477 19 15 18.5523 15 18C15 17.4477 15.4477 17 16 17H16.0098ZM8.00977 13C8.56205 13 9.00977 13.4477 9.00977 14C9.00977 14.5523 8.56205 15 8.00977 15H8C7.44772 15 7 14.5523 7 14C7 13.4477 7.44772 13 8 13H8.00977ZM12.0098 13C12.5621 13 13.0098 13.4477 13.0098 14C13.0098 14.5523 12.5621 15 12.0098 15H12C11.4477 15 11 14.5523 11 14C11 13.4477 11.4477 13 12 13H12.0098ZM16.0098 13C16.5621 13 17.0098 13.4477 17.0098 14C17.0098 14.5523 16.5621 15 16.0098 15H16C15.4477 15 15 14.5523 15 14C15 13.4477 15.4477 13 16 13H16.0098ZM15 6V5H9V6C9 6.55228 8.55228 7 8 7C7.44772 7 7 6.55228 7 6V5H5C4.44772 5 4 5.44772 4 6V9H20V6C20 5.44771 19.5523 5 19 5H17V6C17 6.55228 16.5523 7 16 7C15.4477 7 15 6.55228 15 6ZM22 20C22 21.6569 20.6569 23 19 23H5C3.34315 23 2 21.6569 2 20V6C2 4.34315 3.34315 3 5 3H7V2C7 1.44772 7.44772 1 8 1C8.55228 1 9 1.44772 9 2V3H15V2C15 1.44772 15.4477 1 16 1C16.5523 1 17 1.44772 17 2V3H19C20.6569 3 22 4.34315 22 6V20Z" fill="white"></path>
                             </svg>
@@ -117,12 +120,12 @@ const NewsCarousel: React.FC = () => {
 
                         {/* Title */}
                         <h3 className="text-white text-2xl lg:text-3xl font-medium leading-relaxed mb-8 max-w-[512px]">
-                            {currentItem.title}
+                            {t(currentItem.titleKey)}
                         </h3>
 
                         {/* More Button */}
                         <div className="mt-auto group cursor-pointer relative inline-flex items-center gap-8 self-start px-6 py-4">
-                            <span className="text-white text-lg font-medium relative z-10">المزيد</span>
+                            <span className="text-white text-lg font-medium relative z-10">{t('news.moreButton', 'المزيد')}</span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10 group-hover:-translate-y-1 group-hover:translate-x-[-2px] transition-transform">
                                 <path d="M6 17V7C6 6.44772 6.44772 6 7 6H17C17.5523 6 18 6.44772 18 7C18 7.55228 17.5523 8 17 8H9.41406L17.707 16.293C18.0976 16.6835 18.0976 17.3165 17.707 17.707C17.3165 18.0976 16.6835 18.0976 16.293 17.707L8 9.41406V17C8 17.5523 7.55228 18 7 18C6.44772 18 6 17.5523 6 17Z" fill="white"></path>
                             </svg>
