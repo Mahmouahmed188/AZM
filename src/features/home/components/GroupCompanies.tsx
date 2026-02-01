@@ -18,7 +18,7 @@ const fonts = {
 
 const BackgroundText = () => {
     const { t } = useTranslation();
-    
+
     return (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <h1
@@ -32,7 +32,7 @@ const BackgroundText = () => {
 
 const CornerButton = () => {
     const { t } = useTranslation();
-    
+
     return (
         <button className="group flex items-center gap-3 relative cursor-pointer">
             <div className="absolute -bottom-2 -left-2 w-4 h-4 border-l-2 border-b-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-bl-lg" />
@@ -48,13 +48,16 @@ const CornerButton = () => {
 
 const LogosBar = ({ className = "", icons }: { className?: string, icons?: { titleKey: string, icon: string[] } }) => {
     const { t } = useTranslation();
-    
+
     if (!icons) return null;
     return (
-        <div className={`bg-[#e2e8f0]/90 backdrop-blur-md shadow-lg rounded-lg py-4 px-8 flex items-center gap-6 md:gap-10 justify-between min-w-[340px] ${className}`}>
+        <div className={`bg-[#FFFFFF]/90 backdrop-blur-md shadow-lg rounded-lg py-4 px-8 flex items-center gap-6 md:gap-10 justify-between min-w-[340px] max-w-[590px] ${className}`}>
+            <span className="text-gray-900 text-sm font-medium mr-auto" style={{ fontFamily: fonts.tajawal }}>
+                {t(icons.titleKey)}
+            </span>
             <div className="flex items-center gap-6">
                 {icons.icon.map((src, idx) => (
- 
+
                     <div key={idx} className="flex items-center">
                         <div className="relative w-20 h-12">
                             <Image src={src} alt={`Logo ${idx}`} fill className="object-contain" />
@@ -63,9 +66,6 @@ const LogosBar = ({ className = "", icons }: { className?: string, icons?: { tit
                     </div>
                 ))}
             </div>
-            <span className="text-gray-500 text-sm font-medium mr-auto" style={{ fontFamily: fonts.tajawal }}>
-                {t(icons.titleKey)}
-            </span>
         </div>
     );
 };
@@ -88,7 +88,7 @@ const CompanyCard = ({
     bg?: string;
 }) => {
     const { t } = useTranslation();
-    
+
     return (
         <div className={`company-card relative w-full h-[100vh] flex items-center justify-center p-4`}>
             <div className="relative w-full max-w-[1400px] flex flex-col md:flex-row items-stretch justify-around gap-0 md:gap-10">
@@ -141,7 +141,7 @@ const CompanyCard = ({
                     </div>
 
                     {icons && (
-                        <div className="absolute -bottom-1 -end-10 md:-end-19 z-30 w-auto">
+                        <div className="absolute -bottom-0 -start-20 md:-start-32 z-30 w-auto">
                             <LogosBar icons={icons} />
                         </div>
                     )}
