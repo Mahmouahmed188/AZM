@@ -154,5 +154,12 @@
         "address": "مبنى رقم 23، ليسن فالي، طريق الملك خالد - الرياض - المملكة العربية السعودية",
         "email": "info@azm.sa",
         "phone": "966-112884141"
+    },
+    "globalFooter": {
+        "arcAlt": "Arc Background",
+        "logoAlt": "Saudi Azm",
+        "copyright": "جميع الحقوق محفوظة © 2026 عزم السعودية.",
+        "privacyPolicy": "سياسة الخصوصية",
+        "termsAndConditions": "الشروط والأحكام"
     }
 }

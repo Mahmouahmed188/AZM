@@ -154,5 +154,12 @@
         "address": "Building No. 23, Laysen Valley, King Khalid Road - Riyadh - Kingdom of Saudi Arabia",
         "email": "info@azm.sa",
         "phone": "966-112884141"
+    },
+    "globalFooter": {
+        "arcAlt": "Arc Background",
+        "logoAlt": "Saudi Azm",
+        "copyright": "All rights reserved © 2026 AZM Saudi Arabia.",
+        "privacyPolicy": "Privacy Policy",
+        "termsAndConditions": "Terms and Conditions"
     }
 }
