@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import "./globals.css";
-import SmoothScrolling from "@/shared/components/common/SmoothScrolling";
 
 const tajawal = Tajawal({
   subsets: ["arabic"],
@@ -35,6 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${tajawal.variable} ${rubik.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="icon" type="image/png" sizes="32x32" href="/headicon.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/headicon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/headicon.png" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
       </head>
       <body className="antialiased bg-azm-dark text-white overflow-x-hidden" suppressHydrationWarning>
