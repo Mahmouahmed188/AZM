@@ -169,19 +169,54 @@
         "email": "info@azm.sa",
         "phone": "966-112884141"
     },
-    "contactForm": {
-        "subtitle": "Please provide the following information, and we will connect you with the appropriate person.",
-        "nameLabel": "Name",
-        "namePlaceholder": "Please enter your full name here...",
-        "emailLabel": "Email",
-        "emailPlaceholder": "Please enter your email here...",
-        "phoneLabel": "Phone",
-        "phonePlaceholder": "+000 00 000 0000",
-        "messageLabel": "Message",
-        "messagePlaceholder": "Please enter your message content here...",
-        "submitButton": "Send"
-    },
-    "contactPage": {
-        "mapAlt": "Map Background"
+        "contactForm": {
+            "subtitle": "Please provide the following information, and we will connect you with the appropriate person.",
+            "nameLabel": "Name",
+            "namePlaceholder": "Please enter your full name here...",
+            "emailLabel": "Email",
+            "emailPlaceholder": "Please enter your email here...",
+            "phoneLabel": "Phone",
+            "phonePlaceholder": "+000 00 000 0000",
+            "messageLabel": "Message",
+            "messagePlaceholder": "Please enter your message content here...",
+            "submitButton": "Send"
+        },
+        "services": {
+            "title": "Our Services",
+            "subtitle": "We are moving forward with our strategic initiatives, where we have restructured our business operations to better reflect our company's activities. The business operations have been redesigned as follows:",
+            "technical": {
+                "title": "Technical Services",
+                "description": "Services that include support, operation, maintenance, ICT, digitization, and procurement of equipment and supplies."
+            },
+            "consulting": {
+                "title": "Technical Consulting",
+                "description": "Providing technical consulting services and application consulting services."
+            },
+            "development": {
+                "title": "Development Services",
+                "description": "What is being developed and invented of products, solutions, and services to serve government sector, financial sector, digital correspondence, and procedures management."
+            },
+            "platforms": {
+                "title": "Platforms Development",
+                "description": "Designing, building, developing, and operating the company's platforms, including PPP projects with the public sector."
+            }
+        },
+        "contributions": {
+            "title": "Our Community Contributions",
+            "description": "AZM Saudi is committed to its social responsibilities through a clear vision and is working to establish sustainable partnerships with the various communities it works with, ensuring it provides social responsibility programs that generate tangible economic and social impact.",
+            "professional": {
+                "title": "Professional Development",
+                "description": "This portfolio focuses on professional development through providing training options and establishing continuous education for its employees, along with creating an encouraging work environment that helps them grow professionally and personally."
+            },
+            "community": {
+                "title": "Community Partnership",
+                "description": "Through this portfolio, AZM Saudi reaches out to various communities to build sustainable partnerships with community institutions and civil society organizations, providing them with various forms of support, both digital and material."
+            },
+            "initiatives": {
+                "title": "Strategic Initiatives",
+                "description": "AZM Saudi launches general initiatives under this portfolio that serve all segments of society with different community service programs that are aimed at raising awareness, education, health, environment, culture, and others."
+            }
+        }
     }
+}
 }
