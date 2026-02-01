@@ -30,7 +30,7 @@ function StatCell({ value, label, valueClassName = "", className = "" }: StatCel
       >
         {value}
       </div>
-      <div className="mt-4 text-white/70 text-[16px] leading-[1.6] text-right">{label}</div>
+      <div className="mt-4 text-white/70 text-[16px] leading-[1.6]">{label}</div>
     </div>
   );
 }

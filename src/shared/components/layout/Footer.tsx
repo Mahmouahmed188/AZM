@@ -21,7 +21,7 @@ const Footer = () => {
                 />
 
                 {/* Floating Contact Card - Positioned relative to this section */}
-                <div className="absolute inset-0 container my-16 mx-auto px-6 lg:px-[112px] justify-start z-20">
+                <div className="absolute inset-0 container my-16 mx-auto px-6 lg:px-[112px] flex justify-end z-20">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -46,7 +46,7 @@ const Footer = () => {
                                         <path d="M10 0C6.13 0 3 3.13 3 7c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#E38CFF" />
                                     </svg>
                                 </div>
-                                <p className="text-white text-[16px] leading-[1.7] font-medium font-tajawal text-right">
+                                <p className="text-white text-[16px] leading-[1.7] font-medium font-tajawal">
                                     {t('footer.address', 'مبنى رقم 23، ليسن فالي، طريق الملك خالد - الرياض - المملكة العربية السعودية')}
                                 </p>
                             </div>

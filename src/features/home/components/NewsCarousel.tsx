@@ -54,7 +54,7 @@ const NewsCarousel: React.FC = () => {
 
                 {/* News Title & Navigation */}
                 <div className="absolute lg:left-[944px] lg:top-[410px] lg:min-w-[385px] w-full z-20 flex items-end justify-between gap-6 lg:w-auto static lg:absolute mb-8 lg:mb-0">
-                    <h2 className="text-[#000F26] text-4xl lg:text-5xl font-medium leading-tight text-right">
+                    <h2 className="text-[#000F26] text-4xl lg:text-5xl font-medium leading-tight">
                         {t('news.title', 'أخبار عزم')}
                     </h2>
                     <div className="flex gap-4">
@@ -108,7 +108,7 @@ const NewsCarousel: React.FC = () => {
                         whileInView={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                         viewport={{ once: true }}
-                        className="absolute lg:left-[736px] lg:top-[502px] left-4 bottom-[-100px] lg:bottom-auto w-[calc(100%-32px)] lg:w-[592px] min-h-[356px] bg-[#012D74] p-8 lg:p-12 flex flex-col justify-center items-starttext-right z-10"
+                        className="absolute lg:left-[736px] lg:top-[502px] left-4 bottom-[-100px] lg:bottom-auto w-[calc(100%-32px)] lg:w-[592px] min-h-[356px] bg-[#012D74] p-8 lg:p-12 flex flex-col justify-center items-start z-10"
                     >
                         {/* Date */}
                         <div className="flex items-center gap-3 mb-6">
