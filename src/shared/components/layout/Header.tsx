@@ -152,11 +152,8 @@ const Header = () => {
                         <button className="lg:hidden text-white p-2" onClick={() => setMobileMenuOpen(true)}>
                             <Menu size={24} />
                         </button>
-
-                        <div className="hidden lg:block">
-                            <LanguageSwitcher />
-                        </div>
                     </div>
+                    <LanguageSwitcher />
 
                 </div>
                 <div className="absolute bottom-0 start-0 w-full h-px bg-[#7278B8]/16" />

@@ -30,13 +30,16 @@ export default function LanguageSwitcher() {
     }
 
     return (
-        <button
-            onClick={toggleLanguage}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-sm font-medium"
-            aria-label="Toggle language"
+        <div onClick={toggleLanguage}
+            className="hidden lg:flex items-center justify-center w-20 h-full border-l border-r border-[#7278B8]/16 hover:bg-[#7278B8]/16 transition-colors cursor-pointer"
         >
-            <Globe className="w-4 h-4" />
-            <span>{i18n.language === 'en' ? 'AR' : 'EN'}</span>
-        </button>
+            <button
+                className="text-white font-tajawal text-sm font-medium hover:text-white/80 transition-colors"
+                aria-label="Toggle language"
+            >
+                {/* <Globe classNam e="w-4 h-4" /> */}
+                <span className='cursor-pointer'>{i18n.language === 'en' ? 'AR' : 'EN'}</span>
+            </button>
+        </div>
     );
 }
