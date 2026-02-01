@@ -37,7 +37,6 @@ export default function LanguageSwitcher() {
                 className="text-white font-tajawal text-sm font-medium hover:text-white/80 transition-colors"
                 aria-label="Toggle language"
             >
-                {/* <Globe classNam e="w-4 h-4" /> */}
                 <span className='cursor-pointer'>{i18n.language === 'en' ? 'AR' : 'EN'}</span>
             </button>
         </div>
