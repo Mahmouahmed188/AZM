@@ -26,14 +26,11 @@ const ContactUsPage = () => {
 
             {/* Content Container */}
             <div className="relative z-10 mx-auto max-w-[1440px] flex flex-col lg:flex-row-reverse justify-between items-center gap-12 lg:gap-0 mt-10 md:mt-20">
-                {/* Right Section: Title and Info */}
-                <div className="w-full lg:w-1/2 flex justify-end">
-                    <ContactInfo />
-                </div>
-
-                {/* Left Section: Form */}
                 <div className="w-full lg:w-1/2 flex justify-start">
                     <ContactForm />
+                </div>
+                <div className="w-full lg:w-1/2 flex ">
+                    <ContactInfo />
                 </div>
             </div>
         </section>

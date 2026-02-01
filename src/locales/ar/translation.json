@@ -161,5 +161,27 @@
         "copyright": "جميع الحقوق محفوظة © 2026 عزم السعودية.",
         "privacyPolicy": "سياسة الخصوصية",
         "termsAndConditions": "الشروط والأحكام"
+    },
+    "contactInfo": {
+        "headline": "نسعد بتواصلك والرد",
+        "subline": "على كافة استفساراتك.",
+        "address": "مبنى رقم 23 ليسن فالي، طريق الملك خالد - الرياض - المملكة العربية السعودية",
+        "email": "info@azm.sa",
+        "phone": "966-112884141"
+    },
+    "contactForm": {
+        "subtitle": "يرجى تقديم المعلومات التالية، وسنقوم بتوصيلك بالشخص المناسب.",
+        "nameLabel": "الاسم",
+        "namePlaceholder": "يرجي ادخال الاسم بالكامل هنا...",
+        "emailLabel": "البريد الإلكتروني",
+        "emailPlaceholder": "يرجي ادخال بريدك الإلكتروني هنا...",
+        "phoneLabel": "الهاتف",
+        "phonePlaceholder": "+000 00 000 0000",
+        "messageLabel": "الرسالة",
+        "messagePlaceholder": "يرجي ادخال محتوى رسالتك هنا...",
+        "submitButton": "ارسال"
+    },
+    "contactPage": {
+        "mapAlt": "Map Background"
     }
 }

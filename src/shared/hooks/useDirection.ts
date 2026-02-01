@@ -1,16 +1,21 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export function useDirection() {
     const { i18n } = useTranslation();
-    const [dir, setDir] = useState<'rtl' | 'ltr'>(i18n.dir());
+    // Default to 'rtl' to avoid hydration mismatch, will be corrected on client
+    const [dir, setDir] = useState<'rtl' | 'ltr'>('rtl');
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         const currentDir = i18n.dir(i18n.language);
         setDir(currentDir);
         document.documentElement.dir = currentDir;
         document.documentElement.lang = i18n.language;
     }, [i18n.language]);
 
-    return { dir, isRTL: dir === 'rtl', isLTR: dir === 'ltr' };
+    return { dir, isRTL: dir === 'rtl', isLTR: dir === 'ltr', mounted };
 }
