@@ -10,6 +10,7 @@ import { useGSAP } from "@gsap/react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import LanguageSwitcher from "@/shared/components/common/LanguageSwitcher";
+import TransitionLink from "@/shared/components/transitions/TransitionLink";
 
 import { usePathname } from "next/navigation";
 import { NAV_LINKS, ROUTES } from "@/shared/config/routes";
@@ -110,7 +111,7 @@ const Header = () => {
 
                     {/* Logo (Start) - Right in AR, Left in EN */}
                     <div className="flex-shrink-0 flex items-center justify-center lg:justify-start">
-                        <Link href={ROUTES.HOME} className="relative block w-[140px] lg:w-[214px] h-9 lg:h-20 transition-transform duration-500 hover:scale-105">
+                        <TransitionLink href={ROUTES.HOME} className="relative block w-[140px] lg:w-[214px] h-9 lg:h-20 transition-transform duration-500 hover:scale-105">
                             <Image
                                 src="/logo-area.png"
                                 alt="Saudi AZM Logo"
@@ -118,14 +119,14 @@ const Header = () => {
                                 className="object-contain object-center lg:object-start"
                                 priority
                             />
-                        </Link>
+                        </TransitionLink>
                     </div>
 
                     {/* Navigation Menu (Center) */}
                     <div className="hidden lg:flex flex-1 items-center justify-center px-4">
                         <nav className="flex items-center gap-12">
                             {mounted && NAV_ITEMS.map((item) => (
-                                <Link
+                                <TransitionLink
                                     key={item.label}
                                     href={item.href}
                                     className={cn(
@@ -142,7 +143,7 @@ const Header = () => {
                                             transition={{ duration: 0.5, ease: "easeInOut" }}
                                         />
                                     )}
-                                </Link>
+                                </TransitionLink>
                             ))}
                         </nav>
                     </div>
@@ -178,17 +179,17 @@ const Header = () => {
                             </button>
                             <div className="flex flex-col gap-10">
                                 {mounted && NAV_ITEMS.map((item) => (
-                                    <Link
+                                    <TransitionLink
                                         key={item.label}
                                         href={item.href}
-                                        onClick={() => { setMobileMenuOpen(false); }}
                                         className={cn(
                                             "font-tajawal text-2xl font-medium",
                                             pathname === item.href ? "text-white" : "text-white/40"
                                         )}
+                                        onClick={() => { setMobileMenuOpen(false); }}
                                     >
                                         {t(item.label)}
-                                    </Link>
+                                    </TransitionLink>
                                 ))}
 
                             </div>

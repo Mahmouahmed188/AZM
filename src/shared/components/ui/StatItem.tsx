@@ -52,12 +52,12 @@ const StatItem = ({ number, unit, label, decimals = false }: StatItemProps) => {
                     <span className="text-[48px] leading-[60px] font-normal text-white ms-2 stat-unit">{unit}</span>
                 </div>
 
-                <p className="mt-3 text-sm leading-5 text-white/50 font-normal z-10 max-w-full ">
+                <p className="mt-3 text-sm leading-5 text-white/50 font-normal z-10 max-w-full stat-label">
                     {label}
                 </p>
 
-                <div className="absolute inset-y-0 start-0 w-[1.9px] bg-[#7278B84A] side-line-start"></div>
-                <div className="absolute inset-y-0 end-0 w-[1.5px] bg-[#7278B84A] side-line-end"></div>
+                <div className="absolute inset-y-0 left-0 w-[1.9px] bg-[#7278B84A] side-line-left"></div>
+                <div className="absolute inset-y-0 right-0 w-[1.5px] bg-[#7278B84A] side-line-right"></div>
             </div>
 
             <div className="relative w-full">

@@ -217,6 +217,57 @@
                 "description": "AZM Saudi launches general initiatives under this portfolio that serve all segments of society with different community service programs that are aimed at raising awareness, education, health, environment, culture, and others."
             }
         }
+    },
+    "investors": {
+        "title": "Investor Relations",
+        "subtitle": "Stay updated on AZM Saudi stock developments, and all necessary information and data",
+        "listingDoc": "AZM Saudi Company for Communications and Information Technology listing document to the main market",
+        "contactInvestorRelations": "Contact Us - Investor Relations",
+        "email": "info@azm.sa",
+        "phone": "966-112884141",
+        "stockInfo": {
+            "stockPrice": "Stock Price",
+            "saudiRiyal": "Saudi Riyal",
+            "change": "0.16%",
+            "date": "January 25, 2026"
+        },
+        "tabs": {
+            "informationBulletin": "Information Bulletin",
+            "financialClaims": "Financial Claims",
+            "corporateGovernance": "Corporate Governance",
+            "stockInformation": "Stock Information",
+            "profitDistribution": "Profit Distribution",
+            "companyAnnouncements": "Company Announcements"
+        },
+        "marketData": {
+            "title": "Market: Tadawul",
+            "date": "January 25, 2026",
+            "currency": "Currency:",
+            "saudiRiyal": "Saudi Riyal",
+            "tradedShares": "Number of Traded Shares:",
+            "issuedShares": "Number of Issued Shares:",
+            "marketValue": "Market Value:",
+            "previousClosingPrice": "Previous Closing Price:",
+            "priceChangePercentage": "Price Change Percentage:"
+        },
+        "financialIndicators": {
+            "title": "Key Indicators (Million Saudi Riyal)",
+            "date": "January 25, 2026",
+            "netIncome": "Net Income:",
+            "priceToEarnings": "Price to Earnings:",
+            "yearStartPrice": "Year Start Price:",
+            "yearAgoPrice": "Price One Year Ago:",
+            "tradedSharesValue": "Value of Traded Shares:",
+            "tradedSharesQuantity": "Number of Traded Shares:"
+        },
+        "chartLabels": {
+            "june": "June",
+            "may": "May", 
+            "april": "April",
+            "february": "February",
+            "january": "January",
+            "march": "March"
+        }
     }
 }
 }

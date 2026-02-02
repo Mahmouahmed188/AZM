@@ -217,6 +217,57 @@
                 "description": "تندرج المبادرات العامة تحت هذا المحور حرصاً من عزم السعودية على تضمين كافة الأفكار التي تخدم المجتمع والتوعية العامة في مجالات مختلفة كالصحة والرياضة، والثقافة، والبيئة، وغيرها."
             }
         }
+    },
+    "investors": {
+        "title": "علاقات المستثمرين",
+        "subtitle": "ابق على اطلاع على تحدثات سهم عزم السعودية، وكافة المعلومات والبيانات اللازمة",
+        "listingDoc": "مستند إخفاق شركة عزم السعودية للإتصالات وتقنية المعلومات الى السوق الرئيسية",
+        "contactInvestorRelations": "اتصل بنا - علاقات المستثمرين",
+        "email": "info@azm.sa",
+        "phone": "966-112884141",
+        "stockInfo": {
+            "stockPrice": "سعر السهم",
+            "saudiRiyal": "ريال سعودي",
+            "change": "0.16%",
+            "date": "25 يناير 2026"
+        },
+        "tabs": {
+            "informationBulletin": "نشرة المعلومات",
+            "financialClaims": "المطالب المالية",
+            "corporateGovernance": "حوكمة الشركات",
+            "stockInformation": "معلومات حول السهم",
+            "profitDistribution": "توزيعات الأرباح",
+            "companyAnnouncements": "اعلانات الشركة"
+        },
+        "marketData": {
+            "title": "السوق: تداول",
+            "date": "25 يناير 2026",
+            "currency": "العملة:",
+            "saudiRiyal": "ريال سعودي",
+            "tradedShares": "كمية الأسهم المتداولة:",
+            "issuedShares": "عدد الأسهم المصدرة:",
+            "marketValue": "القيمة السوقية:",
+            "previousClosingPrice": "سعر الإغلاق السابق:",
+            "priceChangePercentage": "نسبة التغير في السعر:"
+        },
+        "financialIndicators": {
+            "title": "المؤشرات الرئيسية (مليون ريال سعودي)",
+            "date": "25 يناير 2026",
+            "netIncome": "صافي الدخل:",
+            "priceToEarnings": "السعر العائد:",
+            "yearStartPrice": "السعر بداية السنة:",
+            "yearAgoPrice": "السعر منذ سنة:",
+            "tradedSharesValue": "قيمة الأسهم المتداولة:",
+            "tradedSharesQuantity": "كمية الأسهم المتداولة:"
+        },
+        "chartLabels": {
+            "june": "يونيو",
+            "may": "مايو", 
+            "april": "ابريل",
+            "february": "فبراير",
+            "january": "يناير",
+            "march": "مارس"
+        }
     }
 }
 }

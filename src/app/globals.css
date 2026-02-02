@@ -23,6 +23,16 @@
   }
 }
 
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Lenis Smooth Scroll Recommended CSS */
 html.lenis, html.lenis body {
   height: auto;

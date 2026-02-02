@@ -25,6 +25,7 @@ import GlobalFooter from "@/shared/components/layout/GlobalFooter";
 import NextTopLoader from "nextjs-toploader";
 import { LoadingProvider } from "@/shared/components/providers/LoadingProvider";
 import I18nProvider from "@/shared/components/providers/I18nProvider";
+import TransitionLayout from "@/shared/components/transitions/TransitionLayout";
 
 export default function RootLayout({
   children,
@@ -53,15 +54,17 @@ export default function RootLayout({
         />
         <I18nProvider>
           <LoadingProvider>
-            {/* <SmoothScrolling> */}
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow w-full relative">
-                {children}
-              </main>
-              <GlobalFooter />
-            </div>
-            {/* </SmoothScrolling> */}
+            <TransitionLayout>
+              {/* <SmoothScrolling> */}
+              <div className="flex flex-col min-h-screen">
+                <Header />
+                <main className="flex-grow w-full relative">
+                  {children}
+                </main>
+                <GlobalFooter />
+              </div>
+              {/* </SmoothScrolling> */}
+            </TransitionLayout>
           </LoadingProvider>
         </I18nProvider>
       </body>
