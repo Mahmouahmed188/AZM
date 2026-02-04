@@ -297,24 +297,6 @@
             "financial": "Financial Sectors",
             "medical": "Medical Sectors",
             "commercial": "Commercial Sectors"
-        },
-        "financial": {
-            "title": "Financial Trading Platform",
-            "description": "Advanced platform for trading in financial markets with an easy-to-use interface and professional analysis tools to help you make smarter investment decisions.",
-            "stats": {
-                "activeUsers": {
-                    "value": "+1,383",
-                    "label": "Active Users"
-                },
-                "tradingVolume": {
-                    "value": "+348M",
-                    "label": "Trading Volume"
-                },
-                "support": {
-                    "value": "+24/7",
-                    "label": "Technical Support"
-                }
-            }
         }
     }
 }
