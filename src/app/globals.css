@@ -9,17 +9,17 @@
   html {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: var(--font-tajawal), 'Tajawal', sans-serif;
+    font-family: var(--font-rubik), 'Rubik', sans-serif;
     @apply antialiased;
   }
   
   body {
-    font-family: var(--font-tajawal), 'Tajawal', sans-serif;
+    font-family: var(--font-rubik), 'Rubik', sans-serif;
     @apply overflow-x-hidden;
   }
   
   * {
-    font-family: var(--font-tajawal), 'Tajawal', sans-serif;
+    font-family: var(--font-rubik), 'Rubik', sans-serif;
   }
 }
 

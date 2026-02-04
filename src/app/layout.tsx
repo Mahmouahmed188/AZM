@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { Tajawal } from "next/font/google";
+import { Rubik } from "next/font/google";
 import "./globals.css";
 
-const tajawal = Tajawal({
-  subsets: ["arabic"],
-  variable: "--font-tajawal",
-  weight: ["200", "300", "400", "500", "700", "800", "900"],
-});
-
-import { Rubik } from "next/font/google";
 const rubik = Rubik({
   subsets: ["arabic", "latin"],
   variable: "--font-rubik",
@@ -37,7 +30,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${tajawal.variable} ${rubik.variable}`}
+      className={`${rubik.variable}`}
       suppressHydrationWarning
     >
       <head>

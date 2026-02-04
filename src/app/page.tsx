@@ -11,12 +11,15 @@ import NewsCarousel from "@/features/home/components/NewsCarousel";
 import Footer from "@/shared/components/layout/Footer";
 
 export default function Home() {
-  const [introState, setIntroState] = useState<"unknown" | "show" | "hide">("unknown");
+  const [introState, setIntroState] = useState<"unknown" | "show" | "hide">(
+    "unknown",
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const shouldShowIntro = sessionStorage.getItem("azm:showIntroOnHome") === "1";
+    const shouldShowIntro =
+      sessionStorage.getItem("azm:showIntroOnHome") === "1";
     const nextState: "show" | "hide" = shouldShowIntro ? "show" : "hide";
 
     const timeoutId = window.setTimeout(() => {
@@ -33,7 +36,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between w-full bg-azm-dark relative">
-      {showIntro && (
+      {!showIntro && (
         <Intro
           onComplete={() => {
             setIntroState("hide");
@@ -44,9 +47,8 @@ export default function Home() {
 
       <div
         className={`w-full transition-opacity duration-1000
-          ${showIntro || !isResolved ? 'opacity-0 pointer-events-none' : 'opacity-100'}
-           `
-        }
+          ${showIntro || !isResolved ? "opacity-0 pointer-events-none" : "opacity-100"}
+           `}
         aria-hidden={showIntro || !isResolved}
       >
         {!showIntro && isResolved && (

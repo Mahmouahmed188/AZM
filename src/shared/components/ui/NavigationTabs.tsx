@@ -49,7 +49,7 @@ const NavigationTabs: React.FC<NavigationTabsProps> = ({
                   : "text-white/70 text-[16px] font-[500] hover:text-white hover:text-[17px]"
               }`}
               style={{
-                fontFamily: 'Tajawal, sans-serif'
+                fontFamily: 'Rubik, sans-serif'
               }}
             >
               {tab.label}
