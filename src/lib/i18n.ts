@@ -14,14 +14,16 @@ i18n
         )
     )
     .init({
-        fallbackLng: 'en',
+        lng: 'ar', // Force initial language to Arabic
+        fallbackLng: 'ar',
         supportedLngs: ['en', 'ar'],
         interpolation: {
             escapeValue: false, // React already safes from xss
         },
         detection: {
-            order: ['localStorage', 'navigator'],
+            order: ['localStorage'], // Remove navigator detection to prioritize default
             caches: ['localStorage'],
+            lookupLocalStorage: 'i18nextLng',
         },
         react: {
             useSuspense: true,

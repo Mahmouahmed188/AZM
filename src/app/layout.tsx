@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${tajawal.variable} ${rubik.variable}`} suppressHydrationWarning>
+    <html lang="ar" dir="rtl" className={`${tajawal.variable} ${rubik.variable}`} suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/headicon.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/headicon.png" />

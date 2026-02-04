@@ -10,21 +10,23 @@ interface PageRevealTriggerProps {
 }
 
 /**
- * Component that ensures the page reveal animation triggers properly.
- * Use this as a fallback or for pages that don't auto-reveal.
+ * Component that ensures entrance animation triggers properly after page load.
+ * With two-phase system, entrance is usually automatic when pathname changes.
+ * This component now serves as a safety net for edge cases.
  */
 export default function PageRevealTrigger({ 
   children, 
-  delay = 200,
+  delay = 100, // Reduced delay since entrance is now automatic
   forceReveal = false 
 }: PageRevealTriggerProps) {
-  const { endTransition, isTransitioning } = usePageTransition()
+  const { endTransition, isTransitioning, isExiting } = usePageTransition()
 
   useEffect(() => {
-    // Only trigger if we're transitioning or force is enabled
-    if ((isTransitioning || forceReveal)) {
+    // Only trigger entrance if we're transitioning but not in exit phase
+    // Or if force reveal is enabled (for testing/special cases)
+    if ((isTransitioning && !isExiting) || forceReveal) {
       const timer = setTimeout(() => {
-        console.log('🎯 PageRevealTrigger: Attempting to end transition')
+        console.log('🎯 PageRevealTrigger: Safety net triggered')
         endTransition()
       }, delay)
 
@@ -32,7 +34,7 @@ export default function PageRevealTrigger({
         clearTimeout(timer)
       }
     }
-  }, [isTransitioning, endTransition, delay, forceReveal])
+  }, [isTransitioning, isExiting, endTransition, delay, forceReveal])
 
   return <>{children}</>
 }

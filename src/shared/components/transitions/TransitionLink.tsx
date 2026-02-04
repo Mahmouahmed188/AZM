@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { usePageTransition } from './TransitionLayout'
-import { useRouter } from 'next/navigation'
 
 interface TransitionLinkProps {
   href: string
@@ -24,35 +23,32 @@ export default function TransitionLink({
   onClick
 }: TransitionLinkProps) {
   const { startTransition } = usePageTransition()
-  const router = useRouter()
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     
-    console.log(`🔗 Navigation clicked: ${href}`)
+    console.log('🔗 [TransitionLink] Click detected:', {
+      href,
+      currentPath: window.location.pathname,
+      timestamp: new Date().toISOString()
+    })
     
-    // Execute any custom onClick logic
+    // Execute any custom onClick logic first
     if (onClick) {
       onClick()
     }
     
-    // Start the transition (close the shutters)
-    startTransition()
+    // CRITICAL: Force-start the transition and navigation
+    startTransition(href)
     
-    // Navigate after shutter is covering
+    // IMMEDIATE BACKUP: Force navigation if transition doesn't work
     setTimeout(() => {
-      try {
-        if (replace) {
-          router.replace(href)
-        } else {
-          router.push(href)
-        }
-      } catch (error) {
-        console.error('Navigation failed:', error)
-        // Fallback to direct navigation
+      console.log('🚨 [BACKUP] Forcing navigation after 4s')
+      if (window.location.pathname !== new URL(href, window.location.origin).pathname) {
+        console.log('📍 [BACKUP] Executing window.location.href')
         window.location.href = href
       }
-    }, 100) // Increased delay to ensure shutters are in place
+    }, 4000) // 4 second backup
   }
 
   return (
