@@ -169,7 +169,7 @@
         "email": "info@azm.sa",
         "phone": "966-112884141"
     },
-        "contactForm": {
+    "contactForm": {
             "subtitle": "Please provide the following information, and we will connect you with the appropriate person.",
             "nameLabel": "Name",
             "namePlaceholder": "Please enter your full name here...",
@@ -180,8 +180,8 @@
             "messageLabel": "Message",
             "messagePlaceholder": "Please enter your message content here...",
             "submitButton": "Send"
-        },
-        "services": {
+    },
+    "services": {
             "title": "Our Services",
             "subtitle": "We are moving forward with our strategic initiatives, where we have restructured our business operations to better reflect our company's activities. The business operations have been redesigned as follows:",
             "technical": {
@@ -200,8 +200,8 @@
                 "title": "Platforms Development",
                 "description": "Designing, building, developing, and operating the company's platforms, including PPP projects with the public sector."
             }
-        },
-        "contributions": {
+    },
+    "contributions": {
             "title": "Our Community Contributions",
             "description": "AZM Saudi is committed to its social responsibilities through a clear vision and is working to establish sustainable partnerships with the various communities it works with, ensuring it provides social responsibility programs that generate tangible economic and social impact.",
             "professional": {
@@ -216,7 +216,6 @@
                 "title": "Strategic Initiatives",
                 "description": "AZM Saudi launches general initiatives under this portfolio that serve all segments of society with different community service programs that are aimed at raising awareness, education, health, environment, culture, and others."
             }
-        }
     },
     "investors": {
         "title": "Investor Relations",
@@ -267,7 +266,55 @@
             "february": "February",
             "january": "January",
             "march": "March"
+        },
+        "documents": {
+            "download": "Download",
+            "sideTitle": "Key Numbers",
+            "sideItems": {
+                "financialStatements": "Financial Statements",
+                "annualReports": "Annual Reports",
+                "corporateGovernance": "Corporate Governance",
+                "profitDistribution": "Profit Distributions",
+                "companyAnnouncements": "Company Announcements"
+            },
+            "tags": {
+                "statements2023": "Financial Statements 2023",
+                "annual2024": "Annual Report 2024"
+            },
+            "titles": {
+                "statementsPeriod2023": "Financial statements for the period ending 2023 (Arabic)",
+                "statementsSemi2023": "Semiannual financial statements 2023 (Arabic)",
+                "statementsQ32023": "Q3 2023 financial statements (Arabic)",
+                "annual2024": "Annual Report 2024"
+            }
+        }
+    },
+    "products": {
+        "title": "Our Products",
+        "noProducts": "No products in this category",
+        "categories": {
+            "all": "All Products",
+            "financial": "Financial Sectors",
+            "medical": "Medical Sectors",
+            "commercial": "Commercial Sectors"
+        },
+        "financial": {
+            "title": "Financial Trading Platform",
+            "description": "Advanced platform for trading in financial markets with an easy-to-use interface and professional analysis tools to help you make smarter investment decisions.",
+            "stats": {
+                "activeUsers": {
+                    "value": "+1,383",
+                    "label": "Active Users"
+                },
+                "tradingVolume": {
+                    "value": "+348M",
+                    "label": "Trading Volume"
+                },
+                "support": {
+                    "value": "+24/7",
+                    "label": "Technical Support"
+                }
+            }
         }
     }
-}
 }

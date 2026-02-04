@@ -1,46 +1,43 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface InvestorTabsProps {
-  onTabChange?: (tab: string) => void;
+  activeTab: string;
+  onTabChange: (tab: string) => void;
 }
 
-export function InvestorTabs({ onTabChange }: InvestorTabsProps) {
-  const { t } = useTranslation('investors');
-  const [activeTab, setActiveTab] = useState('informationBulletin');
+export function InvestorTabs({ activeTab, onTabChange }: InvestorTabsProps) {
+  const { t } = useTranslation();
 
   const tabs = [
-    { key: 'informationBulletin', label: t('tabs.informationBulletin') },
-    { key: 'financialClaims', label: t('tabs.financialClaims') },
-    { key: 'corporateGovernance', label: t('tabs.corporateGovernance') },
-    { key: 'stockInformation', label: t('tabs.stockInformation') },
-    { key: 'profitDistribution', label: t('tabs.profitDistribution') },
-    { key: 'companyAnnouncements', label: t('tabs.companyAnnouncements') },
+    { key: 'informationBulletin', label: t('investors.tabs.informationBulletin') },
+    { key: 'financialClaims', label: t('investors.tabs.financialClaims') },
+    { key: 'corporateGovernance', label: t('investors.tabs.corporateGovernance') },
+    { key: 'stockInformation', label: t('investors.tabs.stockInformation') },
+    { key: 'profitDistribution', label: t('investors.tabs.profitDistribution') },
+    { key: 'companyAnnouncements', label: t('investors.tabs.companyAnnouncements') },
   ];
 
-  const handleTabClick = (tabKey: string) => {
-    setActiveTab(tabKey);
-    onTabChange?.(tabKey);
-  };
-
   return (
-    <div className="flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
+    <div className="flex gap-8 border-b border-white/10 overflow-x-auto scrollbar-hide">
       {tabs.map((tab) => (
-        <div
+        <button
           key={tab.key}
-          onClick={() => handleTabClick(tab.key)}
-          className={`
-            px-6 py-4 text-sm font-medium cursor-pointer transition-colors
-            ${activeTab === tab.key
-              ? 'text-white border-b-2 border-purple-500'
-              : 'text-gray-400 hover:text-white'
-            }
-          `}
+          type="button"
+          onClick={() => onTabChange(tab.key)}
+          className={`relative whitespace-nowrap pb-4 text-sm transition-colors ${
+            activeTab === tab.key
+              ? 'text-white'
+              : 'text-white/50 hover:text-white'
+          }`}
         >
           {tab.label}
-        </div>
+          {activeTab === tab.key && (
+            <span className="absolute bottom-[-1px] right-0 left-0 h-[2px] bg-[#9b5cff]" />
+          )}
+        </button>
       ))}
     </div>
   );
