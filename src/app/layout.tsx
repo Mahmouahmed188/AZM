@@ -34,14 +34,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className={`${tajawal.variable} ${rubik.variable}`} suppressHydrationWarning>
+    <html
+      lang="ar"
+      dir="rtl"
+      className={`${tajawal.variable} ${rubik.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/headicon.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/headicon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/headicon.png" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+        />
       </head>
-      <body className="antialiased bg-azm-dark text-white overflow-x-hidden" suppressHydrationWarning>
+      <body
+        className="antialiased bg-azm-dark text-white overflow-x-hidden"
+        suppressHydrationWarning
+      >
         <NextTopLoader
           color="#C5A059"
           initialPosition={0.08}
@@ -57,15 +68,11 @@ export default function RootLayout({
           <ReloadIntroFlagger />
           <LoadingProvider>
             <TransitionLayout>
-              {/* <SmoothScrolling> */}
               <div className="flex flex-col min-h-screen">
                 <Header />
-                <main className="flex-grow w-full relative">
-                  {children}
-                </main>
+                <main className="flex-grow w-full relative">{children}</main>
                 <GlobalFooter />
               </div>
-              {/* </SmoothScrolling> */}
             </TransitionLayout>
           </LoadingProvider>
         </I18nProvider>
