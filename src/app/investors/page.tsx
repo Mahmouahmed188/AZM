@@ -103,9 +103,7 @@ export default function InvestorsPage() {
           </h1>
 
           <div className="mt-8 rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-xl">
-            <div
-              className={`flex flex-col gap-8 lg:flex-row ${isRtl ? "lg:flex-row-reverse" : "lg:flex-row"}`}
-            >
+            <div className={`flex flex-col gap-8 lg:flex-row-reverse `}>
               <div className="w-full lg:w-[420px] min-h-[244px] rounded-l-[16px] border border-white/10 bg-[#0b0f1d]/80 p-5">
                 <div
                   className={`mt-4 grid grid-cols-[1fr_140px] gap-4 h-full ${isRtl ? "text-end" : "text-start"}`}
@@ -134,7 +132,7 @@ export default function InvestorsPage() {
                       </span>
                     </div>
                     <div
-                      className={`mt-1 flex items-center gap-2 text-xs font-semibold text-emerald-400 ${isRtl ? "flex-row-reverse" : ""}`}
+                      className={`mt-1 flex items-center gap-2 text-xs font-semibold text-emerald-400 `}
                     >
                       <i className="ti ti-arrow-up" />
                       <span>0.16%</span>
@@ -144,23 +142,21 @@ export default function InvestorsPage() {
               </div>
               <div className="flex-1">
                 <p
-                  className={`text-xl font-semibold leading-relaxed text-white sm:text-2xl ${isRtl ? "text-end" : "text-start"}`}
+                  className={`text-xl font-semibold leading-relaxed text-white sm:text-2xl`}
                 >
                   {t("investors.subtitle")}
                 </p>
 
                 <div
-                  className={`mt-4 flex items-center gap-2 text-sm text-[#b47bff] ${isRtl ? "justify-end" : "justify-start"}`}
+                  className={`mt-4 flex items-center gap-2 text-sm text-[#b47bff] `}
                 >
-                  <i
-                    className={`ti ${isRtl ? "ti-arrow-left" : "ti-arrow-right"} text-base`}
-                  />
                   <span>{t("investors.listingDoc")}</span>
+                  <i className={`ti ti-arrow-left  text-base`} />
                 </div>
 
                 <div className="mt-6 border-t border-white/10 pt-4">
                   <div
-                    className={`flex flex-wrap items-center gap-6 text-xs text-white/70 ${isRtl ? "flex-row-reverse divide-x-reverse" : ""} divide-x divide-white/10`}
+                    className={`flex flex-wrap items-center gap-6 text-xs text-white/70  divide-x divide-white/10`}
                   >
                     <div className="flex items-center gap-2 px-2">
                       <i className="ti ti-phone text-base text-white/70" />
