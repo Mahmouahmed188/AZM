@@ -27,28 +27,17 @@ export default function TransitionLink({
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     
-    console.log('🔗 [TransitionLink] Click detected:', {
-      href,
-      currentPath: window.location.pathname,
-      timestamp: new Date().toISOString()
-    })
-    
-    // Execute any custom onClick logic first
     if (onClick) {
       onClick()
     }
     
-    // CRITICAL: Force-start the transition and navigation
     startTransition(href)
     
-    // IMMEDIATE BACKUP: Force navigation if transition doesn't work
     setTimeout(() => {
-      console.log('🚨 [BACKUP] Forcing navigation after 4s')
       if (window.location.pathname !== new URL(href, window.location.origin).pathname) {
-        console.log('📍 [BACKUP] Executing window.location.href')
         window.location.href = href
       }
-    }, 4000) // 4 second backup
+    }, 4000)
   }
 
   return (

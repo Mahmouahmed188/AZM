@@ -1,319 +1,305 @@
-'use client'
+"use client";
 
-import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
-import gsap from 'gsap'
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  MutableRefObject,
+} from "react";
+import { usePathname, useRouter } from "next/navigation";
+import gsap from "gsap";
 
 interface TransitionContextType {
-  isTransitioning: boolean
-  isExiting: boolean
-  isEntering: boolean
-  isCovered: boolean
-  pageReady: boolean
-  startTransition: (href: string) => void
-  endTransition: () => void
-  forceCleanup: () => void
+  isTransitioning: boolean;
+  isExiting: boolean;
+  isEntering: boolean;
+  isCovered: boolean;
+  pageReady: boolean;
+  startTransition: (href: string) => void;
+  endTransition: () => void;
+  forceCleanup: () => void;
 }
 
-const TransitionContext = createContext<TransitionContextType | undefined>(undefined)
+const TransitionContext = createContext<TransitionContextType | undefined>(
+  undefined,
+);
 
 export function usePageTransition() {
-  const context = useContext(TransitionContext)
+  const context = useContext(TransitionContext);
   if (!context) {
-    throw new Error('usePageTransition must be used within TransitionLayout')
+    throw new Error("usePageTransition must be used within TransitionLayout");
   }
-  return context
+  return context;
 }
 
 interface TransitionLayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function TransitionLayout({ children }: TransitionLayoutProps) {
-  const pathname = usePathname()
-  const router = useRouter()
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [isExiting, setIsExiting] = useState(false)
-  const [isEntering, setIsEntering] = useState(false)
-  const [isCovered, setIsCovered] = useState(false)
-  const [pendingNavigation, setPendingNavigation] = useState<string | null>(null)
-  const [pageReady, setPageReady] = useState(false)
+  const pathname = usePathname();
+  const router = useRouter();
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
+  const [isEntering, setIsEntering] = useState(false);
+  const [isCovered, setIsCovered] = useState(false);
+  const [pendingNavigation, setPendingNavigation] = useState<string | null>(
+    null,
+  );
+  const [pageReady, setPageReady] = useState(false);
 
-  const overlayRef = useRef<HTMLDivElement>(null)
-  const columnsRef = useRef<HTMLDivElement[]>([])
-  const exitTimelineRef = useRef<gsap.core.Timeline | null>(null)
-  const entranceTimelineRef = useRef<gsap.core.Timeline | null>(null)
-  const cleanupTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const navigationTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const previousPathnameRef = useRef<string>('')
-  const pageReadyTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const columnsRef = useRef<HTMLDivElement[]>([]);
+  const exitTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  const entranceTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  const cleanupTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navigationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const previousPathnameRef = useRef<string>("");
+  const pageReadyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // GSAP context for proper cleanup
-  const gsapContextRef = useRef<gsap.Context | null>(null)
+  const gsapContextRef = useRef<gsap.Context | null>(null);
+
+  const clearTimeoutRef = (ref: MutableRefObject<NodeJS.Timeout | null>) => {
+    if (ref.current) {
+      clearTimeout(ref.current);
+      ref.current = null;
+    }
+  };
 
   // Cleanup function - resets all transition state
   const cleanup = useCallback(() => {
-    console.log('🧹 [CLEANUP] Resetting transition state')
-
     // Kill any running animations
     if (exitTimelineRef.current) {
-      exitTimelineRef.current.kill()
-      exitTimelineRef.current = null
+      exitTimelineRef.current.kill();
+      exitTimelineRef.current = null;
     }
 
     if (entranceTimelineRef.current) {
-      entranceTimelineRef.current.kill()
-      entranceTimelineRef.current = null
+      entranceTimelineRef.current.kill();
+      entranceTimelineRef.current = null;
     }
 
     // Clear all timeouts
-    if (cleanupTimeoutRef.current) {
-      clearTimeout(cleanupTimeoutRef.current)
-      cleanupTimeoutRef.current = null
-    }
-
-    if (navigationTimeoutRef.current) {
-      clearTimeout(navigationTimeoutRef.current)
-      navigationTimeoutRef.current = null
-    }
-
-    if (pageReadyTimeoutRef.current) {
-      clearTimeout(pageReadyTimeoutRef.current)
-      pageReadyTimeoutRef.current = null
-    }
+    clearTimeoutRef(cleanupTimeoutRef);
+    clearTimeoutRef(navigationTimeoutRef);
+    clearTimeoutRef(pageReadyTimeoutRef);
 
     // Hide overlay
     if (overlayRef.current) {
-      gsap.set(overlayRef.current, { display: 'none', opacity: 0 })
-      overlayRef.current.innerHTML = ''
+      gsap.set(overlayRef.current, { display: "none", opacity: 0 });
+      overlayRef.current.innerHTML = "";
     }
 
     // Reset all state
-    setIsTransitioning(false)
-    setIsExiting(false)
-    setIsEntering(false)
-    setIsCovered(false)
-    setPageReady(false)
-    setPendingNavigation(null)
-    columnsRef.current = []
-  }, [])
+    setIsTransitioning(false);
+    setIsExiting(false);
+    setIsEntering(false);
+    setIsCovered(false);
+    setPageReady(false);
+    setPendingNavigation(null);
+    columnsRef.current = [];
+  }, []);
 
   // Force cleanup function - emergency fallback (uses same logic but with additional logging)
   const forceCleanup = useCallback(() => {
-    console.log('🔧 FORCED CLEANUP TRIGGERED')
-    cleanup()
-  }, [cleanup])
+    cleanup();
+  }, [cleanup]);
 
   // Execute navigation with proper timing
-  const executeNavigation = useCallback((href: string) => {
-    console.log('🚀 [NAVIGATE] Starting navigation to:', href)
+  const executeNavigation = useCallback(
+    (href: string) => {
+      // Clear any existing navigation timeout
+      clearTimeoutRef(navigationTimeoutRef);
 
-    // Clear any existing navigation timeout
-    if (navigationTimeoutRef.current) {
-      clearTimeout(navigationTimeoutRef.current)
-      navigationTimeoutRef.current = null
-    }
+      // Force router navigation with multiple attempts
+      const attemptNavigation = () => {
+        try {
+          router.push(href);
 
-    // Force router navigation with multiple attempts
-    const attemptNavigation = () => {
-      try {
-        console.log('📍 [ATTEMPT] Using router.push()')
-        router.push(href)
+          // Verify if navigation worked
+          setTimeout(() => {
+            if (
+              window.location.pathname ===
+              new URL(href, window.location.origin).pathname
+            ) {
+              // Navigation successful
+            } else {
+              window.location.href = href;
+            }
+          }, 100);
+        } catch (error) {
+          window.location.href = href;
+        }
+      };
 
-        // Verify if navigation worked
-        setTimeout(() => {
-          if (window.location.pathname === new URL(href, window.location.origin).pathname) {
-            console.log('✅ [SUCCESS] Router.push() worked!')
-          } else {
-            console.log('⚠️ [FAILED] Router.push() failed, using fallback')
-            window.location.href = href
-          }
-        }, 100)
+      // Execute navigation immediately
+      attemptNavigation();
 
-      } catch (error) {
-        console.error('❌ [ERROR] Router.push() failed:', error)
-        console.log('📍 [FALLBACK] Using window.location.href')
-        window.location.href = href
-      }
-    }
-
-    // Execute navigation immediately
-    attemptNavigation()
-
-    // Fallback navigation attempts
-    navigationTimeoutRef.current = setTimeout(() => {
-      if (window.location.pathname !== new URL(href, window.location.origin).pathname) {
-        console.log('📍 [RETRY] Second navigation attempt')
-        attemptNavigation()
-      }
-    }, 1000)
-
-  }, [router, pathname])
+      // Fallback navigation attempts
+      navigationTimeoutRef.current = setTimeout(() => {
+        if (
+          window.location.pathname !==
+          new URL(href, window.location.origin).pathname
+        ) {
+          attemptNavigation();
+        }
+      }, 1000);
+    },
+    [router],
+  );
 
   // Create and setup columns
   const createColumns = useCallback(() => {
-    if (!overlayRef.current) return
+    if (!overlayRef.current) return;
 
-    const numColumns = 20
-    const columns: HTMLDivElement[] = []
+    const numColumns = 20;
+    const columns: HTMLDivElement[] = [];
 
     // Clear and recreate columns
-    overlayRef.current.innerHTML = ''
+    overlayRef.current.innerHTML = "";
 
     // Create vertical blind columns
     for (let i = 0; i < numColumns; i++) {
-      const column = document.createElement('div')
-      column.className = 'horizontal-shutter-column'
-      overlayRef.current.appendChild(column)
-      columns.push(column)
+      const column = document.createElement("div");
+      column.className = "horizontal-shutter-column";
+      overlayRef.current.appendChild(column);
+      columns.push(column);
     }
 
-    columnsRef.current = columns
+    columnsRef.current = columns;
 
     // Create GSAP context for proper cleanup
     gsapContextRef.current = gsap.context(() => {
       // Position and style columns - start as thin lines
       gsap.set(columns, {
-        height: '100vh',
+        height: "100vh",
         width: `${100 / numColumns}%`,
-        backgroundColor: '#000000',
-        position: 'absolute',
+        backgroundColor: "#000000",
+        position: "absolute",
         top: 0,
         left: 0,
         opacity: 1,
-        transformOrigin: 'right center',
-        zIndex: 9999
-      })
+        transformOrigin: "right center",
+        zIndex: 9999,
+      });
 
       // Position columns side by side from left
       columns.forEach((column, index) => {
         gsap.set(column, {
-          left: `${(index * 100) / numColumns}%`
-        })
-      })
+          left: `${(index * 100) / numColumns}%`,
+        });
+      });
 
       // Show overlay
       gsap.set(overlayRef.current, {
-        display: 'block',
+        display: "block",
         opacity: 1,
         zIndex: 9999,
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
-        width: '100vw',
-        height: '100vh'
-      })
-    }, overlayRef.current)
-  }, [])
+        width: "100vw",
+        height: "100vh",
+      });
+    }, overlayRef.current);
+  }, []);
 
   // Exit Animation: Expand thin lines to full coverage
   const playExitAnimation = useCallback(() => {
-    console.log('🚪 [EXIT] Starting animation - expanding shutters')
-
-    if (!overlayRef.current || columnsRef.current.length === 0) return
+    if (!overlayRef.current || columnsRef.current.length === 0) return;
 
     // Kill any existing entrance animation
     if (entranceTimelineRef.current) {
-      entranceTimelineRef.current.kill()
-      entranceTimelineRef.current = null
+      entranceTimelineRef.current.kill();
+      entranceTimelineRef.current = null;
     }
 
-    setIsExiting(true)
-    setPageReady(false) // Reset page ready state for next page
+    setIsExiting(true);
+    setPageReady(false); // Reset page ready state for next page
 
     // Create exit animation timeline
     exitTimelineRef.current = gsap.timeline({
       onComplete: () => {
-        console.log('✅ [EXIT] Animation completed - screen fully covered')
-        setIsExiting(false)
-        setIsCovered(true) // Mark screen as covered
+        setIsExiting(false);
+        setIsCovered(true); // Mark screen as covered
 
         // NAVIGATE IMMEDIATELY
         if (pendingNavigation) {
-           executeNavigation(pendingNavigation)
+          executeNavigation(pendingNavigation);
         }
-      }
-    })
+      },
+    });
 
     // Start from thin lines (scaleX: 0.03) and expand to full coverage (scaleX: 1)
     exitTimelineRef.current.fromTo(
       columnsRef.current,
       {
         scaleX: 0.03, // Start as thin lines
-        opacity: 1
+        opacity: 1,
       },
       {
         scaleX: 1, // Expand to full coverage
         duration: 0.8,
-        ease: 'power2.inOut',
+        ease: "power2.inOut",
         opacity: 1,
         stagger: 0.03, // Slight stagger for wave effect
-      }
-    )
+      },
+    );
 
     // Emergency cleanup timeout
     cleanupTimeoutRef.current = setTimeout(() => {
-      console.warn('⚠️ [TIMEOUT] Entrance animation stuck, forcing cleanup')
-      forceCleanup()
-    }, 5000)
-  }, [pendingNavigation, executeNavigation, forceCleanup])
+      forceCleanup();
+    }, 5000);
+  }, [pendingNavigation, executeNavigation, forceCleanup]);
 
   // Entrance Animation: Shrink full coverage to thin lines
   const playEntranceAnimation = useCallback(() => {
-    console.log('🎬 [ENTRANCE] Starting animation - opening shutters')
-
     // Ensure overlay exists
     if (!overlayRef.current) {
-      console.warn('No overlay found for entrance')
-      return
+      return;
     }
 
     // Recovery: If columns are missing, recreate them
     if (columnsRef.current.length === 0) {
-      console.warn('⚠️ [RECOVERY] Columns missing, recreating for entrance')
-      createColumns()
+      createColumns();
     }
 
     // Clear emergency timeout
-    if (cleanupTimeoutRef.current) {
-      clearTimeout(cleanupTimeoutRef.current)
-      cleanupTimeoutRef.current = null
-    }
-
-    if (pageReadyTimeoutRef.current) {
-      clearTimeout(pageReadyTimeoutRef.current)
-      pageReadyTimeoutRef.current = null
-    }
+    clearTimeoutRef(cleanupTimeoutRef);
+    clearTimeoutRef(pageReadyTimeoutRef);
 
     // Kill any existing exit animation
     if (exitTimelineRef.current) {
-      exitTimelineRef.current.kill()
-      exitTimelineRef.current = null
+      exitTimelineRef.current.kill();
+      exitTimelineRef.current = null;
     }
 
-    setIsEntering(true)
+    setIsEntering(true);
 
     // Ensure overlay is visible and columns are in "closed" state (full black screen)
     gsap.set(overlayRef.current, {
-      display: 'block',
+      display: "block",
       opacity: 1,
-      zIndex: 9999
-    })
+      zIndex: 9999,
+    });
 
     // Force columns to full width (covered) before starting to shrink
     gsap.set(columnsRef.current, {
       scaleX: 1,
       opacity: 1,
-      transformOrigin: 'right center' // Ensure origin is consistent
-    })
+      transformOrigin: "right center", // Ensure origin is consistent
+    });
 
     // Create entrance animation timeline
     entranceTimelineRef.current = gsap.timeline({
       onComplete: () => {
-        console.log('✅ [ENTRANCE] Animation completed - content revealed')
-        cleanup()
-      }
-    })
+        cleanup();
+      },
+    });
 
     // Animate columns shrinking horizontally towards right edge
     // Reversing the exit animation: Exit was scaleX 0.03 -> 1. Entrance is 1 -> 0.03.
@@ -321,144 +307,136 @@ export default function TransitionLayout({ children }: TransitionLayoutProps) {
     entranceTimelineRef.current.to(columnsRef.current, {
       scaleX: 0.03, // Shrink to very thin lines
       duration: 0.8,
-      ease: 'power2.inOut',
+      ease: "power2.inOut",
       opacity: 1,
       stagger: 0.03, // Match exit stagger
-      delay: 0.1 // Small delay
-    })
+      delay: 0.1, // Small delay
+    });
 
     // Emergency cleanup timeout
     cleanupTimeoutRef.current = setTimeout(() => {
-      console.warn('⚠️ [TIMEOUT] Entrance animation stuck, forcing cleanup')
-      forceCleanup()
-    }, 5000)
-  }, [cleanup, forceCleanup, createColumns])
+      forceCleanup();
+    }, 5000);
+  }, [cleanup, forceCleanup, createColumns]);
 
   // Start Transition: This is called when user clicks a link
-  const startTransition = useCallback((href: string) => {
-    console.log(`🔗 [TRANSITION] Requested to: ${href}`)
+  const startTransition = useCallback(
+    (href: string) => {
+      // Prevent multiple simultaneous transitions
+      if (isTransitioning) {
+        return;
+      }
 
-    // Prevent multiple simultaneous transitions
-    if (isTransitioning) {
-      console.warn('⚠️ [DUPLICATE] Transition already in progress, ignoring')
-      return
-    }
+      // Don't navigate if already on this page
+      if (href === pathname) {
+        return;
+      }
 
-    // Don't navigate if already on this page
-    if (href === pathname) {
-      console.log('⚠️ [SAME PAGE] Already on this page, ignoring')
-      return
-    }
+      setIsTransitioning(true);
+      setPendingNavigation(href);
 
-    setIsTransitioning(true)
-    setPendingNavigation(href)
-
-    // Start exit animation immediately
-    createColumns()
-    playExitAnimation()
-  }, [isTransitioning, pathname, createColumns, playExitAnimation])
+      // Start exit animation immediately
+      createColumns();
+      playExitAnimation();
+    },
+    [isTransitioning, pathname, createColumns, playExitAnimation],
+  );
 
   // End Transition: Called by page components
   const endTransition = useCallback(() => {
-    console.log('🏁 [END] Page requested transition end')
     // This will be handled by pathname change useEffect
-  }, [])
+  }, []);
 
   // Watch for pathname changes to trigger entrance animation
   useEffect(() => {
     // Skip on initial mount
-    if (previousPathnameRef.current === '') {
-      previousPathnameRef.current = pathname
-      return
+    if (previousPathnameRef.current === "") {
+      previousPathnameRef.current = pathname;
+      return;
     }
 
     // TRIGGER ENTRANCE: If pathname has changed and we are in transition mode
-    // We don't wait for 'isCovered' here because the route change might happen 
-    // slightly before state updates propagate. 
+    // We don't wait for 'isCovered' here because the route change might happen
+    // slightly before state updates propagate.
     // If isTransitioning is true, we assume we need to play the entrance.
     if (previousPathnameRef.current !== pathname && isTransitioning) {
-      console.log(`📍 [ROUTE] Changed from ${previousPathnameRef.current} to ${pathname}`)
-      setPendingNavigation(null) // Clear pending navigation
+      setPendingNavigation(null); // Clear pending navigation
 
       // Force covered state visually if not already set (safety)
       if (overlayRef.current) {
-         gsap.set(overlayRef.current, { display: 'block', opacity: 1, zIndex: 9999 })
-         if (columnsRef.current.length > 0) {
-             gsap.set(columnsRef.current, { scaleX: 1, opacity: 1 })
-         }
+        gsap.set(overlayRef.current, {
+          display: "block",
+          opacity: 1,
+          zIndex: 9999,
+        });
+        if (columnsRef.current.length > 0) {
+          gsap.set(columnsRef.current, { scaleX: 1, opacity: 1 });
+        }
       }
 
       // Play entrance animation immediately (Next.js has already mounted the new page component)
-      playEntranceAnimation()
+      playEntranceAnimation();
     }
 
-    previousPathnameRef.current = pathname
-  }, [pathname, isTransitioning, playEntranceAnimation])
+    previousPathnameRef.current = pathname;
+  }, [pathname, isTransitioning, playEntranceAnimation]);
 
   // New page marks itself as ready when mounted
   useEffect(() => {
     if (isTransitioning && isCovered) {
-      console.log('📋 [MOUNTING] New page detected, marking as ready after delay')
-
       // Mark page as ready after a reasonable mount time
       pageReadyTimeoutRef.current = setTimeout(() => {
-        console.log('🎯 [READY] New page marked as ready')
-        setPageReady(true)
-      }, 150) // Give page 150ms to mount
+        setPageReady(true);
+      }, 150); // Give page 150ms to mount
 
       return () => {
-        if (pageReadyTimeoutRef.current) {
-          clearTimeout(pageReadyTimeoutRef.current)
-          pageReadyTimeoutRef.current = null
-        }
-      }
+        clearTimeoutRef(pageReadyTimeoutRef);
+      };
     }
 
     return () => {
-      if (pageReadyTimeoutRef.current) {
-        clearTimeout(pageReadyTimeoutRef.current)
-        pageReadyTimeoutRef.current = null
-      }
-    }
-  }, [isTransitioning, isCovered])
+      clearTimeoutRef(pageReadyTimeoutRef);
+    };
+  }, [isTransitioning, isCovered]);
 
   // Initialize and cleanup GSAP context
   useEffect(() => {
     return () => {
-      // Cleanup GSAP context on unmount
       if (gsapContextRef.current) {
-        gsapContextRef.current.revert()
+        gsapContextRef.current.revert();
       }
-      cleanup()
-    }
-  }, [cleanup])
+      cleanup();
+    };
+  }, [cleanup]);
 
   // Development debugging
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('🔄 [STATE] Transition state:', {
+    if (process.env.NODE_ENV === "development") {
+      // Development state can be monitored here if needed
+    }
+  }, [
+    isTransitioning,
+    isExiting,
+    isEntering,
+    isCovered,
+    pageReady,
+    pathname,
+    pendingNavigation,
+  ]);
+
+  return (
+    <TransitionContext.Provider
+      value={{
         isTransitioning,
         isExiting,
         isEntering,
         isCovered,
         pageReady,
-        pathname,
-        pendingNavigation
-      })
-    }
-  }, [isTransitioning, isExiting, isEntering, isCovered, pageReady, pathname, pendingNavigation])
-
-  return (
-    <TransitionContext.Provider value={{
-      isTransitioning,
-      isExiting,
-      isEntering,
-      isCovered,
-      pageReady,
-      startTransition,
-      endTransition,
-      forceCleanup
-    }}>
+        startTransition,
+        endTransition,
+        forceCleanup,
+      }}
+    >
       <div className="relative">
         {children}
 
@@ -468,18 +446,17 @@ export default function TransitionLayout({ children }: TransitionLayoutProps) {
           className="shutter-overlay"
           style={{
             // Control display via state to prevent React from hiding it during re-renders
-            display: (isTransitioning || isCovered) ? 'block' : 'none',
-            pointerEvents: 'none',
-            position: 'fixed',
+            display: isTransitioning || isCovered ? "block" : "none",
+            pointerEvents: "none",
+            position: "fixed",
             top: 0,
             left: 0,
-            width: '100vw',
-            height: '100vh',
-            zIndex: 9999
+            width: "100vw",
+            height: "100vh",
+            zIndex: 9999,
           }}
         />
-
       </div>
     </TransitionContext.Provider>
-  )
+  );
 }
