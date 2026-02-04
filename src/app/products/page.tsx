@@ -92,15 +92,15 @@ export default function ProductsPage() {
   return (
     <main
       dir={dir}
-      className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black relative overflow-hidden"
+      className="min-h-screen  relative overflow-hidden"
+      style={{
+        backgroundImage: 'url("/productsBg.png")',
+        backgroundRepeat: "no-repeat",
+      }}
     >
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl"></div>
-
-      <div className="relative z-10  px-6 py-16 lg:py-24">
+      <div className="relative z-10 px-6 py-16 lg:py-24">
         {/* Header */}
-        <h1 className="text-4xl lg:text-5xl font-bold text-white my-12 px-26">
+        <h1 className="relative text-4xl lg:text-5xl font-bold text-white my-12 px-26">
           {t("products.title", "منتجاتنا")}
         </h1>
 
@@ -113,11 +113,11 @@ export default function ProductsPage() {
           />
         </div>
         {/* Products Grid */}
-        <div className="flex flex-col items-center">
+        <div className="relative flex flex-col items-center">
           {isLoading ? (
             <Skeleton height={700} borderRadius="1rem" className="max-w-6xl" />
           ) : (
-            <div className="grid grid-cols-1 gap-8 w-full max-w-6xl animate-in fade-in duration-700">
+            <div className="relative grid grid-cols-1 gap-8 w-full max-w-6xl animate-in fade-in duration-700">
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
                   <ProductCard key={product.id} />
