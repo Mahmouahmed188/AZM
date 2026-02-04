@@ -25,6 +25,7 @@ import GlobalFooter from "@/shared/components/layout/GlobalFooter";
 import NextTopLoader from "nextjs-toploader";
 import { LoadingProvider } from "@/shared/components/providers/LoadingProvider";
 import I18nProvider from "@/shared/components/providers/I18nProvider";
+import ReloadIntroFlagger from "@/shared/components/providers/ReloadIntroFlagger";
 import TransitionLayout from "@/shared/components/transitions/TransitionLayout";
 
 export default function RootLayout({
@@ -53,6 +54,7 @@ export default function RootLayout({
           shadow="0 0 10px #C5A059,0 0 5px #C5A059"
         />
         <I18nProvider>
+          <ReloadIntroFlagger />
           <LoadingProvider>
             <TransitionLayout>
               {/* <SmoothScrolling> */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Intro from "@/features/home/components/Intro";
 import MainHero from "@/features/home/MainHero";
 import StackedCards from "@/features/home/components/StackedCards";
@@ -11,22 +11,45 @@ import NewsCarousel from "@/features/home/components/NewsCarousel";
 import Footer from "@/shared/components/layout/Footer";
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [introState, setIntroState] = useState<"unknown" | "show" | "hide">("unknown");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const shouldShowIntro = sessionStorage.getItem("azm:showIntroOnHome") === "1";
+    const nextState: "show" | "hide" = shouldShowIntro ? "show" : "hide";
+
+    const timeoutId = window.setTimeout(() => {
+      setIntroState(nextState);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
+
+  const showIntro = introState === "show";
+  const isResolved = introState !== "unknown";
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between w-full bg-azm-dark relative">
       {showIntro && (
-        <Intro onComplete={() => setShowIntro(false)} />
+        <Intro
+          onComplete={() => {
+            setIntroState("hide");
+            sessionStorage.removeItem("azm:showIntroOnHome");
+          }}
+        />
       )}
 
       <div
         className={`w-full transition-opacity duration-1000
-          ${showIntro ? 'opacity-0 pointer-events-none' : 'opacity-100'}
+          ${showIntro || !isResolved ? 'opacity-0 pointer-events-none' : 'opacity-100'}
            `
         }
-        aria-hidden={showIntro}
+        aria-hidden={showIntro || !isResolved}
       >
-        {!showIntro && (
+        {!showIntro && isResolved && (
           <>
             <MainHero />
             <StackedCards />
