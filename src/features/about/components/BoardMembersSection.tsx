@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useHoverEffect } from "@/shared/hooks/useHoverEffect";
 
 type BoardMember = {
   id: string;
@@ -50,6 +51,9 @@ const MEMBERS: BoardMember[] = [
 ];
 
 function BoardCard({ member }: { member: BoardMember }) {
+  const { handleMouseMove, handleMouseEnter, handleMouseLeave, hoverStyle } =
+    useHoverEffect();
+
   return (
     <article
       className={[
@@ -61,7 +65,14 @@ function BoardCard({ member }: { member: BoardMember }) {
         "lg:max-w-[384px]",
       ].join(" ")}
       style={{ backgroundImage: "url('/about/bgPatternB.png')" }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
+      <div
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500 ease-in-out"
+        style={hoverStyle}
+      />
       {/* <PortraitPlaceholder /> */}
       <div className="flex items-end justify-between">
         <div>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { twMerge } from "tailwind-merge"; // تأكد من تنصيب tailwind-merge أو استخدم template literals
+import { useHoverEffect } from "@/shared/hooks/useHoverEffect";
 
 // --- Types ---
 type StatCellProps = {
@@ -20,11 +21,14 @@ function StatCell({
   className,
   isLarge,
 }: StatCellProps) {
+  const { handleMouseMove, handleMouseEnter, handleMouseLeave, hoverStyle } =
+    useHoverEffect();
+
   return (
     <div
       className={twMerge(
         "relative flex flex-col justify-end p-8 md:p-10 min-h-[280px] md:min-h-[320px]",
-        "border-[0.5px] border-[#7278b8]/20 transition-all duration-300 hover:bg-white/5",
+        "border-[0.5px] border-[#7278b8]/20",
         className,
       )}
       style={
@@ -32,7 +36,15 @@ function StatCell({
           ? { backgroundImage: `url(${bgImage})`, backgroundSize: "cover" }
           : {}
       }
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
+      <div
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500 ease-in-out"
+        style={hoverStyle}
+      />
+
       <div
         className={twMerge(
           "text-white font-bold tracking-tight leading-[1.1]",

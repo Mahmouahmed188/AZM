@@ -4,6 +4,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDirection } from "@/shared/hooks/useDirection";
 import { Building2, Cpu, Code2, MonitorCog } from "lucide-react";
+import { useHoverEffect } from "@/shared/hooks/useHoverEffect";
 
 // Services Data with translation keys
 const services = [
@@ -50,6 +51,8 @@ const contributions = [
 export default function ServicesPage() {
   const { t } = useTranslation();
   const { dir, mounted } = useDirection();
+  const { handleMouseMove, handleMouseEnter, handleMouseLeave, hoverStyle } =
+    useHoverEffect();
 
   if (!mounted) {
     return null;
@@ -89,7 +92,14 @@ export default function ServicesPage() {
             <div
               key={index}
               className="group relative h-[340px] w-full overflow-hidden rounded-xl border border-white/5 bg-[radial-gradient(90.16%_143.01%_at_15.32%_21.04%,rgba(248,224,255,0.0256)_0%,rgba(248,224,255,0.0064)_77.08%,rgba(255,255,255,0)_100%)] p-8 backdrop-blur-[40px] transition-all duration-300 hover:border-purple-500/30"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
+              <div
+                className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500 ease-in-out"
+                style={hoverStyle}
+              />
               {/* Internal Gradient Mask/Highlight */}
               <div className="absolute inset-0 z-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
