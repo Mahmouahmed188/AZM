@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDirection } from "@/shared/hooks/useDirection";
+import { useHoverEffect } from "@/shared/hooks/useHoverEffect";
 
 interface StatItemProps {
     number: number;
@@ -9,32 +10,20 @@ interface StatItemProps {
 }
 
 const StatItem = ({ number, unit, label, decimals = false }: StatItemProps) => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isHovered, setIsHovered] = useState(false);
     const { dir, isRTL } = useDirection();
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setMousePosition({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
-        });
-    };
+    const { handleMouseMove, handleMouseEnter, handleMouseLeave, hoverStyle } = useHoverEffect();
 
     return (
         <div
             className="relative group w-full max-w-[488px] mx-auto stat-item-container overflow-hidden"
             onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             dir={dir}
         >
             <div
                 className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500 ease-in-out"
-                style={{
-                    opacity: isHovered ? 1 : 0,
-                    background: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(208, 38, 238, 0.12), transparent 80%)`,
-                }}
+                style={hoverStyle}
             />
 
             <div className="relative flex flex-col items-start justify-center h-[168px] px-12 py-9">
