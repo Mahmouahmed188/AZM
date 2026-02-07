@@ -298,5 +298,74 @@
             "medical": "Medical Sectors",
             "commercial": "Commercial Sectors"
         }
+    },
+    "about": {
+        "title": "About Us",
+        "boardTitle": "AZM Company Board of Directors",
+        "stats": {
+            "foundingYear": {
+                "value": "2017",
+                "label": "Founding Year"
+            },
+            "classification": {
+                "value": "First Degree",
+                "label": "Classification in Communications Authority Measurements"
+            },
+            "teamSize": {
+                "value": "400+",
+                "label": "In Group Departments and Projects"
+            },
+            "offices": {
+                "value": "4 Offices",
+                "label": "Software Development Outside the Kingdom"
+            },
+            "localContent": {
+                "value": "63%",
+                "label": "Local Content Percentage"
+            },
+            "saudization": {
+                "value": "66%",
+                "label": "Saudization Rate in Platinum Tier"
+            },
+            "nationalities": {
+                "value": "17 Nationalities",
+                "label": "Human Capital Diversity"
+            },
+            "sectors": {
+                "value": "15+",
+                "label": "Key Sectors Served by the Company in the Kingdom"
+            },
+            "femaleEmployees": {
+                "value": "48%",
+                "label": "Female Employee Percentage in the Company"
+            }
+        },
+        "boardMembers": {
+            "ahmed": {
+                "name": "Ahmed Alhaqbani",
+                "role": "Vice Chairman of the Board",
+                "bio": "Possesses extensive leadership experience in business development, digital transformation, and strategic initiative management."
+            },
+            "ali": {
+                "name": "Ali Albalaa",
+                "role": "Chief Executive Officer and Managing Director",
+                "bio": "Executive experience in several multinational consulting and technology companies."
+            },
+            "majed": {
+                "name": "Majed AlAseemi",
+                "role": "Board Member",
+                "bio": "A leader with experience serving as an executive in various government and private sectors, and a board member in several Saudi companies."
+            },
+            "omar1": {
+                "name": "Omar AlJaraisi",
+                "role": "Board Member",
+                "bio": "An investor and public figure who serves as a board member in several companies that adopt Vision 2030 in all their programs and initiatives."
+            },
+            "omar2": {
+                "name": "Omar AlSunaidi",
+                "role": "Board Member",
+                "bio": "Expert in governance and the financial sector. Previously served as Director of Corporate Governance at the Capital Market Authority. Currently serves as Director of Governance at a prominent Saudi company listed in the banking sector."
+            }
+        }
     }
 }

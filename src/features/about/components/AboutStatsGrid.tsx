@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { twMerge } from "tailwind-merge"; // تأكد من تنصيب tailwind-merge أو استخدم template literals
+import { twMerge } from "tailwind-merge";
 import { useHoverEffect } from "@/shared/hooks/useHoverEffect";
+import { useTranslation } from "react-i18next";
 
 // --- Types ---
 type StatCellProps = {
@@ -62,60 +63,62 @@ function StatCell({
 
 // --- Main Component ---
 export default function AboutStatsGrid() {
+  const { t } = useTranslation();
+
   const statsData = [
     {
-      value: "2017",
-      label: "سنة التأسيس",
+      value: t("about.stats.foundingYear.value"),
+      label: t("about.stats.foundingYear.label"),
       bg: "/about/bgPattern.png",
       isLarge: true,
     },
     { value: "", label: "", bg: "/about/Pattern.png", isEmpty: true },
     {
-      value: "الدرجة الأولى",
-      label: "تصنيف المقاييس في هيئة الاتصالات",
+      value: t("about.stats.classification.value"),
+      label: t("about.stats.classification.label"),
       bg: "/about/bgPattern.png",
     },
     {
-      value: "400+",
-      label: "في أقسام ومشاريع المجموعة",
+      value: t("about.stats.teamSize.value"),
+      label: t("about.stats.teamSize.label"),
       bg: "/about/bgPattern.png",
       isLarge: true,
     },
     {
-      value: "4 مكاتب",
-      label: "تطوير برمجي خارج المملكة",
+      value: t("about.stats.offices.value"),
+      label: t("about.stats.offices.label"),
       bg: "/about/bgPattern.png",
       isLarge: true,
     },
     { value: "", label: "", bg: "/about/Pattern1.png", isEmpty: true },
     { value: "", label: "", bg: "/about/Pattern2.png", isEmpty: true },
     {
-      value: "63%",
-      label: "نسبة المحتوى المحلي",
+      value: t("about.stats.localContent.value"),
+      label: t("about.stats.localContent.label"),
       bg: "/about/bgPattern.png",
       isLarge: true,
     },
     {
-      value: "66%",
-      label: "نسبة السعودة في النطاق البلاتيني",
+      value: t("about.stats.saudization.value"),
+      label: t("about.stats.saudization.label"),
       bg: "/about/bgPattern.png",
       isLarge: true,
     },
     {
-      value: "17 جنسية",
-      label: "تنوع الكفاءات البشرية",
+      value: t("about.stats.nationalities.value"),
+      label: t("about.stats.nationalities.label"),
       bg: "/about/bgPattern.png",
       isLarge: true,
     },
     {
-      value: "15+",
-      label: "قطاعاً رئيسياً تخدمها الشركة في المملكة",
+      value: t("about.stats.sectors.value"),
+      label: t("about.stats.sectors.label"),
       bg: "/about/bgPattern.png",
       isLarge: true,
     },
     {
-      value: "48%",
-      label: "نسبة الموظفات في الشركة",
+      value: t("about.stats.femaleEmployees.value"),
+      label: t("about.stats.femaleEmployees.label"),
       bg: "/about/bgPattern.png",
       isLarge: true,
     },
@@ -124,8 +127,8 @@ export default function AboutStatsGrid() {
   return (
     <section className="w-full py-" aria-label="Digital Overview" dir="rtl">
       <div className="mx-auto w-full max-w-[1280px] px-6">
-        <h1 className="text-white font-bold text-4xl md:text-5xl mb-12 tracking-tight">
-          من نحن
+<h1 className="text-white font-bold text-4xl md:text-5xl mb-12 tracking-tight">
+          {t("about.title")}
         </h1>
 
         {/* Grid Container */}

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDirection } from "@/shared/hooks/useDirection";
 import { Building2, Cpu, Code2, MonitorCog } from "lucide-react";
 import { ServiceCard } from "@/shared/components/ServiceCard";
-import { useHoverEffect } from "@/shared/hooks/useHoverEffect";
+import { ContributionCard } from "@/shared/components/ContributionCard";
 
 // Services Data with translation keys
 const services = [
@@ -52,8 +52,6 @@ const contributions = [
 export default function ServicesPage() {
   const { t } = useTranslation();
   const { dir, mounted } = useDirection();
-  const { handleMouseMove, handleMouseEnter, handleMouseLeave, hoverStyle } =
-    useHoverEffect();
 
   if (!mounted) {
     return null;
@@ -127,73 +125,17 @@ export default function ServicesPage() {
               const isSecondCard = index === 2;
 
               return (
-                <div
+                <ContributionCard
                   key={index}
-                  className={`flex items-center gap-1 justify-start w-full${
-                    isFirstCard
-                      ? dir === "rtl"
-                        ? " md:ps-24 lg:ps-48"
-                        : " md:pe-24 lg:pe-48"
-                      : ""
-                  }${
-                    isSecondCard
-                      ? dir === "rtl"
-                        ? " md:ps-48 lg:ps-96"
-                        : " md:pe-48 lg:pe-96"
-                      : ""
-                  }`}
-                >
-                  {/* Large Number */}
-                  <div
-                    className="font-bold leading-none text-[#733088] select-none shrink-0"
-                    style={{
-                      fontSize: "clamp(80px, 10vw, 140px)",
-                      textShadow: "0 4px 20px rgba(115, 48, 136, 0.5)",
-                    }}
-                  >
-                    {item.number}
-                  </div>
-
-                  {/* Card */}
-                  <div
-                    className="
-                      relative overflow-hidden rounded-xl border border-white/5 p-8 md:p-10
-                      w-full max-w-[600px] max-w-3xl transition-all duration-500 hover:border-purple-500/30
-                      hover:translate-x-2
-                    "
-                    style={{
-                      backgroundImage:
-                        'url("/services/Background.png"), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(248, 224, 255, 0.0256) 0%, rgba(248, 224, 255, 0.0064) 77.08%, rgba(255, 255, 255, 0) 100%)',
-                    }}
-                    onMouseMove={handleMouseMove}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <div
-                      className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500 ease-in-out"
-                      style={hoverStyle}
-                    />
-                    {/* Content Container */}
-                    <div className="relative z-10 flex flex-col items-start">
-                      <h3 className="text-white text-2xl md:text-3xl font-bold mb-4 leading-normal">
-                        {t(item.titleKey)}
-                      </h3>
-                      <p className="text-gray-400 md:text-lg">
-                        {t(item.descriptionKey)}
-                      </p>
-                    </div>
-
-                    {/* Subtle Grid / Noise Overlay */}
-                    <div
-                      className="absolute inset-0 z-0 opacity-20 pointer-events-none mix-blend-overlay"
-                      style={{
-                        backgroundImage:
-                          "radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)",
-                        backgroundSize: "32px 32px",
-                      }}
-                    />
-                  </div>
-                </div>
+                  number={item.number}
+                  titleKey={item.titleKey}
+                  descriptionKey={item.descriptionKey}
+                  t={(key, fallback) => t(key, fallback || "")}
+                  index={index}
+                  dir={dir}
+                  isFirstCard={isFirstCard}
+                  isSecondCard={isSecondCard}
+                />
               );
             })}
           </div>
