@@ -64,7 +64,7 @@ const LogosBar = ({
       className={`bg-[#FFFFFF]/90 backdrop-blur-md shadow-lg rounded-lg py-3 px-4 md:py-4 md:px-8 flex items-center gap-3 md:gap-6 lg:gap-10 justify-between w-full max-w-[590px] ${className}`}
     >
       <span
-        className="text-gray-900 text-xs md:text-sm font-medium mr-auto shrink-0"
+        className="text-gray-900 text-xs md:text-sm font-medium lg:mr-auto shrink-0 w-30 sm:w-auto"
         style={{ fontFamily: fonts.rubik }}
       >
         {t(icons.titleKey)}
@@ -143,10 +143,7 @@ const CompanyCard = ({
             <p className="text-base sm:text-lg md:text-xl text-[#e9d5ff] leading-relaxed font-normal max-w-lg mb-6 md:mb-12">
               {t(descriptionKey)}
             </p>
-            <div
-              className="mt-auto w-full flex justify-start"
-              dir="ltr"
-            >
+            <div className="mt-auto w-full flex justify-start" dir="ltr">
               <CornerButton />
             </div>
           </div>
@@ -223,7 +220,7 @@ const GroupCompanies = () => {
                 toggleActions: "play none none reverse",
                 scrub: 0.5,
               },
-            }
+            },
           );
         });
       });
@@ -263,7 +260,7 @@ const GroupCompanies = () => {
                 toggleActions: "play none none reverse",
                 scrub: 0.3,
               },
-            }
+            },
           );
         });
       });
@@ -337,7 +334,7 @@ const GroupCompanies = () => {
         bg: "#000000",
       },
     ],
-    []
+    [],
   );
 
   return (

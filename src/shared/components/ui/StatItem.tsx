@@ -50,7 +50,7 @@ const StatItem = ({ number, unit, label, decimals = false }: StatItemProps) => {
           {label}
         </p>
 
-        <div className="hidden lg:blockabsolute inset-y-0 left-0 w-[1.9px] bg-[#7278B84A] side-line-left"></div>
+        <div className="hidden lg:block absolute inset-y-0 left-0 w-[1.9px] bg-[#7278B84A] side-line-left"></div>
         <div className="hidden lg:block absolute inset-y-0 right-0 w-[1.5px] bg-[#7278B84A] side-line-right"></div>
       </div>
 
