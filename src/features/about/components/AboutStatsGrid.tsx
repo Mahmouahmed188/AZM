@@ -4,6 +4,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import { useHoverEffect } from "@/shared/hooks/useHoverEffect";
 import { useTranslation } from "react-i18next";
+import { useDirection } from "@/shared/hooks/useDirection";
 
 // --- Types ---
 type StatCellProps = {
@@ -64,6 +65,7 @@ function StatCell({
 // --- Main Component ---
 export default function AboutStatsGrid() {
   const { t } = useTranslation();
+  const { dir } = useDirection();
 
   const statsData = [
     {
@@ -125,7 +127,7 @@ export default function AboutStatsGrid() {
   ];
 
   return (
-    <section className="w-full py-" aria-label="Digital Overview" dir="rtl">
+    <section className="w-full py-" aria-label="Digital Overview" dir={dir}>
       <div className="mx-auto w-full max-w-[1280px] px-6">
 <h1 className="text-white font-bold text-4xl md:text-5xl mb-12 tracking-tight">
           {t("about.title")}

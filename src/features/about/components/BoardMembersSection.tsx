@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { useHoverEffect } from "@/shared/hooks/useHoverEffect";
 import { useTranslation } from "react-i18next";
+import { useDirection } from "@/shared/hooks/useDirection";
 
 type BoardMember = {
   id: string;
@@ -97,12 +98,13 @@ function BoardCard({ member }: { member: BoardMember }) {
 
 export default function BoardMembersSection() {
   const { t } = useTranslation();
+  const { dir } = useDirection();
   const MEMBERS = getMembersData(t);
   const topRow = MEMBERS.slice(0, 3);
   const bottomRow = MEMBERS.slice(3);
 
   return (
-    <section className="w-full" aria-label={t("about.boardTitle")} dir="rtl">
+    <section className="w-full" aria-label={t("about.boardTitle")} dir={dir}>
       <div className="mx-auto w-full px-6 lg:px-28">
         <h2 className="mt-30 text-center text-white font-bold text-[34px] leading-none tracking-tight">
           {t("about.boardTitle")}

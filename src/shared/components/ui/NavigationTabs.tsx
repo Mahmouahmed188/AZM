@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useDirection } from "@/shared/hooks/useDirection";
 
 export interface TabItem {
   id: string;
@@ -20,6 +21,7 @@ const NavigationTabs: React.FC<NavigationTabsProps> = ({
   onTabChange,
   className = ""
 }) => {
+  const { dir } = useDirection();
   const [internalActiveTab, setInternalActiveTab] = useState(tabs[0]?.id || "");
   
   const activeTab = controlledActiveTab || internalActiveTab;
@@ -35,7 +37,7 @@ const NavigationTabs: React.FC<NavigationTabsProps> = ({
   return (
     <div 
       className={`w-full h-22 flex items-center justify-center border-b border-white/10 ${className}`}
-      dir="rtl"
+      dir={dir}
     >
       <div className="max-w-7xl w-full px-6 flex items-center justify-between">
         <div className="flex items-center gap-12 overflow-x-auto scrollbar-hide">

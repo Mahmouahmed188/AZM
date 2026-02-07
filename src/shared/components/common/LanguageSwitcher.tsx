@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { changeLanguage } from '@/lib/i18n';
 import { Globe } from 'lucide-react';
 
 export default function LanguageSwitcher() {
@@ -14,7 +15,7 @@ export default function LanguageSwitcher() {
 
     const toggleLanguage = () => {
         const newLang = i18n.language === 'en' ? 'ar' : 'en';
-        i18n.changeLanguage(newLang);
+        changeLanguage(newLang);
     };
 
     if (!mounted) {

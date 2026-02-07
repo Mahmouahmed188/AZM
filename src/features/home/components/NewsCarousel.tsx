@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useDirection } from "@/shared/hooks/useDirection";
 
 interface NewsItem {
   id: number;
@@ -14,6 +15,7 @@ interface NewsItem {
 
 const NewsCarousel: React.FC = () => {
   const { t } = useTranslation();
+  const { dir } = useDirection();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // News data with translation keys
@@ -52,8 +54,8 @@ const NewsCarousel: React.FC = () => {
   const currentItem = newsData[currentIndex];
   return (
     <section
-      className="w-full bg-[#D7E3F5] py-10 overflow-hidden relative min-h-[900px] lg:min-h-[1024px] font-rubik rtl"
-      dir="rtl"
+      className="w-full bg-[#D7E3F5] py-10 overflow-hidden relative min-h-[900px] lg:min-h-[1024px] font-rubik"
+      dir={dir}
     >
       <div className="max-w-[1440px] w-full mx-auto relative px-4 lg:px-0">
         {/* News Title & Navigation */}

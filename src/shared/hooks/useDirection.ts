@@ -11,11 +11,17 @@ export function useDirection() {
 
     useEffect(() => {
         setMounted(true);
-        const currentDir = i18n.dir(i18n.language);
-        setDir(currentDir);
-        document.documentElement.dir = currentDir;
-        document.documentElement.lang = i18n.language;
-    }, [i18n.language]);
+    }, []);
 
-    return { dir, isRTL: dir === 'rtl', isLTR: dir === 'ltr', mounted };
+    useEffect(() => {
+        if (mounted) {
+            const currentDir = i18n.dir(i18n.language);
+            setDir(currentDir);
+            document.documentElement.dir = currentDir;
+            document.documentElement.lang = i18n.language;
+        }
+    }, [i18n.language, mounted]);
+
+    // Always return 'rtl' on server/initial mount to avoid hydration mismatch
+    return { dir: mounted ? dir : 'rtl', isRTL: dir === 'rtl', isLTR: dir === 'ltr', mounted };
 }
