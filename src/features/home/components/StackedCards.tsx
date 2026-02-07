@@ -17,6 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 interface CardData {
   id: number;
   image: string;
+  mobileImage?: string;
   altKey: string; // Use translation key instead of hardcoded text
 }
 
@@ -28,34 +29,45 @@ const StackedCards = () => {
   const charsRefs = useRef<HTMLSpanElement[]>([]);
 
   // Card data with translation keys
-  const cardsData: CardData[] = useMemo(() => [
-    {
-      id: 1,
-      image: "/cards/Card 1.png",
-      altKey: "stackedCards.cards.tarikat.alt",
-    },
-    {
-      id: 2,
-      image: "/cards/Card 2.png",
-      altKey: "stackedCards.cards.shifa.alt",
-    },
-    {
-      id: 3,
-      image: "/cards/Card 3.png",
-      altKey: "stackedCards.cards.aqarik.alt",
-    },
-    {
-      id: 4,
-      image: "/cards/Card 4.png",
-      altKey: "stackedCards.cards.nawaf.alt",
-    },
-  ], []);
-
-  const fullText = useMemo(() => 
-    t('stackedCards.visionText', 'نبتكر الحلول الرقمية لنصنع أثراً ملموساً في حياة المجتمع، ونبني بعزمنا مستقبل المملكة الذكي.'),
-    [t]
+  const cardsData: CardData[] = useMemo(
+    () => [
+      {
+        id: 1,
+        image: "/cards/Card 1.png",
+        mobileImage: "/cards/mobile/Card 1.png",
+        altKey: "stackedCards.cards.tarikat.alt",
+      },
+      {
+        id: 2,
+        image: "/cards/Card 2.png",
+        mobileImage: "/cards/mobile/Card 2.png",
+        altKey: "stackedCards.cards.shifa.alt",
+      },
+      {
+        id: 3,
+        image: "/cards/Card 3.png",
+        mobileImage: "/cards/mobile/Card 3.png",
+        altKey: "stackedCards.cards.aqarik.alt",
+      },
+      {
+        id: 4,
+        image: "/cards/Card 4.png",
+        mobileImage: "/cards/mobile/Card 4.png",
+        altKey: "stackedCards.cards.nawaf.alt",
+      },
+    ],
+    [],
   );
-  
+
+  const fullText = useMemo(
+    () =>
+      t(
+        "stackedCards.visionText",
+        "نبتكر الحلول الرقمية لنصنع أثراً ملموساً في حياة المجتمع، ونبني بعزمنا مستقبل المملكة الذكي.",
+      ),
+    [t],
+  );
+
   const words = useMemo(() => fullText.split(" "), [fullText]);
 
   useLayoutEffect(() => {
@@ -156,16 +168,27 @@ const StackedCards = () => {
             ref={(el) => {
               cardsRef.current[index] = el;
             }}
-            className="card absolute w-full max-w-[1100px] h-auto aspect-[16/9] rounded-[40px] overflow-hidden shadow-[0_50px_120px_rgba(0,0,0,0.9)] border border-white/5 bg-[#030B16] pointer-events-auto"
+            className="card absolute w-full max-w-[1100px] h-[80vh] md:h-auto md:aspect-[16/9] rounded-[40px] overflow-hidden shadow-[0_50px_120px_rgba(0,0,0,0.9)] border border-white/5 bg-[#030B16] pointer-events-auto"
             style={{ willChange: "transform, opacity" }}
           >
             <div className="relative w-full h-full">
+              {/* Desktop Image - visible on md screens and above */}
               <Image
                 src={card.image}
                 alt={t(card.altKey)}
                 fill
-                className="object-cover"
+                className="object-cover hidden md:block"
                 priority={index === 0}
+                sizes="(min-width: 768px) 1100px, 0vw"
+              />
+              {/* Mobile Image - visible on small screens, falls back to desktop if not provided */}
+              <Image
+                src={card.mobileImage || card.image}
+                alt={t(card.altKey)}
+                fill
+                className="object-cover object-top block md:hidden"
+                priority={index === 0}
+                sizes="(max-width: 767px) 100vw, 0vw"
               />
             </div>
           </div>

@@ -4,7 +4,7 @@ import { useRef, useLayoutEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpLeft, Icon, icons } from "lucide-react";
+import { ArrowUpLeft } from "lucide-react";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,8 +20,8 @@ const BackgroundText = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-      <h1 className="text-[7vw] md:text-[9vw] leading-none font-black text-[#FFFFFF] whitespace-nowrap select-none drop-shadow-2xl">
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-4">
+      <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[9vw] leading-none font-black text-[#FFFFFF] text-center select-none drop-shadow-2xl">
         {t("groupCompanies.backgroundText", "منظومة شركات عزم")}
       </h1>
     </div>
@@ -32,15 +32,15 @@ const CornerButton = () => {
   const { t } = useTranslation();
 
   return (
-    <button className="group flex items-center gap-3 relative cursor-pointer">
+    <button className="group flex items-center gap-2 md:gap-3 relative cursor-pointer">
       <div className="absolute -bottom-2 -left-2 w-4 h-4 border-l-2 border-b-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-bl-lg" />
       <div className="absolute -top-2 -right-2 w-4 h-4 border-r-2 border-t-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-tr-lg" />
       <div className="absolute -bottom-2 -right-2 w-4 h-4 border-r-2 border-b-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-br-lg" />
       <div className="absolute -top-2 -left-2 w-4 h-4 border-l-2 border-t-2 border-white/50 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-white/100 rounded-tl-lg" />
 
-      <ArrowUpLeft className="text-white w-5 h-5 transition-transform group-hover:translate-x-[-3px] group-hover:translate-y-[-3px] rotate-[5deg]" />
+      <ArrowUpLeft className="text-white w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-[-3px] group-hover:translate-y-[-3px] rotate-[5deg]" />
       <span
-        className="text-white text-lg font-bold"
+        className="text-white text-sm md:text-lg font-bold"
         style={{ fontFamily: fonts.rubik }}
       >
         {t("groupCompanies.moreButton", "المزيد")}
@@ -61,18 +61,18 @@ const LogosBar = ({
   if (!icons) return null;
   return (
     <div
-      className={`bg-[#FFFFFF]/90 backdrop-blur-md shadow-lg rounded-lg py-4 px-8 flex items-center gap-6 md:gap-10 justify-between min-w-[340px] max-w-[590px] ${className}`}
+      className={`bg-[#FFFFFF]/90 backdrop-blur-md shadow-lg rounded-lg py-3 px-4 md:py-4 md:px-8 flex items-center gap-3 md:gap-6 lg:gap-10 justify-between w-full max-w-[590px] ${className}`}
     >
       <span
-        className="text-gray-900 text-sm font-medium mr-auto"
+        className="text-gray-900 text-xs md:text-sm font-medium mr-auto shrink-0"
         style={{ fontFamily: fonts.rubik }}
       >
         {t(icons.titleKey)}
       </span>
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-3 md:gap-6">
         {icons.icon.map((src, idx) => (
           <div key={idx} className="flex items-center">
-            <div className="relative w-20 h-12">
+            <div className="relative w-16 h-10 md:w-20 md:h-12">
               <Image
                 src={src}
                 alt={`Logo ${idx}`}
@@ -80,7 +80,6 @@ const LogosBar = ({
                 className="object-contain"
               />
             </div>
-            {/* {idx < icons.icon.length - 1 && <div className="h-5 w-px bg-gray-400/50" />} */}
           </div>
         ))}
       </div>
@@ -109,13 +108,13 @@ const CompanyCard = ({
 
   return (
     <div
-      className={`company-card relative w-full h-[100vh] flex items-center justify-center p-4`}
+      className={`company-card relative w-full min-h-[100vh] h-fit md:h-[100vh] flex items-center justify-center p-4 sm:p-6 md:p-4`}
     >
-      <div className="relative w-full max-w-[1400px] flex flex-col md:flex-row items-stretch justify-around gap-0 md:gap-10">
-        {/* Content Panel (Now First in Code -> Start/Right in RTL, Left in LTR) */}
-        <div className="relative w-full md:w-[40%] text-start self-center mt-[-50px] md:mt-0 z-20">
+      <div className="relative w-full max-w-[1400px] flex flex-col-reverse md:flex-row items-stretch justify-around gap-4 md:gap-10">
+        {/* Content Panel */}
+        <div className="relative w-full md:w-[40%] text-start self-center mt-0 md:mt-0 z-20 order-2 md:order-1">
           <div
-            className="w-full text-white p-10 md:p-14 shadow-2xl flex flex-col items-start gap-6 min-h-[400px] md:min-h-[500px] justify-center relative rounded-[4px]"
+            className="w-full text-white p-6 sm:p-8 md:p-10 lg:p-14 shadow-2xl flex flex-col items-start gap-4 md:gap-6 min-h-fit md:min-h-[500px] justify-center relative rounded-[4px]"
             style={{
               backgroundColor: bg,
               backgroundImage: bg
@@ -126,8 +125,8 @@ const CompanyCard = ({
             }}
           >
             {logo && (
-              <div className="md:top-8 md:start-8 opacity-90 absolute top-8 start-8">
-                <div className="relative w-20 h-20">
+              <div className="opacity-90 relative md:absolute md:top-8 md:start-8 mb-2 md:mb-0">
+                <div className="relative w-16 h-16 md:w-20 md:h-20">
                   <Image
                     src={logo}
                     alt={`${t(titleKey)} Logo`}
@@ -138,14 +137,14 @@ const CompanyCard = ({
               </div>
             )}
 
-            <h2 className="text-3xl md:text-4xl font-bold mt-12 mb-2 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-0 md:mt-12 mb-2 leading-tight">
               {t(titleKey)}
             </h2>
-            <p className="text-lg md:text-xl text-[#e9d5ff] leading-relaxed font-normal max-w-lg mb-12">
+            <p className="text-base sm:text-lg md:text-xl text-[#e9d5ff] leading-relaxed font-normal max-w-lg mb-6 md:mb-12">
               {t(descriptionKey)}
             </p>
             <div
-              className="mt-auto w-full flex justify-end md:justify-start"
+              className="mt-auto w-full flex justify-start"
               dir="ltr"
             >
               <CornerButton />
@@ -153,20 +152,21 @@ const CompanyCard = ({
           </div>
         </div>
 
-        {/* Image Panel (Now Second in Code -> End/Left in RTL, Right in LTR) */}
-        <div className="relative w-full md:w-[35%] h-[50vh] md:h-[80vh] flex-shrink-0 self-center">
-          <div className="w-full h-full relative overflow-hidden bg-gray-900 rounded-none md:rounded-[4px] shadow-2xl">
+        {/* Image Panel */}
+        <div className="relative w-full md:w-[35%] h-[45vh] sm:h-[50vh] md:h-[80vh] flex-shrink-0 self-center order-1 md:order-2">
+          <div className="w-full h-full relative overflow-hidden bg-gray-900 rounded-[4px] shadow-2xl">
             <Image
               src={image}
               alt={t(titleKey)}
               fill
               className="object-cover"
+              sizes="(max-width: 768px) 100vw, 35vw"
             />
             <div className="absolute inset-0 bg-indigo-900/20 mix-blend-overlay" />
           </div>
 
           {icons && (
-            <div className="absolute -bottom-0 -start-20 md:-start-32 z-30 w-auto">
+            <div className="absolute -bottom-0 start-0 md:-start-8 lg:-start-32 z-30 w-full px-4 md:px-0 md:w-auto">
               <LogosBar icons={icons} />
             </div>
           )}
@@ -185,42 +185,90 @@ const GroupCompanies = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Text Exit Animation (Fades out when section ends)
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "bottom 100%",
-        end: "bottom 0%",
-        scrub: 1,
-        onUpdate: (self) => {
-          if (textRef.current) {
-            gsap.set(textRef.current, {
-              y: -100 * self.progress,
-            });
-          }
-        },
+      // Use matchMedia for responsive animations
+      const mm = gsap.matchMedia();
+
+      // Desktop animations
+      mm.add("(min-width: 768px)", () => {
+        // Text Exit Animation
+        ScrollTrigger.create({
+          trigger: containerRef.current,
+          start: "bottom 100%",
+          end: "bottom 0%",
+          scrub: 1,
+          onUpdate: (self) => {
+            if (textRef.current) {
+              gsap.set(textRef.current, {
+                y: -100 * self.progress,
+              });
+            }
+          },
+        });
+
+        // Cards Animation - Desktop (y: 100)
+        const cards = gsap.utils.toArray<HTMLElement>(".company-card");
+        cards.forEach((card) => {
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 100 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                end: "top 40%",
+                toggleActions: "play none none reverse",
+                scrub: 0.5,
+              },
+            }
+          );
+        });
       });
 
-      // 2. Cards Animation (Fade in as they scroll up)
-      const cards = gsap.utils.toArray<HTMLElement>(".company-card");
-      cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 100 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 90%",
-              end: "top 40%",
-              toggleActions: "play none none reverse",
-              scrub: 0.5,
-            },
+      // Mobile animations
+      mm.add("(max-width: 767px)", () => {
+        // Text Exit Animation - softer on mobile
+        ScrollTrigger.create({
+          trigger: containerRef.current,
+          start: "bottom 100%",
+          end: "bottom 0%",
+          scrub: 1,
+          onUpdate: (self) => {
+            if (textRef.current) {
+              gsap.set(textRef.current, {
+                y: -50 * self.progress,
+              });
+            }
           },
-        );
+        });
+
+        // Cards Animation - Mobile (y: 50, softer)
+        const cards = gsap.utils.toArray<HTMLElement>(".company-card");
+        cards.forEach((card) => {
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 95%",
+                end: "top 60%",
+                toggleActions: "play none none reverse",
+                scrub: 0.3,
+              },
+            }
+          );
+        });
       });
+
+      return () => mm.revert();
     }, containerRef);
 
     return () => ctx.revert();
@@ -289,7 +337,7 @@ const GroupCompanies = () => {
         bg: "#000000",
       },
     ],
-    [],
+    []
   );
 
   return (
@@ -305,7 +353,7 @@ const GroupCompanies = () => {
       </div>
 
       {/* 2. Scrolling Content - Pulled up to overlap sticky background */}
-      <div className="relative z-10 -mt-[100vh] flex flex-col pb-32">
+      <div className="relative z-10 -mt-[100vh] flex flex-col pb-20 md:pb-32">
         {/* Spacer to show text alone initially */}
         <div className="h-screen w-full pointer-events-none" />
 
@@ -324,7 +372,7 @@ const GroupCompanies = () => {
       </div>
 
       {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#020b1c] to-transparent pointer-events-none z-20" />
+      <div className="absolute bottom-0 left-0 w-full h-32 md:h-48 bg-gradient-to-t from-[#020b1c] to-transparent pointer-events-none z-20" />
     </section>
   );
 };
