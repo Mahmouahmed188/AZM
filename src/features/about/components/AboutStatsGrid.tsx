@@ -64,8 +64,10 @@ function StatCell({
 
 // --- Main Component ---
 export default function AboutStatsGrid() {
-  const { t } = useTranslation();
+  const { t, ready } = useTranslation();
   const { dir } = useDirection();
+
+  if (!ready) return null;
 
   const statsData = [
     {

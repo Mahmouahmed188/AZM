@@ -97,8 +97,11 @@ function BoardCard({ member }: { member: BoardMember }) {
 }
 
 export default function BoardMembersSection() {
-  const { t } = useTranslation();
+  const { t, ready } = useTranslation();
   const { dir } = useDirection();
+  
+  if (!ready) return null;
+  
   const MEMBERS = getMembersData(t);
   const topRow = MEMBERS.slice(0, 3);
   const bottomRow = MEMBERS.slice(3);
