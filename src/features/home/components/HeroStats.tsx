@@ -16,7 +16,7 @@ const HeroStats = forwardRef<HTMLDivElement, HeroStatsProps>(
     const { dir } = useDirection();
 
     return (
-      <div className="relative z-20 mt-auto overflow-hidden">
+      <div className="relative z-20 mt-8 lg:mt-auto overflow-hidden">
         <div className="absolute inset-0 bg-azm-dark/50 backdrop-blur-xl pointer-events-none" />
         <div
           className="absolute top-0 end-0 h-[1.9px] bg-[#7278B84A] w-0 z-20"
@@ -25,10 +25,9 @@ const HeroStats = forwardRef<HTMLDivElement, HeroStatsProps>(
 
         <div ref={ref} dir={dir}>
           <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row">
-            {/* Main Content - Description & Logos */}
             <div className="flex-1 p-8 lg:p-12">
               <div ref={descTextRef} className="mb-12">
-                <h3 className="text-2xl lg:text-3xl font-normal text-white leading-tight mb-4">
+                <h3 className="text-xl lg:text-3xl font-normal text-white leading-tight mb-4">
                   {t(
                     "hero.description",
                     "شركة رائدة في مجال تقنية المعلومات، نساهم في تحسين جودة الحياة من خلال، تقديم حلول نوعية في الاعمال والتقنية.",
@@ -39,7 +38,8 @@ const HeroStats = forwardRef<HTMLDivElement, HeroStatsProps>(
                         {part}
                         {index < array.length - 1 && (
                           <>
-                            <br />
+                            <span className="inline lg:hidden">،</span>
+                            <br className="hidden lg:block" />
                           </>
                         )}
                       </React.Fragment>
@@ -47,7 +47,10 @@ const HeroStats = forwardRef<HTMLDivElement, HeroStatsProps>(
                 </h3>
               </div>
 
-              <div ref={descLogosRef} className="absolute space-y-6 z-20">
+              <div
+                ref={descLogosRef}
+                className="relative lg:absolute space-y-6 z-20"
+              >
                 <CertificationLogo
                   src="https://api.builder.io/api/v1/image/assets/TEMP/265afc705c0e1be0776998f4ded408f48ebc99aa?width=128"
                   title={t(
@@ -78,7 +81,7 @@ const HeroStats = forwardRef<HTMLDivElement, HeroStatsProps>(
               </div>
             </div>
 
-            {/* Stats Section - Stacks above on mobile, side on desktop */}
+            {/* Stats Section - Stacks below on mobile, side on desktop */}
             <div className="w-full lg:w-[600px] grid grid-cols-1">
               <StatItem
                 number={2.5}
