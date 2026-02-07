@@ -43,7 +43,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="antialiased bg-azm-dark text-white overflow-x-hidden"
+        className="antialiased bg-azm-dark text-white"
         suppressHydrationWarning
       >
         <NextTopLoader
